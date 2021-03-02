@@ -4,8 +4,8 @@ open module Bastien Aracil.plugins.test.core {
     requires com.google.common;
 
 
-    requires Bastien Aracil.plugins.modular;
     requires Bastien Aracil.plugins.api;
+    requires Bastien Aracil.plugins.manager;
 
     exports Bastien Aracil.plugins.modular.core;
 }

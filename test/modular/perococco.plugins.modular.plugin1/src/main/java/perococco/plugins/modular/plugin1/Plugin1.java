@@ -6,6 +6,7 @@ import Bastien Aracil.plugins.api.Plugin;
 import Bastien Aracil.plugins.api.Requirement;
 import Bastien Aracil.plugins.api.VersionedService;
 import Bastien Aracil.plugins.api.ServiceProvider;
+import Bastien Aracil.plugins.modular.core.VersionGetter;
 import Bastien Aracil.vp.VersionProvider;
 
 import java.nio.charset.StandardCharsets;
@@ -29,8 +30,13 @@ public class Plugin1 implements Plugin {
     }
 
     @Override
-    public @NonNull ImmutableSet<Requirement> getRequirements() {
+    public @NonNull ImmutableSet<Requirement<?>> getRequirements() {
         return ImmutableSet.of();
+    }
+
+    @Override
+    public @NonNull Requirement<?> getProvidedServiceType() {
+        return new Requirement<>(VersionGetter1.class,VERSION);
     }
 
     public @NonNull VersionedService loadService(@NonNull ModuleLayer pluginLayer, @NonNull ServiceProvider serviceProvider) {

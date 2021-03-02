@@ -6,6 +6,8 @@ import Bastien Aracil.plugins.api.Plugin;
 import Bastien Aracil.plugins.api.Requirement;
 import Bastien Aracil.plugins.api.VersionedService;
 import Bastien Aracil.plugins.api.ServiceProvider;
+import Bastien Aracil.plugins.modular.core.DummyService;
+import Bastien Aracil.plugins.modular.core.VersionGetter;
 import Bastien Aracil.vp.VersionProvider;
 
 import java.nio.charset.StandardCharsets;
@@ -14,7 +16,7 @@ import java.util.UUID;
 
 public class Plugin2 implements Plugin {
 
-    public static final int VERSION = 1;
+    public static final int VERSION = 2;
     public static final UUID ID = UUID.nameUUIDFromBytes("plugin2".getBytes(StandardCharsets.UTF_8));
 
     @Override
@@ -28,11 +30,17 @@ public class Plugin2 implements Plugin {
     }
 
     @Override
-    public @NonNull ImmutableSet<Requirement> getRequirements() {
-        return ImmutableSet.of();
+    public @NonNull ImmutableSet<Requirement<?>> getRequirements() {
+        return ImmutableSet.of(new Requirement<>(DummyService.class,1));
+    }
+
+    @Override
+    public @NonNull Requirement<?> getProvidedServiceType() {
+        return new Requirement<>(VersionGetter2.class, VERSION);
     }
 
     public @NonNull VersionedService loadService(@NonNull ModuleLayer pluginLayer, @NonNull ServiceProvider serviceProvider) {
+        serviceProvider.getService(DummyService.class).doSomething();
         final var versionProvider = ServiceLoader.load(pluginLayer, VersionProvider.class).findFirst().get();
         return new VersionedService(new VersionGetter2(versionProvider), VERSION);
     }

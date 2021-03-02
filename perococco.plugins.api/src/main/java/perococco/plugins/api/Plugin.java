@@ -39,7 +39,9 @@ public interface Plugin {
     /**
      * @return the set of services this plugin needs to load the service it provides
      */
-    @NonNull ImmutableSet<Requirement> getRequirements();
+    @NonNull ImmutableSet<Requirement<?>> getRequirements();
+
+    @NonNull Requirement<?> getProvidedServiceType();
 
     /**
      * @return load the service provided by this plugin

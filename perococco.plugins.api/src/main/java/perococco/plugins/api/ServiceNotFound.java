@@ -9,7 +9,7 @@ public class ServiceNotFound extends PeroPluginsException {
     private final @NonNull Class<?> serviceType;
 
     public <T> ServiceNotFound(@NonNull Class<?> serviceType) {
-        super("Could not find service with type : '"+serviceType+"'");
+        super("Could not find service : '"+serviceType+"'");
         this.serviceType = serviceType;
     }
 }
