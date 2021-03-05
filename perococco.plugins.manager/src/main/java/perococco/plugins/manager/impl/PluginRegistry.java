@@ -1,68 +1,34 @@
 package Bastien Aracil.plugins.manager.impl;
 
+import com.google.common.collect.ImmutableList;
 import lombok.NonNull;
 
-import java.nio.file.Path;
-import java.util.*;
-import java.util.function.Function;
-import java.util.function.UnaryOperator;
-import java.util.stream.Collectors;
+import java.util.Optional;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
 
-public class PluginRegistry {
-
-    private final @NonNull Map<Path, Set<PluginInfo>> plugins = new HashMap<>();
+public interface PluginRegistry {
 
     /**
-     * @param pluginLocation the path to the plugin file
-     * @param updater        the updater to apply to all {@link PluginInfo} associated with the plugin
-     * @return true if at least one plugin info state changed
+     * @param pluginData the data about the plugin (id, module layer, location, state)
      */
-    public <P extends PluginInfo> boolean updatePluginInfo(@NonNull Path pluginLocation, @NonNull Class<P> pluginInfoType, @NonNull Function<? super P, ? extends PluginInfo> updater) {
-        final var value = plugins.get(pluginLocation);
+    void addPlugin(@NonNull PluginData pluginData);
 
-        final var evolutions = value.stream()
-                                    .map(p -> {
-                                        if (pluginInfoType.isInstance(p)) {
-                                            return Evolution.withUpdater(pluginInfoType.cast(p), updater);
-                                        } else {
-                                            return Evolution.withoutChange(p);
-                                        }
+    @NonNull Optional<PluginData> removePluginData(long pluginId);
 
-                                    })
-                                    .collect(Collectors.toList());
 
-        {
-            final var newValues = evolutions.stream()
-                                            .map(Evolution::getNewValue)
-                                            .collect(Collectors.toSet());
-            plugins.put(pluginLocation, newValues);
-        }
+    @NonNull PluginData getPluginData(long id);
 
-        return evolutions.stream().anyMatch(Evolution::isDifferenteState);
-    }
-    public boolean updatePluginInfo(@NonNull Path pluginLocation, @NonNull UnaryOperator<PluginInfo> updater) {
-        return this.updatePluginInfo(pluginLocation,PluginInfo.class,updater);
+    /**
+     * @param filter the filter to apply to the stream of plugin data
+     * @return a stream of all the filtered plugin data
+     */
+    @NonNull Stream<PluginData> streamPluginData(@NonNull Predicate<? super PluginData> filter);
+
+    @NonNull ImmutableList<PluginData> getPluginData(@NonNull Predicate<? super PluginData> filter);
+
+    default @NonNull Stream<PluginData> streamPluginData() {
+        return streamPluginData(p -> true);
     }
 
-    public boolean containsPlugin(Path pluginLocation) {
-        return plugins.containsKey(pluginLocation);
-    }
-
-    public void register(@NonNull Path pluginLocation, @NonNull Set<PluginInfo> initialPluginInfo) {
-        plugins.put(pluginLocation, initialPluginInfo);
-    }
-
-    public @NonNull Set<Path> pluginPaths() {
-        return Collections.unmodifiableSet(plugins.keySet());
-    }
-
-    public @NonNull Set<PluginInfo> findNotRejectedPluginInfoProviding(@NonNull Class<?> providedServiceType) {
-        return plugins.values()
-                      .stream()
-                      .flatMap(Collection::stream)
-                      .filter(p -> !p.isRejected())
-                      .filter(p -> p.getProvidedServiceType().equals(providedServiceType))
-                      .collect(Collectors.toSet());
-
-    }
 }

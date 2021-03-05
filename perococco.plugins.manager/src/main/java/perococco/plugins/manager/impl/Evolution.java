@@ -10,17 +10,17 @@ import java.util.function.Function;
 @Getter
 public class Evolution {
 
-    public static @NonNull Evolution withoutChange(@NonNull PluginInfo p) {
+    public static @NonNull Evolution withoutChange(@NonNull PluginData p) {
         return new Evolution(p,p);
     }
 
-    public static <P extends PluginInfo> @NonNull Evolution withUpdater(@NonNull P currentValue, @NonNull Function<? super P, ? extends PluginInfo> updater) {
+    public static <P extends PluginData> @NonNull Evolution withUpdater(@NonNull P currentValue, @NonNull Function<? super P, ? extends PluginData> updater) {
         return new Evolution(currentValue,updater.apply(currentValue));
     }
 
-    private final @NonNull PluginInfo oldValue;
+    private final @NonNull PluginData oldValue;
 
-    private final @NonNull PluginInfo newValue;
+    private final @NonNull PluginData newValue;
 
 
     public boolean isDifferenteState() {

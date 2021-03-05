@@ -9,9 +9,9 @@ import java.util.Optional;
  */
 public interface VersionedServiceProvider {
 
-    <T> @NonNull Optional<T> findService(@NonNull Requirement<T> requirement);
+    <T> @NonNull Optional<T> findService(@NonNull VersionedServiceType<T> versionedServiceType);
 
-    default boolean hasService(Requirement<?> requirement) {
-        return findService(requirement).isPresent();
+    default boolean hasService(VersionedServiceType<?> versionedServiceType) {
+        return findService(versionedServiceType).isPresent();
     }
 }

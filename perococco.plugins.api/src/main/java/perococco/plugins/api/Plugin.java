@@ -14,11 +14,10 @@ public interface Plugin {
      * @param pluginLocation the path to the zip containing the plugin
      * @return the result of the loading : a list of plugins and the module layer used to load them)
      */
-    static @NonNull PluginLoader.Result load(@NonNull Path pluginLocation) {
+    static @NonNull PluginLoader.Result loadBundle(@NonNull Path pluginLocation) {
         return ServiceLoader.load(PluginLoader.class)
                             .stream()
                             .map(ServiceLoader.Provider::get)
-                            .filter(PluginLoader::isModular)
                             .findFirst()
                             .orElseThrow(() -> new IllegalStateException(
                                     "Could not find any modular implementation of " + PluginLoader.class))
@@ -28,20 +27,14 @@ public interface Plugin {
     /**
      * @return the version of the application this plugin has been compiled for
      */
-    int getVersionCompatibility();
-
-    /**
-     * @return a uniq identifier of the plugin. Different version of the same plugin must have
-     * the same id
-     */
-    @NonNull UUID getId();
+    Version getVersionCompatibility();
 
     /**
      * @return the set of services this plugin needs to load the service it provides
      */
-    @NonNull ImmutableSet<Requirement<?>> getRequirements();
+    @NonNull ImmutableSet<VersionedServiceType<?>> getRequirements();
 
-    @NonNull Requirement<?> getProvidedServiceType();
+    @NonNull VersionedServiceType<?> getProvidedServiceType();
 
     /**
      * @return load the service provided by this plugin

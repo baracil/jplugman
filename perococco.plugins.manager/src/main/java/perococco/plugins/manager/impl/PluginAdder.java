@@ -2,64 +2,62 @@ package Bastien Aracil.plugins.manager.impl;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import Bastien Aracil.plugins.api.Plugin;
-import Bastien Aracil.plugins.manager.impl.state.AcceptedPlugin;
-import Bastien Aracil.plugins.manager.impl.state.LoadedPlugin;
-import Bastien Aracil.plugins.manager.impl.state.RejectedPlugin;
+import Bastien Aracil.plugins.api.PluginLoader;
+import Bastien Aracil.plugins.api.Version;
 
 import java.nio.file.Path;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.function.Consumer;
 
 @RequiredArgsConstructor
+@Log4j2
 public class PluginAdder {
 
-    public static void addPlugin(@NonNull PluginRegistry registry, @NonNull Path pluginLocation, int applicationVersion) {
-        new PluginAdder(pluginLocation, applicationVersion, registry).addPlugin();
+    public static void addPlugin(@NonNull Consumer<? super PluginData> pluginInfoConsumer,
+                                 @NonNull Path pluginLocation,
+                                 @NonNull Version applicationVersion) {
+        new PluginAdder(pluginLocation, applicationVersion, pluginInfoConsumer).addPlugin();
     }
 
     private final @NonNull Path pluginLocation;
-    private final int applicationVersion;
-    private final @NonNull PluginRegistry registry;
+    private final @NonNull Version applicationVersion;
+    private final @NonNull Consumer<? super PluginData> pluginDataConsumer;
+
+    private PluginLoader.Result loadingResult;
 
 
     private void addPlugin() {
-        if (isPluginAlreadyLoaded()) {
-            return;
+        this.loadPlugin();
+        if (isLoadingSuccessful()) {
+            this.addCompatiblePluginToRegistry();
         }
-        this.loadAndInitializePluginInfo();
-        this.checkPluginsCompatibility();
-        this.checkPluginsConflict();
     }
 
-    private boolean isPluginAlreadyLoaded() {
-        return registry.containsPlugin(pluginLocation);
-    }
-
-    private void loadAndInitializePluginInfo() {
-        final var result = Plugin.load(pluginLocation);
-        final Set<PluginInfo> initialPluginInfo = result.getPlugins()
-                                                        .stream()
-                                                        .map(p -> new LoadedPlugin(result.getPluginLayer(), p))
-                                                        .collect(Collectors.toSet());
-        registry.register(pluginLocation,initialPluginInfo);
-    }
-
-    private void checkPluginsCompatibility() {
-        registry.updatePluginInfo(pluginLocation, LoadedPlugin.class, p -> p.checkCompatibility(applicationVersion));
-    }
-
-    private void checkPluginsConflict() {
-        registry.updatePluginInfo(pluginLocation, AcceptedPlugin.class, this::checkForConflict);
-    }
-
-    private @NonNull PluginInfo checkForConflict(@NonNull AcceptedPlugin pluginInfo) {
-        final var plugins = registry.findNotRejectedPluginInfoProviding(pluginInfo.getProvidedServiceType());
-        plugins.remove(pluginInfo);
-        if (plugins.isEmpty()) {
-            return pluginInfo;
+    private void loadPlugin() {
+        try {
+            loadingResult = Plugin.loadBundle(pluginLocation);
+        } catch (Exception e) {
+            LOG.warn("Fail to load plugin '{}' : {}", pluginLocation, e.getMessage());
+            LOG.debug(e);
+            loadingResult = null;
         }
-        return RejectedPlugin.from(pluginInfo);
     }
+
+    private boolean isLoadingSuccessful() {
+        return loadingResult != null;
+    }
+
+    private void addCompatiblePluginToRegistry() {
+        for (Plugin plugin : this.loadingResult.getPlugins()) {
+            if (plugin.getVersionCompatibility().isCompatible(applicationVersion)) {
+                LOG.debug("Add plugin {}",plugin.getProvidedServiceType());
+                pluginDataConsumer.accept(PluginData.installed(pluginLocation, loadingResult.getPluginLayer(), plugin));
+            } else {
+                LOG.warn("Incompatible plugin version for {}",plugin.getProvidedServiceType());
+            }
+        }
+    }
+
 
 }

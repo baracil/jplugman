@@ -8,7 +8,7 @@ import java.nio.file.Path;
 public class LoadPluginBase {
 
     public static VersionGetter getVersionGetter(Path pluginPath) {
-        final var loadingResult = Plugin.load(pluginPath);
+        final var loadingResult = Plugin.loadBundle(pluginPath);
 
         return  loadingResult.loadService(0,ServiceProvider.empty())
                                   .getServiceAs(VersionGetter.class)

@@ -11,9 +11,9 @@ public class MutableVersionedServiceProvider implements VersionedServiceProvider
     private final Set<VersionedService> services = new HashSet<>();
 
     @Override
-    public @NonNull <T> Optional<T> findService(@NonNull Requirement<T> requirement) {
+    public @NonNull <T> Optional<T> findService(@NonNull VersionedServiceType<T> versionedServiceType) {
         return services.stream()
-                       .map(requirement::extractService)
+                       .map(versionedServiceType::castService)
                        .flatMap(Optional::stream)
                        .findFirst();
     }
@@ -23,4 +23,7 @@ public class MutableVersionedServiceProvider implements VersionedServiceProvider
     }
 
 
+    public void removeVersionedService(@NonNull VersionedService versionedService) {
+        services.remove(versionedService);
+    }
 }

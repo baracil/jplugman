@@ -9,8 +9,6 @@ import java.nio.file.Path;
 
 public interface PluginLoader {
 
-    boolean isModular();
-
     @NonNull Result load(@NonNull Path location);
 
     @RequiredArgsConstructor

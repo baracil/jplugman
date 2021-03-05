@@ -2,6 +2,7 @@ package Bastien Aracil.plugins.modular.core;
 
 import lombok.NonNull;
 import Bastien Aracil.plugins.api.MutableVersionedServiceProvider;
+import Bastien Aracil.plugins.api.Version;
 import Bastien Aracil.plugins.api.VersionedService;
 import Bastien Aracil.plugins.api.VersionedServiceProvider;
 import Bastien Aracil.plugins.manager.Application;
@@ -14,8 +15,8 @@ public class TestApplication implements Application {
     private final MutableVersionedServiceProvider serviceProvider = new MutableVersionedServiceProvider();
 
     @Override
-    public int getVersion() {
-        return 1;
+    public Version getVersion() {
+        return Version.with(1,0,0);
     }
 
     @Override
@@ -33,11 +34,16 @@ public class TestApplication implements Application {
                         .ifPresent(System.out::println);
     }
 
+    @Override
+    public void detachService(@NonNull VersionedService versionedService) {
+        serviceProvider.removeVersionedService(versionedService);
+    }
+
     public static void main(String[] args) {
         final Application application = new TestApplication();
         final var pluginManager = PluginManager.create(application);
 
-        pluginManager.addPlugin(Path.of("./test/build/plugin2.zip"));
-        pluginManager.addPlugin(Path.of("./test/build/plugin1.zip"));
+        pluginManager.addPluginBundle(Path.of("./test/build/plugin2.zip"));
+        pluginManager.addPluginBundle(Path.of("./test/build/plugin1.zip"));
     }
 }

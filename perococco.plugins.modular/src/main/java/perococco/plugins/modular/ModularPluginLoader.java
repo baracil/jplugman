@@ -15,8 +15,6 @@ import java.lang.module.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ServiceLoader;
-import java.util.Set;
-import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -25,21 +23,20 @@ public class ModularPluginLoader implements PluginLoader {
     public static final String FILE_SCHEME = "file";
 
     @Override
-    public boolean isModular() {
-        return true;
-    }
-
-    @Override
     public @NonNull Result load(@NonNull Path location) {
-        try {
-            return new Loader(location).load();
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
+        return Loader.load(location);
     }
 
     @RequiredArgsConstructor
     private static class Loader {
+
+        public static @NonNull Result load(@NonNull Path location) {
+            try {
+                return new Loader(location).load();
+            } catch (IOException e) {
+                throw new UncheckedIOException(e);
+            }
+        }
 
         private final @NonNull Path location;
 
@@ -58,7 +55,7 @@ public class ModularPluginLoader implements PluginLoader {
         private ImmutableList<Plugin> plugins;
 
         private @NonNull Result load() throws IOException {
-            this.checkInputURIIsAZipFile();
+            this.checkInputLocationIsAZipFile();
             this.createTemporaryDirectory();
             this.extractZipInTemporaryDirectory();
             this.guessModuleDirectory();
@@ -67,11 +64,11 @@ public class ModularPluginLoader implements PluginLoader {
             this.createPluginConfiguration();
             this.createModuleLayer();
             this.loadPlugins();
-            return new Result(moduleLayer,plugins);
+            return new Result(moduleLayer, plugins);
         }
 
 
-        private void checkInputURIIsAZipFile() {
+        private void checkInputLocationIsAZipFile() {
             if (location.getFileName().toString().endsWith(".zip")) {
                 return;
             }
@@ -91,6 +88,10 @@ public class ModularPluginLoader implements PluginLoader {
                     if (entry.isDirectory()) {
                         Files.createDirectory(outputFile);
                     } else {
+                        final var parent = outputFile.getParent();
+                        if (!Files.exists(parent)) {
+                            Files.createDirectories(parent);
+                        }
                         Files.copy(zis, outputFile);
                     }
                     zis.closeEntry();
