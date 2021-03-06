@@ -4,6 +4,8 @@ import com.google.common.collect.ImmutableSet;
 import lombok.NonNull;
 import Bastien Aracil.plugins.api.VersionedServiceType;
 
+import java.nio.file.Path;
+
 public interface StateOperation<S> {
 
     boolean isInInstalledState();
@@ -38,4 +40,5 @@ public interface StateOperation<S> {
 
     boolean isServiceAvailable(@NonNull VersionedServiceType<?> requirement);
 
+    boolean isFromBundle(@NonNull Path pluginBundleLocation);
 }

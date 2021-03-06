@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import Bastien Aracil.plugins.api.Nil;
 import Bastien Aracil.plugins.api.VersionedServiceType;
 
+import java.nio.file.Path;
+
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class PluginData implements StateOperation<Nil>{
 
@@ -71,5 +73,10 @@ public class PluginData implements StateOperation<Nil>{
 
     public boolean isServiceAvailable(VersionedServiceType<?> requirement) {
         return this.state.isServiceAvailable(requirement);
+    }
+
+    @Override
+    public boolean isFromBundle(@NonNull Path pluginBundleLocation) {
+        return this.state.isFromBundle(pluginBundleLocation);
     }
 }

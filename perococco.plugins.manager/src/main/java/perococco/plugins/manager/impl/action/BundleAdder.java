@@ -40,46 +40,10 @@ public class BundleAdder {
     private void add() {
         //INVARIANT -> Aucun plugin n'est dans l'état RESOLVED ni FAILED
         this.loadBundle();
-        //INVARIANT -> Aucun plugin n'est dans l'état RESOLVED ni FAILED
         this.addLoadedPluginToRegistry();
-        //INVARIANT -> Aucun plugin n'est dans l'état RESOLVED ni FAILED
         this.unloadObsoletePlugins();
+        PluginPlugger.plug(pluginRegistry);
         //INVARIANT -> Aucun plugin n'est dans l'état RESOLVED ni FAILED
-        this.buildDependencyGraphForPluggedAndInstalledPlugins();
-        //INVARIANT -> Aucun plugin n'est dans l'état RESOLVED ni FAILED
-        this.topologicallySortDependencyGraph();
-        //INVARIANT -> Aucun plugin n'est dans l'état RESOLVED ni FAILED
-        if (this.dependencyGraphContainsACycle()) {
-            return;
-        }
-        //INVARIANT -> Aucun plugin n'est dans l'état RESOLVED ni FAILED
-        this.markPluginsWithFulfilledRequirementsAsResolved();
-        //INVARIANT -> Aucun plugin n'est dans l'état RESOLVED ni FAILED
-        this.loadResolvedPlugins();
-        //INVARIANT -> Aucun plugin n'est dans l'état RESOLVED
-        //uninstall tous les plugins marqués comme FAILED
-        this.uninstallFailedPlugins();
-        //INVARIANT -> Aucun plugin n'est dans l'état RESOLVED ni FAILED
-    }
-
-    private void markPluginsWithFulfilledRequirementsAsResolved() {
-        dependencyGraph.streamNodes()
-                       .filter(Node::areRequirementFulfilled)
-                       .forEach(n -> n.getPluginData().markResolved());
-    }
-
-    private boolean dependencyGraphContainsACycle() {
-        return this.sortedNodes == null;
-    }
-
-    private void topologicallySortDependencyGraph() {
-        this.sortedNodes = this.dependencyGraph.sort().orElse(null);
-    }
-
-    private void buildDependencyGraphForPluggedAndInstalledPlugins() {
-        // construire le graph de dépendances avec les plugins (INSTALLED, PLUGGED)
-        final var plugins = pluginRegistry.getPluginData(p -> p.isInInstalledState() || p.isInPluggedState());
-        this.dependencyGraph = GraphCreator.create(plugins);
     }
 
     private void loadBundle() {
@@ -107,24 +71,5 @@ public class BundleAdder {
                       .map(graph::getNodeById)
                       .forEach(n -> n.dfs(Node::isPluginInPluggedState, Node::unloadPlugin));
     }
-
-    private boolean loadResolvedPlugins() {
-        boolean onFailed = false;
-        for (Node sortedNode : sortedNodes) {
-            sortedNode.loadPlugin();
-            if (sortedNode.isPluginInFailedState()) {
-                onFailed = true;
-                sortedNode.dfsButSkipMe(Node::setToInstalledState);
-            }
-        }
-        return onFailed;
-    }
-
-    private void uninstallFailedPlugins() {
-        pluginRegistry.getPluginData(PluginData::isInFailedState)
-                      .forEach(PluginData::unInstall);
-
-    }
-
 
 }

@@ -5,6 +5,8 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import Bastien Aracil.plugins.api.VersionedServiceType;
 
+import java.nio.file.Path;
+
 @RequiredArgsConstructor
 public abstract class PluginStateBase implements PluginState {
 
@@ -16,4 +18,8 @@ public abstract class PluginStateBase implements PluginState {
         return pluginContext.isServiceAvailable(requirement);
     }
 
+    @Override
+    public boolean isFromBundle(@NonNull Path pluginBundleLocation) {
+        return pluginContext.getPluginLocation().equals(pluginBundleLocation);
+    }
 }
