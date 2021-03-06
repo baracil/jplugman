@@ -55,12 +55,12 @@ public class PluginContext {
         return plugin.loadService(moduleLayer,serviceProvider);
     }
 
-    public void attachService(VersionedService versionService) {
+    public void attachService(@NonNull VersionedService versionService) {
         this.application.plugService(versionService);
         this.pluginServiceProvider.addVersionedService(versionService);
     }
 
-    public void detachService(VersionedService versionedService) {
+    public void detachService(@NonNull VersionedService versionedService) {
         this.pluginServiceProvider.removeVersionedService(versionedService);
         this.application.unplugService(versionedService);
     }
@@ -68,6 +68,13 @@ public class PluginContext {
     public boolean isServiceAvailable(@NonNull VersionedServiceType<?> requirement) {
         final var serviceProvider = pluginServiceProvider.thenSearch(getApplicationServiceProvider());
         return serviceProvider.hasService(requirement);
+    }
+
+    @Override
+    public String toString() {
+        return "PluginContext{" + id+ ", " + pluginLocation.getFileName() +
+                ", service=" + plugin.getProvidedService() +
+                '}';
     }
 }
 

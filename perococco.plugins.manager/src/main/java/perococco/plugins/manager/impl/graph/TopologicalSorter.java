@@ -5,6 +5,7 @@ import lombok.NonNull;
 
 import java.util.*;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class TopologicalSorter<N extends GraphNode<N>,I> {
 
@@ -40,7 +41,7 @@ public class TopologicalSorter<N extends GraphNode<N>,I> {
         if (cycleFound) {
             return Optional.empty();
         } else {
-            return Optional.of(ImmutableList.copyOf(sorted));
+            return Optional.of(ImmutableList.copyOf(sorted).reverse());
         }
 
     }

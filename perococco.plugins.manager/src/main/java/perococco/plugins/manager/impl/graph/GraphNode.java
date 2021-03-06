@@ -14,23 +14,24 @@ public interface GraphNode<N extends GraphNode<N>> {
 
     @NonNull N getThis();
 
-    default void dfs(@NonNull Predicate<? super N> shouldSkip, @NonNull Consumer<? super N> action) {
-        if (!shouldSkip.test(getThis())) {
-            streamDependants().forEach(n -> n.dfs(shouldSkip, action));
+    default void dfs(@NonNull Predicate<? super N> shouldPerform, @NonNull Consumer<? super N> action) {
+        if (shouldPerform.test(getThis())) {
+            streamDependants().forEach(n -> n.dfs(shouldPerform, action));
             action.accept(getThis());
         }
     }
 
     default void dfs(@NonNull Consumer<? super N> action) {
-        dfs(n -> false, action);
+        dfs(n -> true, action);
     }
 
     default void dfsButSkipMe(@NonNull Consumer<? super N> action) {
         final N me = getThis();
-        dfs(n -> false, n -> {
+        dfs(n -> true, n -> {
             if (n != me) {
                 action.accept(n);
             }
         });
     }
+
 }

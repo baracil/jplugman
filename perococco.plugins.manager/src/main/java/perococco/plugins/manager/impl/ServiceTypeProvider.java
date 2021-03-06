@@ -6,6 +6,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import Bastien Aracil.plugins.api.VersionedServiceType;
 import Bastien Aracil.plugins.manager.impl.state.PluginContext;
+import Bastien Aracil.plugins.manager.impl.state.PluginData;
 
 import java.util.Optional;
 import java.util.function.Function;
@@ -51,4 +52,11 @@ public class ServiceTypeProvider {
     }
 
 
+    public boolean isLastVersion(@NonNull PluginData p) {
+        final var serviceType = p.getProvidedService().getServiceType();
+        final var majorVersion = p.getProvidedService().getVersion().getMajor();
+        final var providedServiceType = services.get(serviceType, majorVersion);
+
+        return providedServiceType != null && providedServiceType.getPluginId() == p.getId();
+    }
 }

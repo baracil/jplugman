@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import Bastien Aracil.plugins.manager.impl.PluginRegistry;
+import Bastien Aracil.plugins.manager.impl.ServiceTypeProvider;
 import Bastien Aracil.plugins.manager.impl.graph.Graph;
 import Bastien Aracil.plugins.manager.impl.graph.GraphCreator;
 import Bastien Aracil.plugins.manager.impl.graph.Node;
@@ -56,7 +57,13 @@ public class PluginPlugger {
     private void buildDependencyGraphForPluggedAndInstalledPlugins() {
         // construire le graph de dépendances avec les plugins (INSTALLED, PLUGGED)
         final var plugins = pluginRegistry.getPluginData(p -> p.isInInstalledState() || p.isInPluggedState());
-        this.dependencyGraph = GraphCreator.create(plugins);
+
+        final var serviceTypeProvider = ServiceTypeProvider.create(plugins, PluginData::getPluginContext);
+
+        final var newestPlugins = plugins.stream().filter(p -> serviceTypeProvider.isLastVersion(p))
+                                         .collect(ImmutableList.toImmutableList());
+
+        this.dependencyGraph = GraphCreator.create(newestPlugins);
     }
 
     private boolean loadResolvedPlugins() {

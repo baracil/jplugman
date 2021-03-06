@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import Bastien Aracil.plugins.api.Nil;
+import Bastien Aracil.plugins.api.VersionedServiceProvider;
 import Bastien Aracil.plugins.api.VersionedServiceType;
 
 import java.nio.file.Path;
@@ -78,5 +79,14 @@ public class PluginData implements StateOperation<Nil>{
     @Override
     public boolean isFromBundle(@NonNull Path pluginBundleLocation) {
         return this.state.isFromBundle(pluginBundleLocation);
+    }
+
+    @Override
+    public String toString() {
+        return "PluginData{" + state.getClass().getSimpleName()+" - "+state.getPluginContext()+"}";
+    }
+
+    public @NonNull VersionedServiceProvider getApplicationServiceProvider() {
+        return getPluginContext().getApplicationServiceProvider();
     }
 }

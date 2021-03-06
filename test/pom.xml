@@ -15,9 +15,13 @@
     <artifactId>Bastien Aracil-plugins-test</artifactId>
 
     <modules>
-        <module>modular/Bastien Aracil.plugins.modular.core</module>
-        <module>modular/Bastien Aracil.plugins.modular.plugin1</module>
-        <module>modular/Bastien Aracil.plugins.modular.plugin2</module>
+        <module>Bastien Aracil.plugins.modular.core</module>
+        <module>Bastien Aracil.plugins.modular.test</module>
+        <module>Bastien Aracil.plugins.modular.plugin1a</module>
+        <module>Bastien Aracil.plugins.modular.plugin1b</module>
+        <module>Bastien Aracil.plugins.modular.plugin2</module>
+        <module>Bastien Aracil.plugins.modular.plugin3</module>
+        <module>Bastien Aracil.plugins.modular.plugin4</module>
     </modules>
 
 </project>

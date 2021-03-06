@@ -49,8 +49,14 @@ public class ProvidedServiceTypeCollector implements Collector<PluginContext, Ta
         if (existing == null) {
             table.put(serviceType, majorVersion, providedServiceType);
         } else {
-            table.put(serviceType, majorVersion, ProvidedServiceType.max(existing, providedServiceType));
+            table.put(serviceType, majorVersion, max(existing, providedServiceType));
         }
     }
+
+    public @NonNull ProvidedServiceType max(@NonNull ProvidedServiceType pst1, @NonNull ProvidedServiceType pst2) {
+        return pst1.getVersion().compareTo(pst2.getVersion()) >= 0 ?pst1:pst2;
+    }
+
+
 
 }

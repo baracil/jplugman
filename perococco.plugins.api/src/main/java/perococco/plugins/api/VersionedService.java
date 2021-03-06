@@ -23,4 +23,12 @@ public class VersionedService {
         }
         return Optional.empty();
     }
+
+    @Override
+    public String toString() {
+        return "VersionedService{" +
+                "service=" + service +
+                ", version=" + version +
+                '}';
+    }
 }

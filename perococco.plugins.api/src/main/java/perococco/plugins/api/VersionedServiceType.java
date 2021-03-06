@@ -37,4 +37,8 @@ public class VersionedServiceType<T> implements Comparable<VersionedServiceType<
     public String toString() {
         return "{" + serviceType + " "+version+"}";
     }
+
+    public boolean provides(@NonNull VersionedServiceType<?> versionedService) {
+        return this.serviceType.equals(versionedService.serviceType) && this.version.isCompatible(versionedService.version);
+    }
 }

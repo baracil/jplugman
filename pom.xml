@@ -16,6 +16,7 @@
         <java.version>15</java.version>
         <lombok.version>1.18.18</lombok.version>
         <log4j.version>2.11.2</log4j.version>
+        <junit.version>5.8.0-M1</junit.version>
     </properties>
 
     <dependencies>
@@ -78,7 +79,12 @@
             <dependency>
                 <groupId>org.junit.jupiter</groupId>
                 <artifactId>junit-jupiter</artifactId>
-                <version>5.8.0-M1</version>
+                <version>${junit.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-params</artifactId>
+                <version>${junit.version}</version>
             </dependency>
 
             <dependency>
