@@ -15,7 +15,7 @@ public class Plugin1 implements Plugin {
 
 
     @Override
-    public Version getApplicationVersion() {
+    public @NonNull Version getApplicationVersion() {
         return Version.with(1,0,0);
     }
 
