@@ -31,7 +31,7 @@ public class PluggedState extends PluginStateBase {
 
     @Override
     public @NonNull PluginState unload() {
-        getPluginContext().detachService(versionedService);
+        getPluginContext().unplugService(versionedService);
         return new InstalledState(getPluginContext());
     }
 

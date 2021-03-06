@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableSet;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import Bastien Aracil.plugins.api.*;
 import Bastien Aracil.plugins.manager.Application;
 
@@ -12,6 +13,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 @Getter
 @RequiredArgsConstructor
+@Log4j2
 public class PluginContext {
 
     private final @NonNull Application application;
@@ -55,12 +57,14 @@ public class PluginContext {
         return plugin.loadService(moduleLayer,serviceProvider);
     }
 
-    public void attachService(@NonNull VersionedService versionService) {
-        this.application.plugService(versionService);
-        this.pluginServiceProvider.addVersionedService(versionService);
+    public void plugService(@NonNull VersionedService versionedService) {
+        LOG.debug("Plug   service : {}",versionedService);
+        this.application.plugService(versionedService);
+        this.pluginServiceProvider.addVersionedService(versionedService);
     }
 
-    public void detachService(@NonNull VersionedService versionedService) {
+    public void unplugService(@NonNull VersionedService versionedService) {
+        LOG.debug("Unplug service : {}",versionedService);
         this.pluginServiceProvider.removeVersionedService(versionedService);
         this.application.unplugService(versionedService);
     }
