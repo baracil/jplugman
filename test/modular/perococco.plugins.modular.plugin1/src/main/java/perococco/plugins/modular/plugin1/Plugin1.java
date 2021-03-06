@@ -15,7 +15,7 @@ public class Plugin1 implements Plugin {
 
 
     @Override
-    public Version getVersionCompatibility() {
+    public Version getApplicationVersion() {
         return Version.with(1,0,0);
     }
 
@@ -25,7 +25,7 @@ public class Plugin1 implements Plugin {
     }
 
     @Override
-    public @NonNull VersionedServiceType<?> getProvidedServiceType() {
+    public @NonNull VersionedServiceType<?> getProvidedService() {
         return new VersionedServiceType<>(VersionGetter1.class, VERSION);
     }
 

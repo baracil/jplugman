@@ -2,22 +2,33 @@ package Bastien Aracil.plugins.manager.impl;
 
 import com.google.common.collect.ImmutableList;
 import lombok.NonNull;
+import Bastien Aracil.plugins.api.MutableVersionedServiceProvider;
+import Bastien Aracil.plugins.manager.impl.state.PluginData;
 
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-public interface PluginRegistry {
+public interface PluginRegistry extends MutableVersionedServiceProvider {
 
     /**
      * @param pluginData the data about the plugin (id, module layer, location, state)
      */
-    void addPlugin(@NonNull PluginData pluginData);
+    void addPluginData(@NonNull PluginData pluginData);
 
+    /**
+     * @param pluginId the id of the plugin to remove
+     * @return an optional containing the removed plugin data, an empty optional if no plugin data
+     * exists with the provided id
+     */
     @NonNull Optional<PluginData> removePluginData(long pluginId);
 
-
-    @NonNull PluginData getPluginData(long id);
+    /**
+     * @param pluginId the id of the searched plugin data
+     * @return the plugin data with the provided id.
+     * @throws IllegalArgumentException if no plugin data exists with the provided id
+     */
+    @NonNull PluginData getPluginData(long pluginId);
 
     /**
      * @param filter the filter to apply to the stream of plugin data
@@ -26,9 +37,5 @@ public interface PluginRegistry {
     @NonNull Stream<PluginData> streamPluginData(@NonNull Predicate<? super PluginData> filter);
 
     @NonNull ImmutableList<PluginData> getPluginData(@NonNull Predicate<? super PluginData> filter);
-
-    default @NonNull Stream<PluginData> streamPluginData() {
-        return streamPluginData(p -> true);
-    }
 
 }

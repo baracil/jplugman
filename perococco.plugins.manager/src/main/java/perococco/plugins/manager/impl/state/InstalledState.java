@@ -1,16 +1,35 @@
 package Bastien Aracil.plugins.manager.impl.state;
 
 import lombok.NonNull;
-import Bastien Aracil.plugins.manager.impl.PluginState;
 
-public class InstalledState implements PluginState {
+public class InstalledState extends PluginStateBase {
+
+    public InstalledState(@NonNull PluginContext context) {
+        super(context);
+    }
 
     @Override
-    public boolean isInstalled() {
+    public boolean isInInstalledState() {
         return true;
     }
 
-    public @NonNull ResolvedState toResolved() {
-        return new ResolvedState();
+    @Override
+    public boolean isInPluggedState() {
+        return false;
+    }
+
+    @Override
+    public boolean isInFailedState() {
+        return false;
+    }
+
+    @Override
+    public @NonNull PluginState unInstall() {
+        return new UnInstalledState(getPluginContext());
+    }
+
+    @Override
+    public @NonNull PluginState markResolved() {
+        return new ResolvedState(getPluginContext());
     }
 }

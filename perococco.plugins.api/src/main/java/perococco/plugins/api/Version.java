@@ -28,4 +28,9 @@ public class Version implements Comparable<Version> {
     public int compareTo(Version that) {
         return VERSION_COMPARATOR.compare(this,that);
     }
+
+    @Override
+    public String toString() {
+        return "v" + major + "."+ minor + "."+patch;
+    }
 }

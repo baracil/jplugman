@@ -4,12 +4,11 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import Bastien Aracil.plugins.manager.impl.Operator;
-import Bastien Aracil.plugins.manager.impl.PluginData;
+import Bastien Aracil.plugins.manager.impl.Todo;
+import Bastien Aracil.plugins.manager.impl.state.PluginData;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
@@ -20,6 +19,7 @@ public class Node implements GraphNode<Node> {
         return new Node(pluginData);
     }
 
+    @Getter
     private final PluginData pluginData;
 
     /**
@@ -33,16 +33,19 @@ public class Node implements GraphNode<Node> {
         return dependants.stream();
     }
 
-    public long getPluginId() {
+    @Override
+    public @NonNull Node getThis() {
+        return this;
+    }
+
+    public long getNodeId() {
         return pluginData.getId();
     }
 
     public boolean areRequirementFulfilled() {
-        return pluginData.getPlugin().getRequirements().size() == dependencies.size();
-    }
-
-    public void applyOperator(@NonNull Operator operator) {
-        this.pluginData.operate(operator);
+        return pluginData.getPluginRequirements()
+                         .stream()
+                         .allMatch(pluginData::isServiceAvailable);
     }
 
     public void addDependency(Node dependency) {
@@ -50,18 +53,24 @@ public class Node implements GraphNode<Node> {
         dependency.dependants.add(this);
     }
 
-    public boolean isPluginResolved() {
-        return pluginData.isResolved();
+    public void unloadPlugin() {
+        this.pluginData.unload();
     }
 
-    public boolean isPluginInFailure() {
-        return pluginData.isFailed();
+    public void loadPlugin() {
+        this.pluginData.load();
     }
 
-    public void dfs(@NonNull Consumer<Node> action) {
-        dependants.forEach(n -> n.dfs(action));
-        action.accept(this);
+    public void setToInstalledState() {
+        this.pluginData.setToInstalledState();
     }
 
+    public boolean isPluginInPluggedState() {
+        return pluginData.isInPluggedState();
+    }
+
+    public boolean isPluginInFailedState() {
+        return pluginData.isInFailedState();
+    }
 
 }

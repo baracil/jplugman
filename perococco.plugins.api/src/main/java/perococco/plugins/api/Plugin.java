@@ -27,14 +27,14 @@ public interface Plugin {
     /**
      * @return the version of the application this plugin has been compiled for
      */
-    Version getVersionCompatibility();
+    Version getApplicationVersion();
 
     /**
      * @return the set of services this plugin needs to load the service it provides
      */
     @NonNull ImmutableSet<VersionedServiceType<?>> getRequirements();
 
-    @NonNull VersionedServiceType<?> getProvidedServiceType();
+    @NonNull VersionedServiceType<?> getProvidedService();
 
     /**
      * @return load the service provided by this plugin

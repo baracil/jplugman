@@ -5,22 +5,21 @@ import com.google.common.collect.ImmutableMap;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
-import java.util.*;
-import java.util.function.Consumer;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 @RequiredArgsConstructor
-public class Graph {
+public class Graph<N extends GraphNode<N>> {
 
     @NonNull
-    private final ImmutableMap<Long, Node> nodeByPluginId;
+    private final ImmutableMap<Long, N> nodeById;
 
-    public @NonNull Optional<ImmutableList<Long>> sort() {
-        return TopologicalSorter.sort(nodeByPluginId.values(), Node::getPluginId);
+    public @NonNull Optional<ImmutableList<N>> sort() {
+        return TopologicalSorter.sort(nodeById.values());
     }
 
-    public @NonNull Node getNodeById(long id) {
-        final var node = nodeByPluginId.get(id);
+    public @NonNull N getNodeById(long id) {
+        final var node = nodeById.get(id);
         if (node == null) {
             throw new IllegalStateException("No node with id '"+id+"'");
         }
@@ -28,7 +27,7 @@ public class Graph {
     }
 
 
-    public @NonNull Stream<Node> streamNodes() {
-        return nodeByPluginId.values().stream();
+    public @NonNull Stream<N> streamNodes() {
+        return nodeById.values().stream();
     }
 }

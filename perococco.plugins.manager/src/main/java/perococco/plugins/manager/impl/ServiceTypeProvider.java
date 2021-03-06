@@ -1,75 +1,53 @@
 package Bastien Aracil.plugins.manager.impl;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import com.google.common.collect.ImmutableCollection;
+import com.google.common.collect.Table;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import Bastien Aracil.plugins.api.VersionedServiceType;
+import Bastien Aracil.plugins.manager.impl.state.PluginContext;
 
-import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Function;
 
 @RequiredArgsConstructor
 public class ServiceTypeProvider {
 
-    private final @NonNull Map<Class<?>, Map<Integer, ServiceInfo>> services;
+    public static @NonNull ServiceTypeProvider create(@NonNull ImmutableCollection<PluginContext> pluginContexts) {
+        return create(pluginContexts, p -> p);
+    }
+    public static <P> @NonNull ServiceTypeProvider create(@NonNull ImmutableCollection<P> values, @NonNull Function<? super P, ? extends PluginContext> pluginContextGetter) {
+        return new ServiceTypeProvider(values.stream().map(pluginContextGetter).collect(new ProvidedServiceTypeCollector()));
+    }
+
+    private final @NonNull Table<Class<?>, Integer, ProvidedServiceType> services;
 
     /**
      * @param requirements the required service type
-     * @return an optional containing the id of the plugin
-     * that provides the requested requirement if any (for the request major version).
-     * An empty optional if no such plugin could be found
+     * @return an optional containing the id of the plugin that provides the requested
+     * requirement if any (for the request major version). An empty optional if no such plugin could be found
      */
     public Optional<Long> findPluginProviding(@NonNull VersionedServiceType<?> requirements) {
         final var requestedService = requirements.getServiceType();
         final var majorVersion = requirements.getVersion().getMajor();
 
-        return services.entrySet()
+        return services.column(majorVersion)
+                       .values()
                        .stream()
-                       .filter(e -> requestedService.isAssignableFrom(e.getKey()))
-                       .map(e -> e.getValue().get(majorVersion))
-                       .filter(Objects::nonNull)
-                       .map(ServiceInfo::getPluginId)
+                       .filter(p -> p.provides(requestedService))
+                       .map(ProvidedServiceType::getPluginId)
                        .findFirst();
     }
 
     /**
-     * @param versionedServiceType
      * @return true if a plugin provides a service with a newer version (for the same major version)
      */
     public boolean isNewerVersionAvailable(@NonNull VersionedServiceType<?> versionedServiceType) {
-        return Optional.ofNullable(services.get(versionedServiceType.getServiceType()))
-                       .map(v -> v.get(versionedServiceType.getVersion().getMajor()))
-                       .map(ServiceInfo::getMinorVersion)
-                       .filter(vminor -> vminor > versionedServiceType.getVersion().getMinor())
-                       .isPresent();
-    }
+        final var serviceType = versionedServiceType.getServiceType();
+        final var majorVersion = versionedServiceType.getVersion().getMajor();
+        final var providedServiceType = services.get(serviceType, majorVersion);
 
-
-    @AllArgsConstructor
-    public static class ServiceInfo {
-        @Getter
-        private long pluginId;
-        private VersionedServiceType<?> versionedServiceType;
-
-        public @NonNull Class<?> getServiceType() {
-            return versionedServiceType.getServiceType();
-        }
-
-        public int getMajorVersion() {
-            return versionedServiceType.getVersion().getMajor();
-        }
-
-        public int getMinorVersion() {
-            return versionedServiceType.getVersion().getMinor();
-        }
-
-        public static ServiceInfo max(@NonNull ServiceInfo s1, @NonNull ServiceInfo s2) {
-            final int comparison = s1.versionedServiceType.compareTo(s2.versionedServiceType);
-            return comparison >= 0 ? s1 : s2;
-        }
-
+        return providedServiceType != null && providedServiceType.getVersion().compareTo(versionedServiceType.getVersion())>0;
     }
 
 

@@ -1,10 +1,7 @@
 package Bastien Aracil.plugins.modular.core;
 
 import lombok.NonNull;
-import Bastien Aracil.plugins.api.MutableVersionedServiceProvider;
-import Bastien Aracil.plugins.api.Version;
-import Bastien Aracil.plugins.api.VersionedService;
-import Bastien Aracil.plugins.api.VersionedServiceProvider;
+import Bastien Aracil.plugins.api.*;
 import Bastien Aracil.plugins.manager.Application;
 import Bastien Aracil.plugins.manager.PluginManager;
 
@@ -12,10 +9,10 @@ import java.nio.file.Path;
 
 public class TestApplication implements Application {
 
-    private final MutableVersionedServiceProvider serviceProvider = new MutableVersionedServiceProvider();
+    private final VersionedServiceProvider serviceProvider = VersionedServiceProvider.of();
 
     @Override
-    public Version getVersion() {
+    public @NonNull Version getVersion() {
         return Version.with(1,0,0);
     }
 
@@ -26,8 +23,6 @@ public class TestApplication implements Application {
 
     @Override
     public void attachService(@NonNull VersionedService versionedService) {
-        serviceProvider.addVersionedService(versionedService);
-
         System.out.println("Attach service");
         versionedService.getServiceAs(VersionGetter.class)
                         .map(VersionGetter::getFullVersion)
@@ -36,7 +31,7 @@ public class TestApplication implements Application {
 
     @Override
     public void detachService(@NonNull VersionedService versionedService) {
-        serviceProvider.removeVersionedService(versionedService);
+        System.out.println("Detach service : "+versionedService);
     }
 
     public static void main(String[] args) {

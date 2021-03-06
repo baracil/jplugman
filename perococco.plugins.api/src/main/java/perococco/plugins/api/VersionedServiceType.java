@@ -32,4 +32,9 @@ public class VersionedServiceType<T> implements Comparable<VersionedServiceType<
         }
         return this.version.compareTo(that.version);
     }
+
+    @Override
+    public String toString() {
+        return "{" + serviceType + " "+version+"}";
+    }
 }

@@ -10,7 +10,7 @@ public interface Application {
 
     /**
      * The application version the plugins will be plugged to. This
-     * is checked against {@link Plugin#getVersionCompatibility()}.
+     * is checked against {@link Plugin#getApplicationVersion()}.
      */
     @NonNull Version getVersion();
 

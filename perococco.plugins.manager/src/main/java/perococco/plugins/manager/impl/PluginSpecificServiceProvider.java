@@ -5,9 +5,9 @@ import com.google.common.collect.ImmutableSet;
 import lombok.AccessLevel;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import Bastien Aracil.plugins.api.VersionedServiceType;
 import Bastien Aracil.plugins.api.ServiceProvider;
 import Bastien Aracil.plugins.api.VersionedServiceProvider;
+import Bastien Aracil.plugins.api.VersionedServiceType;
 
 import java.util.Optional;
 
@@ -19,16 +19,12 @@ public class PluginSpecificServiceProvider implements ServiceProvider {
             @NonNull VersionedServiceProvider versionedServiceProvider) {
         return new PluginSpecificServiceProvider(
                 pluginRequirements.stream()
-                                  .collect(ImmutableMap.toImmutableMap(VersionedServiceType::getServiceType,
-                                                                       r -> r))
-                ,
+                                  .collect(ImmutableMap.toImmutableMap(VersionedServiceType::getServiceType, r -> r)),
                 versionedServiceProvider
         );
     }
 
-
     private final @NonNull ImmutableMap<Class<?>, VersionedServiceType<?>> pluginRequirements;
-
     private final @NonNull VersionedServiceProvider versionedServiceProvider;
 
     @Override
