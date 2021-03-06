@@ -30,7 +30,6 @@ public class TestApplication implements Application {
     @Override
     @Synchronized
     public void plugService(@NonNull VersionedService versionedService) {
-        System.out.println("Plug   "+versionedService);
         attachedServices = ImmutableList.<VersionedService>builder()
                                         .addAll(this.attachedServices)
                                         .add(versionedService)
@@ -40,7 +39,6 @@ public class TestApplication implements Application {
     @Override
     @Synchronized
     public void unplugService(@NonNull VersionedService versionedService) {
-        System.out.println("Unplug "+versionedService);
         var builder = ImmutableList.<VersionedService>builder();
         boolean removed = false;
         for (VersionedService attachedService : attachedServices) {
