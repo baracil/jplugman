@@ -3,6 +3,7 @@ open module Bastien Aracil.plugins.test.test {
 
     requires com.google.common;
     requires org.junit.jupiter.api;
+    requires org.junit.jupiter.engine;
     requires org.junit.jupiter.params;
     requires Bastien Aracil.plugins.api;
     requires Bastien Aracil.plugins.manager;

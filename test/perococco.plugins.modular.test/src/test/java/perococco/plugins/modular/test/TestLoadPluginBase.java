@@ -2,7 +2,6 @@ package Bastien Aracil.plugins.modular.test;
 
 import com.google.common.collect.ImmutableList;
 import lombok.NonNull;
-import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.io.TempDir;
 import Bastien Aracil.plugins.api.VersionedService;
@@ -15,7 +14,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.stream.Stream;
 
-public abstract class PluginTestBase {
+public abstract class TestLoadPluginBase {
 
 
     protected ImmutableList<VersionedService> attachedServices;
@@ -40,7 +39,7 @@ public abstract class PluginTestBase {
 
     private void copyPluginsToPluginDir(String resourceName) {
         final String pluginFilename = resourceName+".zip";
-        final URL plugin = PluginTestBase.class.getResource("/plugins/"+pluginFilename);
+        final URL plugin = TestLoadPluginBase.class.getResource("/plugins/"+pluginFilename);
         try (var inputStream = plugin.openStream()) {
             Files.copy(inputStream,pluginDir.resolve(pluginFilename));
         } catch (IOException e) {

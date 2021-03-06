@@ -8,12 +8,12 @@ import Bastien Aracil.plugins.api.Version;
 import Bastien Aracil.plugins.manager.PluginManager;
 import Bastien Aracil.plugins.modular.core.VersionGetter;
 
-public class LoadPlugin1bThen1a extends PluginTestBase {
+public class TestLoadPlugin1AThen1B extends TestLoadPluginBase {
 
     @Override
     protected void setUp(@NonNull PluginManager pluginManager) {
-        pluginManager.addPluginBundle(getPluginPath("plugin1b"));
         pluginManager.addPluginBundle(getPluginPath("plugin1a"));
+        pluginManager.addPluginBundle(getPluginPath("plugin1b"));
     }
 
     @Test

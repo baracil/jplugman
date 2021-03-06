@@ -19,7 +19,7 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.stream.Stream;
 
-public class LoadPlugin3Then1bThen4Then2 extends PluginTestBase {
+public class TestLoadPlugin3Then1BThen4Then2 extends TestLoadPluginBase {
 
     @Override
     protected void setUp(@NonNull PluginManager pluginManager) {

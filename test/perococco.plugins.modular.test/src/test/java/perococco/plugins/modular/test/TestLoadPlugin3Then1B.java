@@ -13,13 +13,12 @@ import Bastien Aracil.plugins.modular.core.VersionGetter;
 
 import java.util.stream.Stream;
 
-public class LoadPlugin3Then1bThen4 extends PluginTestBase {
+public class TestLoadPlugin3Then1B extends TestLoadPluginBase {
 
     @Override
     protected void setUp(@NonNull PluginManager pluginManager) {
         pluginManager.addPluginBundle(getPluginPath("plugin3"));
         pluginManager.addPluginBundle(getPluginPath("plugin1b"));
-        pluginManager.addPluginBundle(getPluginPath("plugin4"));
     }
 
 

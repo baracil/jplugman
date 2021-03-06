@@ -8,10 +8,11 @@ import Bastien Aracil.plugins.api.Version;
 import Bastien Aracil.plugins.manager.PluginManager;
 import Bastien Aracil.plugins.modular.core.VersionGetter;
 
-public class LoadPlugins1a extends PluginTestBase {
+public class TestLoadPlugin1BThen1A extends TestLoadPluginBase {
 
     @Override
     protected void setUp(@NonNull PluginManager pluginManager) {
+        pluginManager.addPluginBundle(getPluginPath("plugin1b"));
         pluginManager.addPluginBundle(getPluginPath("plugin1a"));
     }
 
@@ -21,9 +22,9 @@ public class LoadPlugins1a extends PluginTestBase {
     }
 
     @Test
-    public void shouldHaveVersion100() {
+    public void shouldHaveVersion110() {
         final var version = attachedServices.get(0).getVersion();
-        Assertions.assertEquals(Version.with(1,0,0),version);
+        Assertions.assertEquals(Version.with(1,1,0),version);
     }
 
     @Test

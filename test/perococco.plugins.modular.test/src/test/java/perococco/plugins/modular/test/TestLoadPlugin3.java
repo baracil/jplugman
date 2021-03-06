@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import Bastien Aracil.plugins.manager.PluginManager;
 
-public class LoadPlugin3 extends PluginTestBase {
+public class TestLoadPlugin3 extends TestLoadPluginBase {
 
     @Override
     protected void setUp(@NonNull PluginManager pluginManager) {
