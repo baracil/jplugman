@@ -1,0 +1,24 @@
+@startuml
+
+[*] -> INSTALLED
+
+state RESOLVED #FF0
+state FAILED #FF0
+
+RESOLVED --> INSTALLED
+INSTALLED --> RESOLVED
+
+INSTALLED --> UNINSTALLED
+
+
+
+
+RESOLVED --> PLUGGED : loading succeeded
+PLUGGED --> INSTALLED : unload
+
+RESOLVED --> FAILED : loading failed
+
+FAILED --> UNINSTALLED
+
+UNINSTALLED --> [*]
+@enduml
