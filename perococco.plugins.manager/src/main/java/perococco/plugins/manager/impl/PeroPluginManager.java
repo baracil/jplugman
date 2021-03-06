@@ -44,5 +44,10 @@ public class PeroPluginManager implements PluginManager {
         loadedLocations.remove(pluginBundleLocation);
     }
 
-
+    @Override
+    @Synchronized
+    public void removeAllPluginBundles() {
+        loadedLocations.forEach(l -> BundleRemover.remove(pluginRegistry,l));
+        loadedLocations.clear();
+    }
 }

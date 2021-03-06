@@ -29,6 +29,8 @@ public interface PluginManager {
      */
     void removePluginBundle(@NonNull Path pluginLocation);
 
+    void removeAllPluginBundles();
+
 
     interface Factory {
         @NonNull PluginManager create(@NonNull Application application);

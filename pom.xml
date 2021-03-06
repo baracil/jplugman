@@ -35,6 +35,7 @@
 
     <modules>
         <module>Bastien Aracil.plugins.api</module>
+        <module>Bastien Aracil.plugins.tools</module>
         <module>Bastien Aracil.plugins.manager</module>
         <module>Bastien Aracil.plugins.modular</module>
         <module>test</module>
