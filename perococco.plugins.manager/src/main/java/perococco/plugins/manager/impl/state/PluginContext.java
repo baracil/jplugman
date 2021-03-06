@@ -48,7 +48,7 @@ public class PluginContext {
     }
 
     public @NonNull VersionedServiceProvider getApplicationServiceProvider() {
-        return application.getServiceProvider();
+        return application.getServiceProvider(plugin.getProvidedService());
     }
 
     public @NonNull VersionedService loadService(ServiceProvider serviceProvider) {
@@ -56,17 +56,17 @@ public class PluginContext {
     }
 
     public void attachService(VersionedService versionService) {
-        this.application.attachService(versionService);
+        this.application.plugService(versionService);
         this.pluginServiceProvider.addVersionedService(versionService);
     }
 
     public void detachService(VersionedService versionedService) {
         this.pluginServiceProvider.removeVersionedService(versionedService);
-        this.application.detachService(versionedService);
+        this.application.unplugService(versionedService);
     }
 
     public boolean isServiceAvailable(@NonNull VersionedServiceType<?> requirement) {
-        final var serviceProvider = pluginServiceProvider.thenSearch(application.getServiceProvider());
+        final var serviceProvider = pluginServiceProvider.thenSearch(getApplicationServiceProvider());
         return serviceProvider.hasService(requirement);
     }
 }

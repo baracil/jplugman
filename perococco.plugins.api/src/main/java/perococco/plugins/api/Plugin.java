@@ -27,7 +27,7 @@ public interface Plugin {
     /**
      * @return the version of the application this plugin has been compiled for
      */
-    Version getApplicationVersion();
+    @NonNull Version getApplicationVersion();
 
     /**
      * @return the set of services this plugin needs to load the service it provides

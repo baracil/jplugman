@@ -1,10 +1,7 @@
 package Bastien Aracil.plugins.manager;
 
 import lombok.NonNull;
-import Bastien Aracil.plugins.api.Plugin;
-import Bastien Aracil.plugins.api.Version;
-import Bastien Aracil.plugins.api.VersionedService;
-import Bastien Aracil.plugins.api.VersionedServiceProvider;
+import Bastien Aracil.plugins.api.*;
 
 public interface Application {
 
@@ -14,9 +11,23 @@ public interface Application {
      */
     @NonNull Version getVersion();
 
-    @NonNull VersionedServiceProvider getServiceProvider();
+    /**
+     * @param pluginServiceType the type of the service of the plugin
+     * @return the service provided by the application filtered for the provided <code>pluginServiceType</code>
+     */
+    @NonNull VersionedServiceProvider getServiceProvider(@NonNull VersionedServiceType<?> pluginServiceType);
 
-    void attachService(@NonNull VersionedService versionedService);
+    /**
+     * Plug a serivce to the application. This must
+     * not affect the service provider of the application.
+     * @param versionedService the service to plug
+     */
+    void plugService(@NonNull VersionedService versionedService);
 
-    void detachService(@NonNull VersionedService versionedService);
+    /**
+     * Unplug a service from the application.
+     * not affect the service provider of the application.
+     * @param versionedService the service to unplug
+     */
+    void unplugService(@NonNull VersionedService versionedService);
 }

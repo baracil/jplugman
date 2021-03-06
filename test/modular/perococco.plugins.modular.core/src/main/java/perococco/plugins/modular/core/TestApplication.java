@@ -17,12 +17,12 @@ public class TestApplication implements Application {
     }
 
     @Override
-    public @NonNull VersionedServiceProvider getServiceProvider() {
+    public @NonNull VersionedServiceProvider getServiceProvider(@NonNull VersionedServiceType<?> versionedServiceType) {
         return serviceProvider;
     }
 
     @Override
-    public void attachService(@NonNull VersionedService versionedService) {
+    public void plugService(@NonNull VersionedService versionedService) {
         System.out.println("Attach service");
         versionedService.getServiceAs(VersionGetter.class)
                         .map(VersionGetter::getFullVersion)
@@ -30,7 +30,7 @@ public class TestApplication implements Application {
     }
 
     @Override
-    public void detachService(@NonNull VersionedService versionedService) {
+    public void unplugService(@NonNull VersionedService versionedService) {
         System.out.println("Detach service : "+versionedService);
     }
 
