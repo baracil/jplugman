@@ -6,7 +6,6 @@ import lombok.AccessLevel;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import Bastien Aracil.plugins.manager.impl.ServiceTypeProvider;
-import Bastien Aracil.plugins.manager.impl.Todo;
 import Bastien Aracil.plugins.manager.impl.state.PluginData;
 import Bastien Aracil.plugins.manager.impl.state.StateOperation;
 

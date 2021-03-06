@@ -6,12 +6,6 @@ import lombok.Synchronized;
 import Bastien Aracil.plugins.manager.Application;
 import Bastien Aracil.plugins.manager.PluginManager;
 import Bastien Aracil.plugins.manager.impl.action.BundleAdder;
-import Bastien Aracil.plugins.manager.impl.action.ObsoletePluginFinder;
-import Bastien Aracil.plugins.manager.impl.action.CompatiblePluginContextCreator;
-import Bastien Aracil.plugins.manager.impl.graph.GraphCreator;
-import Bastien Aracil.plugins.manager.impl.graph.Node;
-import Bastien Aracil.plugins.manager.impl.state.InstalledState;
-import Bastien Aracil.plugins.manager.impl.state.PluginData;
 
 import java.nio.file.Path;
 import java.util.HashSet;

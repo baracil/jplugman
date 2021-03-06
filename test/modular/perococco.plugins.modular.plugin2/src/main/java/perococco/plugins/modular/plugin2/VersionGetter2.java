@@ -5,8 +5,6 @@ import lombok.RequiredArgsConstructor;
 import Bastien Aracil.plugins.modular.core.VersionGetter;
 import Bastien Aracil.vp.VersionProvider;
 
-import java.util.ServiceLoader;
-
 @RequiredArgsConstructor
 public class VersionGetter2 implements VersionGetter {
 

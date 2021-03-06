@@ -5,7 +5,6 @@ import lombok.NonNull;
 
 import java.nio.file.Path;
 import java.util.ServiceLoader;
-import java.util.UUID;
 
 public interface Plugin {
 

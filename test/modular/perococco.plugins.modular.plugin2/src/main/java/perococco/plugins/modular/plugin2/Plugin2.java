@@ -6,9 +6,7 @@ import Bastien Aracil.plugins.api.*;
 import Bastien Aracil.plugins.modular.core.DummyService;
 import Bastien Aracil.vp.VersionProvider;
 
-import java.nio.charset.StandardCharsets;
 import java.util.ServiceLoader;
-import java.util.UUID;
 
 public class Plugin2 implements Plugin {
 

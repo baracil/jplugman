@@ -1,7 +1,10 @@
 package Bastien Aracil.plugins.modular.core;
 
 import lombok.NonNull;
-import Bastien Aracil.plugins.api.*;
+import Bastien Aracil.plugins.api.Version;
+import Bastien Aracil.plugins.api.VersionedService;
+import Bastien Aracil.plugins.api.VersionedServiceProvider;
+import Bastien Aracil.plugins.api.VersionedServiceType;
 import Bastien Aracil.plugins.manager.Application;
 import Bastien Aracil.plugins.manager.PluginManager;
 

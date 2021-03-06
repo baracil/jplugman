@@ -5,9 +5,7 @@ import lombok.NonNull;
 import Bastien Aracil.plugins.api.*;
 import Bastien Aracil.vp.VersionProvider;
 
-import java.nio.charset.StandardCharsets;
 import java.util.ServiceLoader;
-import java.util.UUID;
 
 public class Plugin1 implements Plugin {
 

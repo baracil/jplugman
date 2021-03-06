@@ -1,7 +1,6 @@
 package Bastien Aracil.plugins.manager.impl.state;
 
 import lombok.NonNull;
-import Bastien Aracil.plugins.api.VersionedServiceType;
 
 public interface PluginState extends StateOperation<PluginState> {
 

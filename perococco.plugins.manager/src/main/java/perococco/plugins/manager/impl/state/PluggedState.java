@@ -3,7 +3,6 @@ package Bastien Aracil.plugins.manager.impl.state;
 import lombok.Getter;
 import lombok.NonNull;
 import Bastien Aracil.plugins.api.VersionedService;
-import Bastien Aracil.plugins.api.VersionedServiceType;
 
 public class PluggedState extends PluginStateBase {
 
