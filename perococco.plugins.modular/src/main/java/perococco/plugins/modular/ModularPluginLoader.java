@@ -29,25 +29,23 @@ import java.util.zip.ZipInputStream;
 @Log4j2
 public class ModularPluginLoader implements PluginLoader {
 
-    public static final String FILE_SCHEME = "file";
-
     @Override
-    public @NonNull Result load(@NonNull Path location) {
-        return Loader.load(location);
+    public @NonNull Result load(@NonNull Path zipFileLocation) {
+        return Loader.load(zipFileLocation);
     }
 
     @RequiredArgsConstructor
     private static class Loader {
 
-        public static @NonNull Result load(@NonNull Path location) {
+        public static @NonNull Result load(@NonNull Path zipFileLocation) {
             try {
-                return new Loader(location).load();
+                return new Loader(zipFileLocation).load();
             } catch (IOException e) {
                 throw new UncheckedIOException(e);
             }
         }
 
-        private final @NonNull Path location;
+        private final @NonNull Path zipFileLocation;
 
         private Path temporaryDirectory;
 
@@ -78,10 +76,10 @@ public class ModularPluginLoader implements PluginLoader {
         }
 
         private void checkInputLocationIsAZipFile() {
-            if (location.getFileName().toString().endsWith(".zip")) {
+            if (zipFileLocation.getFileName().toString().endsWith(".zip")) {
                 return;
             }
-            throw new InvalidPluginLocation("The plugin location must point to a zip file", location);
+            throw new InvalidPluginLocation("The plugin location must point to a zip file", zipFileLocation);
         }
 
         private void createTemporaryDirectory() throws IOException {
@@ -90,7 +88,7 @@ public class ModularPluginLoader implements PluginLoader {
 
         private void extractZipInTemporaryDirectory() throws IOException {
             //todo put unzip in specific class
-            try (ZipInputStream zis = new ZipInputStream(Files.newInputStream(location))) {
+            try (ZipInputStream zis = new ZipInputStream(Files.newInputStream(zipFileLocation))) {
                 ZipEntry entry;
                 while ((entry = zis.getNextEntry()) != null) {
                     final var outputFile = temporaryDirectory.resolve(entry.getName());
@@ -116,7 +114,7 @@ public class ModularPluginLoader implements PluginLoader {
                 moduleDirectory = Files.list(temporaryDirectory)
                                        .filter(Files::isDirectory)
                                        .findFirst()
-                                       .orElseThrow(() -> new InvalidPluginStructure(location));
+                                       .orElseThrow(() -> new InvalidPluginStructure(zipFileLocation));
             }
         }
 

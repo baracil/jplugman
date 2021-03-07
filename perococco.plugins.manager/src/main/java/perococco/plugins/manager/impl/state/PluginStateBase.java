@@ -3,7 +3,7 @@ package Bastien Aracil.plugins.manager.impl.state;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import Bastien Aracil.plugins.api.VersionedServiceType;
+import Bastien Aracil.plugins.api.VersionedServiceClass;
 
 import java.nio.file.Path;
 
@@ -14,7 +14,7 @@ public abstract class PluginStateBase implements PluginState {
     protected final @NonNull PluginContext pluginContext;
 
     @Override
-    public boolean isServiceAvailable(@NonNull VersionedServiceType<?> requirement) {
+    public boolean isServiceAvailable(@NonNull VersionedServiceClass<?> requirement) {
         return pluginContext.isServiceAvailable(requirement);
     }
 

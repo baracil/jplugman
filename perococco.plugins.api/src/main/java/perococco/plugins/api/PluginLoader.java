@@ -9,7 +9,7 @@ import java.nio.file.Path;
 
 public interface PluginLoader {
 
-    @NonNull Result load(@NonNull Path location);
+    @NonNull Result load(@NonNull Path zipFileLocation);
 
     @RequiredArgsConstructor
     @Getter

@@ -5,7 +5,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import Bastien Aracil.plugins.api.Nil;
 import Bastien Aracil.plugins.api.VersionedServiceProvider;
-import Bastien Aracil.plugins.api.VersionedServiceType;
+import Bastien Aracil.plugins.api.VersionedServiceClass;
 
 import java.nio.file.Path;
 
@@ -72,7 +72,7 @@ public class PluginData implements StateOperation<Nil>{
         return this.state.isInFailedState();
     }
 
-    public boolean isServiceAvailable(VersionedServiceType<?> requirement) {
+    public boolean isServiceAvailable(VersionedServiceClass<?> requirement) {
         return this.state.isServiceAvailable(requirement);
     }
 

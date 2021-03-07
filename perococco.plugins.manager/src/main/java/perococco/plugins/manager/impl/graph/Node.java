@@ -4,9 +4,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import Bastien Aracil.plugins.api.Version;
-import Bastien Aracil.plugins.api.VersionedService;
-import Bastien Aracil.plugins.api.VersionedServiceType;
+import Bastien Aracil.plugins.api.VersionedServiceClass;
 import Bastien Aracil.plugins.manager.impl.state.PluginData;
 
 import java.util.ArrayList;
@@ -54,8 +52,8 @@ public class Node implements GraphNode<Node> {
 
         final var serviceProvider = this.pluginData.getApplicationServiceProvider();
 
-        final Predicate<VersionedServiceType<?>> providedByPlugins = r -> dependencies.stream().anyMatch(n -> n.getPluginData().getProvidedService().provides(r));
-        final Predicate<VersionedServiceType<?>> providedByMainApplication = serviceProvider::hasService;
+        final Predicate<VersionedServiceClass<?>> providedByPlugins = r -> dependencies.stream().anyMatch(n -> n.getPluginData().getProvidedService().provides(r));
+        final Predicate<VersionedServiceClass<?>> providedByMainApplication = serviceProvider::hasService;
         return requirements.stream().allMatch(providedByPlugins.or(providedByMainApplication));
     }
 

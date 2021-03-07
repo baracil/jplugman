@@ -19,13 +19,13 @@ public class Plugin2 implements Plugin {
     }
 
     @Override
-    public @NonNull ImmutableSet<VersionedServiceType<?>> getRequirements() {
+    public @NonNull ImmutableSet<VersionedServiceClass<?>> getRequirements() {
         return ImmutableSet.of();
     }
 
     @Override
-    public @NonNull VersionedServiceType<?> getProvidedService() {
-        return new VersionedServiceType<>(VersionGetter.class, VERSION);
+    public @NonNull VersionedServiceClass<?> getProvidedService() {
+        return new VersionedServiceClass<>(VersionGetter.class, VERSION);
     }
 
     public @NonNull VersionedService loadService(@NonNull ModuleLayer pluginLayer, @NonNull ServiceProvider serviceProvider) {

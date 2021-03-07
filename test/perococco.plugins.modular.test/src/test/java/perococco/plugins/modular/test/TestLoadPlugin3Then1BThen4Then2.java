@@ -9,7 +9,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import Bastien Aracil.plugins.api.Version;
 import Bastien Aracil.plugins.api.VersionedService;
-import Bastien Aracil.plugins.api.VersionedServiceType;
+import Bastien Aracil.plugins.api.VersionedServiceClass;
 import Bastien Aracil.plugins.manager.PluginManager;
 import Bastien Aracil.plugins.modular.core.DummyService;
 import Bastien Aracil.plugins.modular.core.VersionGetter;
@@ -65,17 +65,17 @@ public class TestLoadPlugin3Then1BThen4Then2 extends TestLoadPluginBase {
         Assertions.assertTrue(service.isPresent(),"expected="+expectedType+"  actual="+attachedServices.get(index).getService());
     }
 
-    public void shouldHaveAllServices(@NonNull ImmutableList<VersionedServiceType<?>> expectedServices) {
+    public void shouldHaveAllServices(@NonNull ImmutableList<VersionedServiceClass<?>> expectedServices) {
         Assertions.assertEquals(expectedServices.size(), attachedServices.size());
 
         final Set<VersionedService> actualServices = new HashSet<>(attachedServices);
 
-        for (VersionedServiceType<?> expectedService : expectedServices) {
+        for (VersionedServiceClass<?> expectedService : expectedServices) {
             final Iterator<VersionedService> iter = actualServices.iterator();
             while (iter.hasNext()) {
                 var actualService = iter.next();
                 if (actualService.getVersion().equals(expectedService.getVersion()) &&
-                        expectedService.getServiceType().isInstance(actualService.getService())) {
+                        expectedService.getServiceClass().isInstance(actualService.getService())) {
                     iter.remove();
                     break;
                 }

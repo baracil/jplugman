@@ -4,15 +4,12 @@ import com.google.common.collect.ImmutableList;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Synchronized;
-import Bastien Aracil.plugins.api.Version;
-import Bastien Aracil.plugins.api.VersionedService;
-import Bastien Aracil.plugins.api.VersionedServiceProvider;
-import Bastien Aracil.plugins.api.VersionedServiceType;
+import Bastien Aracil.plugins.api.*;
 import Bastien Aracil.plugins.manager.Application;
 
 public class TestApplication implements Application {
 
-    private final VersionedServiceProvider serviceProvider = VersionedServiceProvider.of();
+    private final VersionedServiceProvider serviceProvider = ImmutableVersionedServiceProvider.of();
 
     @Getter
     private ImmutableList<VersionedService> attachedServices = ImmutableList.of();
@@ -23,7 +20,7 @@ public class TestApplication implements Application {
     }
 
     @Override
-    public @NonNull VersionedServiceProvider getServiceProvider(@NonNull VersionedServiceType<?> versionedServiceType) {
+    public @NonNull VersionedServiceProvider getServiceProvider(@NonNull VersionedServiceClass<?> versionedServiceClass) {
         return serviceProvider;
     }
 

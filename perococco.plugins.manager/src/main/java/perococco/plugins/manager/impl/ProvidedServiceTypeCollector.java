@@ -5,6 +5,7 @@ import com.google.common.collect.Table;
 import lombok.NonNull;
 import Bastien Aracil.plugins.manager.impl.state.PluginContext;
 
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.BinaryOperator;
@@ -12,20 +13,20 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collector;
 
-public class ProvidedServiceTypeCollector implements Collector<PluginContext, Table<Class<?>, Integer, ProvidedServiceType>, Table<Class<?>, Integer, ProvidedServiceType>> {
+public class ProvidedServiceTypeCollector implements Collector<PluginContext, Table<Class<?>, Integer, PluginIdAndVersionServiceClass>, Table<Class<?>, Integer, PluginIdAndVersionServiceClass>> {
 
     @Override
-    public Supplier<Table<Class<?>, Integer, ProvidedServiceType>> supplier() {
+    public Supplier<Table<Class<?>, Integer, PluginIdAndVersionServiceClass>> supplier() {
         return HashBasedTable::create;
     }
 
     @Override
-    public BiConsumer<Table<Class<?>, Integer, ProvidedServiceType>, PluginContext> accumulator() {
-        return (t, p) -> accumulate(t, ProvidedServiceType.create(p));
+    public BiConsumer<Table<Class<?>, Integer, PluginIdAndVersionServiceClass>, PluginContext> accumulator() {
+        return (t, p) -> accumulate(t, PluginIdAndVersionServiceClass.createWith(p));
     }
 
     @Override
-    public BinaryOperator<Table<Class<?>, Integer, ProvidedServiceType>> combiner() {
+    public BinaryOperator<Table<Class<?>, Integer, PluginIdAndVersionServiceClass>> combiner() {
         return (t1, t2) -> {
             t2.values().forEach(v -> accumulate(t1, v));
             return t1;
@@ -33,7 +34,7 @@ public class ProvidedServiceTypeCollector implements Collector<PluginContext, Ta
     }
 
     @Override
-    public Function<Table<Class<?>, Integer, ProvidedServiceType>, Table<Class<?>, Integer, ProvidedServiceType>> finisher() {
+    public Function<Table<Class<?>, Integer, PluginIdAndVersionServiceClass>, Table<Class<?>, Integer, PluginIdAndVersionServiceClass>> finisher() {
         return t -> t;
     }
 
@@ -42,21 +43,19 @@ public class ProvidedServiceTypeCollector implements Collector<PluginContext, Ta
         return Set.of(Characteristics.IDENTITY_FINISH);
     }
 
-    private void accumulate(@NonNull Table<Class<?>, Integer, ProvidedServiceType> table, @NonNull ProvidedServiceType providedServiceType) {
-        final var serviceType = providedServiceType.getServiceType();
-        final var majorVersion = providedServiceType.getMajorVersion();
-        final var existing = table.get(serviceType, majorVersion);
-        if (existing == null) {
-            table.put(serviceType, majorVersion, providedServiceType);
-        } else {
-            table.put(serviceType, majorVersion, max(existing, providedServiceType));
-        }
+    private void accumulate(@NonNull Table<Class<?>, Integer, PluginIdAndVersionServiceClass> table,
+                            @NonNull PluginIdAndVersionServiceClass toAdd) {
+        final var serviceType = toAdd.getServiceType();
+        final var majorVersion = toAdd.getMajorVersion();
+        final var newValue = Optional.ofNullable(table.get(serviceType, majorVersion))
+                                     .map(existing -> max(existing, toAdd))
+                                     .orElse(toAdd);
+        table.put(serviceType, majorVersion, newValue);
     }
 
-    public @NonNull ProvidedServiceType max(@NonNull ProvidedServiceType pst1, @NonNull ProvidedServiceType pst2) {
-        return pst1.getVersion().compareTo(pst2.getVersion()) >= 0 ?pst1:pst2;
+    public @NonNull PluginIdAndVersionServiceClass max(@NonNull PluginIdAndVersionServiceClass pst1, @NonNull PluginIdAndVersionServiceClass pst2) {
+        return pst1.getVersion().compareTo(pst2.getVersion()) >= 0 ? pst1 : pst2;
     }
-
 
 
 }

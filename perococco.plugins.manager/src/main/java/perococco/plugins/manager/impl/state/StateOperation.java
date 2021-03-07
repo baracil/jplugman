@@ -2,7 +2,7 @@ package Bastien Aracil.plugins.manager.impl.state;
 
 import com.google.common.collect.ImmutableSet;
 import lombok.NonNull;
-import Bastien Aracil.plugins.api.VersionedServiceType;
+import Bastien Aracil.plugins.api.VersionedServiceClass;
 
 import java.nio.file.Path;
 
@@ -30,15 +30,15 @@ public interface StateOperation<S> {
         return getPluginContext().getId();
     }
 
-    default @NonNull VersionedServiceType<?> getProvidedService() {
+    default @NonNull VersionedServiceClass<?> getProvidedService() {
         return getPluginContext().getProvidedService();
     }
 
-    default ImmutableSet<VersionedServiceType<?>> getPluginRequirements() {
+    default ImmutableSet<VersionedServiceClass<?>> getPluginRequirements() {
         return getPluginContext().getPluginRequirements();
     }
 
-    boolean isServiceAvailable(@NonNull VersionedServiceType<?> requirement);
+    boolean isServiceAvailable(@NonNull VersionedServiceClass<?> requirement);
 
     boolean isFromBundle(@NonNull Path pluginBundleLocation);
 }

@@ -3,8 +3,6 @@ package Bastien Aracil.plugins.manager.impl;
 import com.google.common.collect.ImmutableList;
 import lombok.NonNull;
 import lombok.experimental.Delegate;
-import Bastien Aracil.plugins.api.HashSetVersionedServiceProvider;
-import Bastien Aracil.plugins.api.MutableVersionedServiceProvider;
 import Bastien Aracil.plugins.manager.impl.state.PluginData;
 
 import java.util.HashMap;

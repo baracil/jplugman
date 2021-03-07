@@ -17,9 +17,9 @@ public class VersionedService {
 
     private final @NonNull Version version;
 
-    public @NonNull <T> Optional<T> getServiceAs(@NonNull Class<T> serviceType) {
-        if (serviceType.isInstance(service)) {
-            return Optional.of(serviceType.cast(service));
+    public @NonNull <T> Optional<T> getServiceAs(@NonNull Class<T> serviceClass) {
+        if (serviceClass.isInstance(service)) {
+            return Optional.of(serviceClass.cast(service));
         }
         return Optional.empty();
     }

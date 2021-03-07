@@ -5,7 +5,7 @@ import com.google.common.collect.ImmutableMap;
 import lombok.AccessLevel;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import Bastien Aracil.plugins.manager.impl.ServiceTypeProvider;
+import Bastien Aracil.plugins.manager.impl.PluginServiceTypeRegistry;
 import Bastien Aracil.plugins.manager.impl.state.PluginData;
 import Bastien Aracil.plugins.manager.impl.state.StateOperation;
 
@@ -25,7 +25,7 @@ public class GraphCreator {
 
     private Map<Long, Node> nodes;
 
-    private ServiceTypeProvider serviceTypeProvider;
+    private PluginServiceTypeRegistry pluginServiceTypeRegistry;
 
     private @NonNull Graph<Node> create() {
         this.createServiceTypeProvider();
@@ -35,7 +35,7 @@ public class GraphCreator {
     }
 
     private void createServiceTypeProvider() {
-        serviceTypeProvider = ServiceTypeProvider.create(pluginDataInGraph, StateOperation::getPluginContext);
+        pluginServiceTypeRegistry = PluginServiceTypeRegistry.create(pluginDataInGraph, StateOperation::getPluginContext);
     }
 
     private void createAllNodes() {
@@ -53,7 +53,7 @@ public class GraphCreator {
 
         p.getPluginRequirements()
          .stream()
-         .map(serviceTypeProvider::findPluginProviding)
+         .map(pluginServiceTypeRegistry::findPluginProviding)
          .flatMap(Optional::stream)
          .map(id -> nodes.get(id))
          .forEach(node::addDependency);

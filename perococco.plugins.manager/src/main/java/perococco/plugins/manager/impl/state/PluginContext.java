@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import Bastien Aracil.plugins.api.*;
 import Bastien Aracil.plugins.manager.Application;
+import Bastien Aracil.plugins.manager.impl.MutableVersionedServiceProvider;
 
 import java.nio.file.Path;
 import java.util.concurrent.atomic.AtomicLong;
@@ -41,11 +42,11 @@ public class PluginContext {
         );
     }
 
-    public @NonNull VersionedServiceType<?> getProvidedService() {
+    public @NonNull VersionedServiceClass<?> getProvidedService() {
         return plugin.getProvidedService();
     }
 
-    public @NonNull ImmutableSet<VersionedServiceType<?>> getPluginRequirements() {
+    public @NonNull ImmutableSet<VersionedServiceClass<?>> getPluginRequirements() {
         return plugin.getRequirements();
     }
 
@@ -69,7 +70,7 @@ public class PluginContext {
         this.application.unplugService(versionedService);
     }
 
-    public boolean isServiceAvailable(@NonNull VersionedServiceType<?> requirement) {
+    public boolean isServiceAvailable(@NonNull VersionedServiceClass<?> requirement) {
         final var serviceProvider = pluginServiceProvider.thenSearch(getApplicationServiceProvider());
         return serviceProvider.hasService(requirement);
     }

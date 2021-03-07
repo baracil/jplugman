@@ -8,6 +8,10 @@ import java.util.ServiceLoader;
 
 public interface PluginManager {
 
+    /**
+     * @param application the application the plugin manager will be used for
+     * @return a plugin manager for the provided application
+     */
     static @NonNull PluginManager create(@NonNull Application application) {
         return ServiceLoader.load(Factory.class)
                             .findFirst()
@@ -29,6 +33,9 @@ public interface PluginManager {
      */
     void removePluginBundle(@NonNull Path pluginLocation);
 
+    /**
+     * Remove all the plugins
+     */
     void removeAllPluginBundles();
 
 

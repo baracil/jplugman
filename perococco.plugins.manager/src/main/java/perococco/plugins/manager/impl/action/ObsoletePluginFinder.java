@@ -5,7 +5,7 @@ import com.google.common.collect.ImmutableSet;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import Bastien Aracil.plugins.manager.impl.PluginRegistry;
-import Bastien Aracil.plugins.manager.impl.ServiceTypeProvider;
+import Bastien Aracil.plugins.manager.impl.PluginServiceTypeRegistry;
 import Bastien Aracil.plugins.manager.impl.graph.GraphCreator;
 import Bastien Aracil.plugins.manager.impl.graph.Node;
 import Bastien Aracil.plugins.manager.impl.state.PluginData;
@@ -19,7 +19,7 @@ public class ObsoletePluginFinder {
 
     private final @NonNull PluginRegistry pluginRegistry;
 
-    private ServiceTypeProvider serviceTypeProvider;
+    private PluginServiceTypeRegistry pluginServiceTypeRegistry;
 
 
     private @NonNull ImmutableSet<Long> search() {
@@ -31,7 +31,7 @@ public class ObsoletePluginFinder {
     }
 
     private boolean isObsolete(PluginData plugin) {
-        return serviceTypeProvider.isNewerVersionAvailable(plugin.getProvidedService());
+        return pluginServiceTypeRegistry.isNewerVersionAvailable(plugin.getProvidedService());
     }
 
     private void buildServiceProviderFromInstalledPlugins() {
@@ -41,6 +41,6 @@ public class ObsoletePluginFinder {
                                     .map(Node::getPluginData)
                                     .collect(ImmutableList.toImmutableList());
 
-        this.serviceTypeProvider = ServiceTypeProvider.create(pluginList, PluginData::getPluginContext);
+        this.pluginServiceTypeRegistry = PluginServiceTypeRegistry.create(pluginList, PluginData::getPluginContext);
     }
 }

@@ -10,34 +10,20 @@ import java.util.Optional;
  */
 public interface VersionedServiceProvider {
 
-    <T> @NonNull Optional<T> findService(@NonNull VersionedServiceType<T> versionedServiceType);
-
-    default boolean hasService(VersionedServiceType<?> versionedServiceType) {
-        return findService(versionedServiceType).isPresent();
-    }
+    /**
+     * @param versionedServiceClass the class of the service with a version number
+     * @param <T> the type of the service
+     * @return an optional of an instantiation of the requested service if any exists, an empty optional otherwise
+     */
+    <T> @NonNull Optional<T> findService(@NonNull VersionedServiceClass<T> versionedServiceClass);
 
     /**
-     * @param versionedServices the services
-     * @return an immutable {@link VersionedServiceProvider} that uses the provided services
+     * @param versionedServiceClass the class of the service with a version number
+     * @return true if this provider has the requested service, false otherwise
      */
-    static @NonNull VersionedServiceProvider of(@NonNull ImmutableSet<VersionedService> versionedServices) {
-        return new ImmutableVersionedServiceProvider(versionedServices);
+    default boolean hasService(VersionedServiceClass<?> versionedServiceClass) {
+        return findService(versionedServiceClass).isPresent();
     }
-
-    /**
-     * @return an immutable {@link VersionedServiceProvider} that provides no service
-     */
-    static @NonNull VersionedServiceProvider of() {
-        return of(ImmutableSet.of());
-    }
-
-    /**
-     * same {@link #of(ImmutableSet)} but with varargs arguments
-     */
-    static @NonNull VersionedServiceProvider of(VersionedService...versionedServices) {
-        return of(ImmutableSet.copyOf(versionedServices));
-    }
-
 
     /**
      * @param after the provider to search if the search in this one failed
@@ -46,8 +32,9 @@ public interface VersionedServiceProvider {
     default @NonNull VersionedServiceProvider thenSearch(@NonNull VersionedServiceProvider after) {
         return new VersionedServiceProvider() {
             @Override
-            public @NonNull <T> Optional<T> findService(@NonNull VersionedServiceType<T> versionedServiceType) {
-                return VersionedServiceProvider.this.findService(versionedServiceType).or(() -> after.findService(versionedServiceType));
+            public @NonNull <T> Optional<T> findService(@NonNull VersionedServiceClass<T> versionedServiceClass) {
+                return VersionedServiceProvider.this.findService(versionedServiceClass).or(() -> after.findService(
+                        versionedServiceClass));
             }
         };
     }

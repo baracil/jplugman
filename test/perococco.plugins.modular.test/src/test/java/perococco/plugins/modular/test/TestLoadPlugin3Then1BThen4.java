@@ -25,8 +25,8 @@ public class TestLoadPlugin3Then1BThen4 extends TestLoadPluginBase {
 
     public static Stream<Arguments> versions() {
         return Stream.of(
-                Arguments.of(0,Version.with(1,1,0)),
-                Arguments.of(1,Version.with(1,0,0))
+                Arguments.of(0,Version.with("1.1.0")),
+                Arguments.of(1,Version.with("1.0.0"))
         );
     }
     public static Stream<Arguments> types() {

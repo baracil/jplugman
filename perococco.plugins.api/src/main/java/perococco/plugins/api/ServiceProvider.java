@@ -9,19 +9,10 @@ import java.util.Optional;
  */
 public interface ServiceProvider {
 
-    <T> @NonNull Optional<T> findService(@NonNull Class<T> serviceType);
+    <T> @NonNull Optional<T> findService(@NonNull Class<T> serviceClass);
 
-    default <T> @NonNull T getService(@NonNull Class<T> serviceType) {
-        return findService(serviceType).orElseThrow(() -> new ServiceNotFound(serviceType));
-    }
-
-    static @NonNull ServiceProvider empty() {
-        return new ServiceProvider() {
-            @Override
-            public @NonNull <T> Optional<T> findService(@NonNull Class<T> serviceType) {
-                return Optional.empty();
-            }
-        };
+    default <T> @NonNull T getService(@NonNull Class<T> serviceClass) {
+        return findService(serviceClass).orElseThrow(() -> new ServiceNotFound(serviceClass));
     }
 
 }
