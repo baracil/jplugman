@@ -1,6 +1,6 @@
 # plugin-manager
 
-[![Build Status](https://github.com/ItalyPaleAle/svelte-spa-router/workflows/Continuous%20Integration%20tests/badge.svg)](https://github.com/Bastien Aracil/plugin-manager/actions)
+[![Build Status](https://github.com/Bastien Aracil/plugin-manager/actions/workflows/maven.yml/badge.svg)](https://github.com/Bastien Aracil/plugin-manager/actions)
 [![GitHub](https://img.shields.io/github/license/Bastien Aracil/plugin-manager.svg)](https://github.com/Bastien Aracil/plugin-manager/blob/develop/LICENSE)
 
 This module is plugin manager that can be used in modular Java projects. Its main features are :
@@ -11,6 +11,6 @@ This module is plugin manager that can be used in modular Java projects. Its mai
 
 This module is released under MIT license.
 
-##
+
 
 
