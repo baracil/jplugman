@@ -28,7 +28,7 @@ public abstract class TestLoadPluginBase {
 
     @BeforeEach
     void setUp() {
-        Stream.of("plugin1a","plugin1b","plugin2","plugin3","plugin4")
+        Stream.of("plugin1a","plugin1b","plugin2","plugin3","plugin4","plugin5")
               .forEach(this::copyPluginsToPluginDir);
         final var application = new TestApplication();
         final var pluginManager = PluginManager.create(application);

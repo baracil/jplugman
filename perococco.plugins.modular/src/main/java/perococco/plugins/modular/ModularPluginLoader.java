@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import Bastien Aracil.plugins.api.InvalidPluginLocation;
 import Bastien Aracil.plugins.api.InvalidPluginStructure;
 import Bastien Aracil.plugins.api.Plugin;
@@ -17,10 +18,15 @@ import java.lang.module.ModuleFinder;
 import java.lang.module.ModuleReference;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.ServiceLoader;
+import java.util.Set;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+@Log4j2
 public class ModularPluginLoader implements PluginLoader {
 
     public static final String FILE_SCHEME = "file";
@@ -62,6 +68,7 @@ public class ModularPluginLoader implements PluginLoader {
             this.createTemporaryDirectory();
             this.extractZipInTemporaryDirectory();
             this.guessModuleDirectory();
+            this.removeModulesProvidedByTheBootLayer();
             this.createModuleFinder();
             this.getAllModuleNames();
             this.createPluginConfiguration();
@@ -69,7 +76,6 @@ public class ModularPluginLoader implements PluginLoader {
             this.loadPlugins();
             return new Result(moduleLayer, plugins);
         }
-
 
         private void checkInputLocationIsAZipFile() {
             if (location.getFileName().toString().endsWith(".zip")) {
@@ -115,9 +121,41 @@ public class ModularPluginLoader implements PluginLoader {
         }
 
 
+        private void removeModulesProvidedByTheBootLayer() {
+            final var moduleFinder = ModuleFinder.of(moduleDirectory);
+
+            final var bootModules = ModuleLayer.boot()
+                                               .modules()
+                                               .stream()
+                                               .map(Module::getName)
+                                               .collect(Collectors.toSet());
+
+            final Predicate<ModuleReference> moduleInBootLayer = mr -> bootModules.contains(mr.descriptor().name());
+
+            moduleFinder.findAll()
+                        .stream()
+                        .filter(moduleInBootLayer)
+                        .map(ModuleReference::location)
+                        .flatMap(Optional::stream)
+                        .map(Path::of)
+                        .forEach(this::deleteFile);
+        }
+
+        private void deleteFile(@NonNull Path path) {
+            try {
+                Files.delete(path);
+            } catch (IOException e) {
+                LOG.warn("Could not remove file {} : {}", path, e.getMessage());
+                LOG.debug(e);
+                throw new UncheckedIOException(e);
+            }
+        }
+
+
         private void createModuleFinder() {
             this.moduleFinder = ModuleFinder.of(moduleDirectory);
         }
+
 
         private void getAllModuleNames() {
             this.pluginNames = moduleFinder.findAll()
@@ -125,12 +163,8 @@ public class ModularPluginLoader implements PluginLoader {
                                            .map(ModuleReference::descriptor)
                                            .map(ModuleDescriptor::name)
                                            .collect(ImmutableSet.toImmutableSet());
-//            System.out.println("CURRENT LAYER");
-//            getClass().getModule().getLayer().modules().forEach(m -> System.out.println(m.getName()));
-//
-//            System.out.println("PLUGIN LAYER");
-//            this.pluginNames.forEach(m -> System.out.println(m));
-//            System.out.println("-------");
+
+
         }
 
 
