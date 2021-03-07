@@ -7,7 +7,7 @@ This module is plugin manager that can be used in modular Java projects. Its mai
 
 * hot-swapping : a plugin can be added/removed/updated while the application is running.
 * dependency management : service provided by a plugin can be used by the main application but also by other plugins.
-* simple packaging : plugins are a simple zip file.
+* simple packaging : plugins are zip files.
 
 This module is released under MIT license.
 
