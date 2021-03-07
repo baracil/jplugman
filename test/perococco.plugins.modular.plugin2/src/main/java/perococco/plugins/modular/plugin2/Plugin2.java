@@ -3,7 +3,6 @@ package Bastien Aracil.plugins.modular.plugin2;
 import com.google.common.collect.ImmutableSet;
 import lombok.NonNull;
 import Bastien Aracil.plugins.api.*;
-import Bastien Aracil.plugins.modular.core.DummyService;
 import Bastien Aracil.plugins.modular.core.VersionGetter;
 import Bastien Aracil.vp.VersionProvider;
 

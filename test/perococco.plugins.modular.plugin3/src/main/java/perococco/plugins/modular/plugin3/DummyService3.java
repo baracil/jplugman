@@ -4,7 +4,6 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import Bastien Aracil.plugins.modular.core.DummyService;
 import Bastien Aracil.plugins.modular.core.VersionGetter;
-import Bastien Aracil.vp.VersionProvider;
 
 @RequiredArgsConstructor
 public class DummyService3 implements DummyService {

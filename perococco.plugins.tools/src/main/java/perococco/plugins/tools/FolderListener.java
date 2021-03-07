@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableSet;
 import lombok.NonNull;
 
 import java.nio.file.Path;
-import java.util.Set;
 
 public interface FolderListener {
 

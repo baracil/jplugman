@@ -5,9 +5,6 @@ import lombok.NonNull;
 import Bastien Aracil.plugins.api.*;
 import Bastien Aracil.plugins.modular.core.DummyService;
 import Bastien Aracil.plugins.modular.core.VersionGetter;
-import Bastien Aracil.vp.VersionProvider;
-
-import java.util.ServiceLoader;
 
 public class Plugin3 implements Plugin {
 

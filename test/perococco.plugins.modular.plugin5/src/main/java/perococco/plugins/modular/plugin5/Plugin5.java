@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableSet;
 import lombok.NonNull;
 import Bastien Aracil.plugins.api.*;
 import Bastien Aracil.plugins.modular.core.DummyService;
-import Bastien Aracil.plugins.modular.core.VersionGetter;
 
 public class Plugin5 implements Plugin {
 

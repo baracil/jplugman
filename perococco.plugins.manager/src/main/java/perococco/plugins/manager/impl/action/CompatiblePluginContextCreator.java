@@ -4,10 +4,10 @@ import com.google.common.collect.ImmutableList;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import Bastien Aracil.plugins.manager.impl.MutableVersionedServiceProvider;
 import Bastien Aracil.plugins.api.Plugin;
 import Bastien Aracil.plugins.api.PluginLoader;
 import Bastien Aracil.plugins.manager.Application;
+import Bastien Aracil.plugins.manager.impl.MutableVersionedServiceProvider;
 import Bastien Aracil.plugins.manager.impl.state.PluginContext;
 
 import java.nio.file.Path;

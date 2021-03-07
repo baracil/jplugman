@@ -6,8 +6,8 @@ import lombok.AccessLevel;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import Bastien Aracil.plugins.api.ServiceProvider;
-import Bastien Aracil.plugins.api.VersionedServiceProvider;
 import Bastien Aracil.plugins.api.VersionedServiceClass;
+import Bastien Aracil.plugins.api.VersionedServiceProvider;
 
 import java.util.Optional;
 
