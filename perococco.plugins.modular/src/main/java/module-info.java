@@ -10,6 +10,8 @@ module Bastien Aracil.plugins.modular {
 
     requires Bastien Aracil.plugins.api;
 
+    requires org.apache.logging.log4j;
+
     provides PluginLoader with ModularPluginLoader;
 
     uses Plugin;

@@ -24,8 +24,5 @@ public interface PluginLoader {
          */
         private final @NonNull ImmutableList<Plugin> plugins;
 
-        public @NonNull VersionedService loadService(int pluginIndex, ServiceProvider serviceProvider) {
-            return plugins.get(pluginIndex).loadService(pluginLayer, serviceProvider);
-        }
     }
 }

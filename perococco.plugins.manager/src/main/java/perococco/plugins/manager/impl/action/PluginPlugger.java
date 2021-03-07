@@ -60,7 +60,8 @@ public class PluginPlugger {
 
         final var serviceTypeProvider = ServiceTypeProvider.create(plugins, PluginData::getPluginContext);
 
-        final var newestPlugins = plugins.stream().filter(p -> serviceTypeProvider.isLastVersion(p))
+        final var newestPlugins = plugins.stream()
+                                         .filter(serviceTypeProvider::isLastVersion)
                                          .collect(ImmutableList.toImmutableList());
 
         this.dependencyGraph = GraphCreator.create(newestPlugins);
