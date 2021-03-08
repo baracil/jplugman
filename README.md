@@ -1,4 +1,4 @@
-# plugin-manager
+# JPlugman
 
 [![Build Status](https://github.com/Bastien Aracil/plugin-manager/actions/workflows/maven.yml/badge.svg)](https://github.com/Bastien Aracil/plugin-manager/actions)
 [![GitHub](https://img.shields.io/github/license/Bastien Aracil/plugin-manager.svg)](https://github.com/Bastien Aracil/plugin-manager/blob/develop/LICENSE)
