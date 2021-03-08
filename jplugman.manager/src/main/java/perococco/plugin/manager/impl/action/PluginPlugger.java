@@ -46,7 +46,7 @@ public class PluginPlugger {
         this.uninstallFailedPlugins();
 
         //INVARIANT -> Aucun plugin n'est dans l'état RESOLVED ni FAILED
-        return someLoadingFailed?Result.SOME_LOADING_FAILURE:Result.PLUG_SUCCEEDED;
+        return someLoadingFailed ? Result.SOME_LOADING_FAILURE : Result.PLUG_SUCCEEDED;
     }
 
     private void markPluginsWithFulfilledRequirementsAsResolved() {
@@ -64,14 +64,13 @@ public class PluginPlugger {
     }
 
     private void buildDependencyGraphForPluggedAndInstalledPlugins() {
-        // construire le graph de dépendances avec les plugins (INSTALLED, PLUGGED)
-        final var plugins = pluginRegistry.getPluginData(p -> p.isInInstalledState() || p.isInPluggedState());
+        //build the dependency graph with plugins that are in installed of plugged state and that are resolved
+        final var resolvedPlugins = ResolvedPluginLister.list(pluginRegistry);
+        final var serviceTypeProvider = PluginServiceTypeRegistry.create(resolvedPlugins, PluginData::getPluginContext);
 
-        final var serviceTypeProvider = PluginServiceTypeRegistry.create(plugins, PluginData::getPluginContext);
-
-        final var newestPlugins = plugins.stream()
-                                         .filter(serviceTypeProvider::isLastVersion)
-                                         .collect(ImmutableList.toImmutableList());
+        final var newestPlugins = resolvedPlugins.stream()
+                                                 .filter(serviceTypeProvider::isLastVersion)
+                                                 .collect(ImmutableList.toImmutableList());
 
         this.dependencyGraph = GraphCreator.create(newestPlugins);
     }

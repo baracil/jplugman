@@ -35,12 +35,8 @@ public class ObsoletePluginFinder {
     }
 
     private void buildServiceProviderFromInstalledPlugins() {
-        var graph = GraphCreator.create(this.pluginRegistry.getPluginData(p -> p.isInPluggedState() || p.isInInstalledState()));
-        final var pluginList = graph.streamNodes()
-                                    .filter(Node::areRequirementFulfilled)
-                                    .map(Node::getPluginData)
-                                    .collect(ImmutableList.toImmutableList());
+        final var resolvedPlugins = ResolvedPluginLister.list(pluginRegistry);
 
-        this.pluginServiceTypeRegistry = PluginServiceTypeRegistry.create(pluginList, PluginData::getPluginContext);
+        this.pluginServiceTypeRegistry = PluginServiceTypeRegistry.create(resolvedPlugins, PluginData::getPluginContext);
     }
 }
