@@ -1,5 +1,5 @@
-import Bastien Aracil.plugins.api.Plugin;
-import Bastien Aracil.plugins.modular.plugin2.Plugin2;
+import Bastien Aracil.plugin.api.Plugin;
+import Bastien Aracil.plugin.modular.plugin2.Plugin2;
 import Bastien Aracil.vp.VersionProvider;
 
 module Bastien Aracil.plugins.test.plugin2 {

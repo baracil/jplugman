@@ -1,6 +1,6 @@
-import Bastien Aracil.plugins.api.Plugin;
-import Bastien Aracil.plugins.api.PluginLoader;
-import Bastien Aracil.plugins.modular.ModularPluginLoader;
+import Bastien Aracil.plugin.api.Plugin;
+import Bastien Aracil.plugin.api.PluginLoader;
+import Bastien Aracil.plugin.modular.ModularPluginLoader;
 
 module Bastien Aracil.plugins.modular {
 
@@ -16,6 +16,6 @@ module Bastien Aracil.plugins.modular {
 
     uses Plugin;
 
-    exports Bastien Aracil.plugins.modular to Bastien Aracil.plugins.test.core;
+    exports Bastien Aracil.plugin.modular to Bastien Aracil.plugins.test.core;
 }
 

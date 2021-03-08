@@ -7,5 +7,5 @@ open module Bastien Aracil.plugins.test.core {
     requires Bastien Aracil.plugins.api;
     requires Bastien Aracil.plugins.manager;
 
-    exports Bastien Aracil.plugins.modular.core;
+    exports Bastien Aracil.plugin.modular.core;
 }
