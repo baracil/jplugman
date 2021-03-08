@@ -4,14 +4,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>Bastien Aracil</groupId>
-    <artifactId>Bastien Aracil-plugins</artifactId>
+    <groupId>Bastien Aracil.jplugman</groupId>
+    <artifactId>jplugman</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>A Simple Plugin Framework</name>
+    <name>${application.name}</name>
 
     <properties>
+        <application.name>JPlugman</application.name>
         <perobobbot.version>1.0.0-SNAPSHOT</perobobbot.version>
         <java.version>15</java.version>
         <lombok.version>1.18.18</lombok.version>
@@ -34,34 +35,41 @@
 
 
     <modules>
-        <module>Bastien Aracil.plugins.api</module>
-        <module>Bastien Aracil.plugins.tools</module>
-        <module>Bastien Aracil.plugins.manager</module>
-        <module>Bastien Aracil.plugins.modular</module>
-        <module>test</module>
+        <module>jplugman.api</module>
+        <module>jplugman.tools</module>
+        <module>jplugman.manager</module>
+        <module>jplugman.loader</module>
+        <module>test/jplugman.test</module>
+        <module>test/jplugman.test.core</module>
+<!--        <module>test/jplugman.test.plugin1a</module>-->
+<!--        <module>test/jplugman.test.plugin1b</module>-->
+<!--        <module>test/jplugman.test.plugin2</module>-->
+<!--        <module>test/jplugman.test.plugin3</module>-->
+<!--        <module>test/jplugman.test.plugin4</module>-->
+<!--        <module>test/jplugman.test.plugin5</module>-->
     </modules>
 
 
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>Bastien Aracil</groupId>
-                <artifactId>Bastien Aracil-plugins-api</artifactId>
+                <groupId>Bastien Aracil.jplugman</groupId>
+                <artifactId>jplugman-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>Bastien Aracil</groupId>
-                <artifactId>Bastien Aracil-plugins-manager</artifactId>
+                <groupId>Bastien Aracil.jplugman</groupId>
+                <artifactId>jplugman-manager</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>Bastien Aracil</groupId>
-                <artifactId>Bastien Aracil-plugins-modular</artifactId>
+                <groupId>Bastien Aracil.jplugman</groupId>
+                <artifactId>jplugman-loader</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>Bastien Aracil</groupId>
-                <artifactId>Bastien Aracil-plugins-test-core</artifactId>
+                <groupId>Bastien Aracil.jplugman</groupId>
+                <artifactId>jplugman-test-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

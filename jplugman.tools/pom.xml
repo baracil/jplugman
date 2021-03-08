@@ -10,20 +10,20 @@
         <version>1.0.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <packaging>pom</packaging>
 
-    <artifactId>jplugman-test</artifactId>
+    <artifactId>jplugman-tools</artifactId>
+    <name>${application.name} - ${module.name}</name>
 
-    <modules>
-        <module>jplugman.test</module>
-        <module>jplugman.test.core</module>
-        <module>plugins/jplugman.test.plugin1a</module>
-        <module>plugins/jplugman.test.plugin1b</module>
-        <module>plugins/jplugman.test.plugin2</module>
-        <module>plugins/jplugman.test.plugin3</module>
-        <module>plugins/jplugman.test.plugin4</module>
-        <module>plugins/jplugman.test.plugin5</module>
-    </modules>
+    <properties>
+        <module.name>Tools</module.name>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>
 
