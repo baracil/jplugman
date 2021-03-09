@@ -1,14 +1,14 @@
-import Bastien Aracil.plugin.api.Plugin;
-import Bastien Aracil.plugin.modular.plugin3.Plugin3;
+import jplugman.api.Plugin;
+import jplugman.test.plugin3.Plugin3;
 import Bastien Aracil.vp.VersionProvider;
 
-module Bastien Aracil.plugins.test.plugin3 {
+module jplugman.test.plugin3 {
     requires static lombok;
 
-    requires Bastien Aracil.plugins.test.core;
+    requires jplugman.test.core;
     requires version.provider;
     requires com.google.common;
-    requires Bastien Aracil.plugins.api;
+    requires jplugman.api;
 
     uses VersionProvider;
 

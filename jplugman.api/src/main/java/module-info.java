@@ -1,10 +1,10 @@
-import Bastien Aracil.plugin.api.PluginLoader;
+import jplugman.api.PluginLoader;
 
-module Bastien Aracil.plugins.api {
+module jplugman.api {
     requires static lombok;
     requires com.google.common;
 
-    exports Bastien Aracil.plugin.api;
+    exports jplugman.api;
 
     uses PluginLoader;
 }

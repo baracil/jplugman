@@ -1,11 +1,11 @@
-open module Bastien Aracil.plugins.test.core {
+open module jplugman.test.core {
     requires static lombok;
 
     requires com.google.common;
 
 
-    requires Bastien Aracil.plugins.api;
-    requires Bastien Aracil.plugins.manager;
+    requires jplugman.api;
+    requires jplugman.manager;
 
-    exports Bastien Aracil.plugin.modular.core;
+    exports jplugman.test.core;
 }
