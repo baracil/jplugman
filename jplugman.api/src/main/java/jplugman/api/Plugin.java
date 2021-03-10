@@ -9,7 +9,7 @@ import java.util.ServiceLoader;
 public interface Plugin {
 
     /**
-     * Load a plugin in a modular JVM
+     * Load a plugin bundle in a modular JVM
      * @param pluginLocation the path to the zip containing the plugin
      * @return the result of the loading : a list of plugins and the module layer used to load them
      */
@@ -33,6 +33,9 @@ public interface Plugin {
      */
     @NonNull ImmutableSet<VersionedServiceClass<?>> getRequirements();
 
+    /**
+     * @return the class and the version of the service this plugin provides
+     */
     @NonNull VersionedServiceClass<?> getProvidedService();
 
     /**

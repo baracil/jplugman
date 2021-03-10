@@ -27,7 +27,7 @@ public interface PluginManager {
     void addPluginBundle(@NonNull Path pluginLocation);
 
     /**
-     * Warn this manager that a plugin has been removed
+     * Warn this manager that a plugin has been removed.
      *
      * @param pluginLocation the location of the plugin that has been remove
      */

@@ -2,7 +2,6 @@ package jplugman.manager;
 
 import jplugman.api.*;
 import lombok.NonNull;
-import jplugman.api.*;
 
 public interface Application {
 
