@@ -92,9 +92,9 @@ public interface Plugin {
     @NonNull VersionedServiceClass<?> getProvidedService();
 
     /**
-     * @return load the service provided by this plugin
+     * @return the service provided by this plugin
      */
-    @NonNull VersionedService loadService(@NonNull ModuleLayer pluginLayer, @NonNull ServiceProvider serviceProvider);
+    @NonNull Object loadService(@NonNull ModuleLayer pluginLayer, @NonNull ServiceProvider serviceProvider);
 }
 ```
 
