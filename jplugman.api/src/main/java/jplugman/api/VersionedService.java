@@ -39,7 +39,7 @@ public class VersionedService {
     public String toString() {
         return "VersionedService{" +
                 "type="+type+
-                "service=" + service +
+                ", service=" + service +
                 ", version=" + version +
                 '}';
     }
