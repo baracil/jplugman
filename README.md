@@ -102,7 +102,7 @@ public interface Plugin {
 
 ## Dependencies and obsolescence
 
-When adding or removing a bundle (which might contains several plugins) the plugin manager might call the methods **Application#plugService** and **Application#unplugService** several times.
+When adding or removing a bundle (which might contain several plugins) the plugin manager might call the methods **Application#plugService** and **Application#unplugService** several times.
 
 This is because the plugin manager takes care of dependencies between plugins as well as obsolete plugins.
 
