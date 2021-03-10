@@ -65,10 +65,10 @@ public class CompatiblePluginContextCreator {
 
         for (Plugin plugin : this.loadingResult.getPlugins()) {
             if (plugin.getApplicationVersion().isCompatible(applicationVersion)) {
-                LOG.debug("Add plugin {}", plugin.getProvidedService());
+                LOG.debug("Add plugin {}", plugin.getProvidedServiceClass());
                 pluginContexts.add(PluginContext.create(application, pluginServiceProvider, pluginLocation, loadingResult.getPluginLayer(), plugin));
             } else {
-                LOG.warn("Incompatible plugin version for {}", plugin.getProvidedService());
+                LOG.warn("Incompatible plugin version for {}", plugin.getProvidedServiceClass());
             }
         }
 

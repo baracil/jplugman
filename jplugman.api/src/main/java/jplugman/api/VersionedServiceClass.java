@@ -38,4 +38,11 @@ public class VersionedServiceClass<T> {
     public boolean provides(@NonNull VersionedServiceClass<?> versionedService) {
         return this.serviceClass.equals(versionedService.serviceClass) && this.version.isCompatible(versionedService.version);
     }
+
+    public @NonNull VersionedService createVersionedService(Object service) {
+        if (!serviceClass.isInstance(service)) {
+            throw new IllegalArgumentException("The loaded service is not of the right type");
+        }
+        return new VersionedService(serviceClass,service,version);
+    }
 }

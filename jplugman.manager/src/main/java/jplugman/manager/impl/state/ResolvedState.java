@@ -17,9 +17,9 @@ public class ResolvedState extends PluginStateBase {
             final var serviceProvider = PluginSpecificServiceProvider.create(
                     pluginContext.getPluginRequirements(),
                     pluginContext.getApplicationServiceProvider().thenSearch(pluginContext.getPluginServiceProvider()));
-            final var versionService = pluginContext.loadService(serviceProvider);
-            pluginContext.plugService(versionService);
-            return new PluggedState(getPluginContext(), versionService);
+            final var service = pluginContext.loadService(serviceProvider);
+            pluginContext.plugService(service);
+            return new PluggedState(getPluginContext(), service);
         } catch (Throwable e) {
             LOG.warn("Could not load plugin {} : {}", pluginContext, e.getMessage());
             LOG.debug(e);

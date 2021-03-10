@@ -22,12 +22,12 @@ public class Plugin4 implements Plugin {
     }
 
     @Override
-    public @NonNull VersionedServiceClass<?> getProvidedService() {
+    public @NonNull VersionedServiceClass<?> getProvidedServiceClass() {
         return new VersionedServiceClass<>(DummyService.class, VERSION);
     }
 
-    public @NonNull VersionedService loadService(@NonNull ModuleLayer pluginLayer, @NonNull ServiceProvider serviceProvider) {
+    public @NonNull Object loadService(@NonNull ModuleLayer pluginLayer, @NonNull ServiceProvider serviceProvider) {
         final var versionGetter = serviceProvider.getService(VersionGetter.class);
-        return new VersionedService(new DummyService4(versionGetter), VERSION);
+        return new DummyService4(versionGetter);
     }
 }

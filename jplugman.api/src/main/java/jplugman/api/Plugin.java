@@ -36,10 +36,10 @@ public interface Plugin {
     /**
      * @return the class and the version of the service this plugin provides
      */
-    @NonNull VersionedServiceClass<?> getProvidedService();
+    @NonNull VersionedServiceClass<?> getProvidedServiceClass();
 
     /**
      * @return load the service provided by this plugin
      */
-    @NonNull VersionedService loadService(@NonNull ModuleLayer pluginLayer, @NonNull ServiceProvider serviceProvider);
+    @NonNull Object loadService(@NonNull ModuleLayer pluginLayer, @NonNull ServiceProvider serviceProvider);
 }

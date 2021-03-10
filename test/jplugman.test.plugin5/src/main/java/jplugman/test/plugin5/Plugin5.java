@@ -2,8 +2,8 @@ package jplugman.test.plugin5;
 
 import com.google.common.collect.ImmutableSet;
 import jplugman.api.*;
+import jplugman.test.plugin5.DummyService5;
 import lombok.NonNull;
-import jplugman.api.*;
 import jplugman.test.core.DummyService;
 
 public class Plugin5 implements Plugin {
@@ -20,12 +20,13 @@ public class Plugin5 implements Plugin {
         return ImmutableSet.of();
     }
 
+
     @Override
-    public @NonNull VersionedServiceClass<?> getProvidedService() {
+    public @NonNull VersionedServiceClass<?> getProvidedServiceClass() {
         return new VersionedServiceClass<>(DummyService.class, VERSION);
     }
 
-    public @NonNull VersionedService loadService(@NonNull ModuleLayer pluginLayer, @NonNull ServiceProvider serviceProvider) {
-        return new VersionedService(new DummyService5(), VERSION);
+    public @NonNull Object loadService(@NonNull ModuleLayer pluginLayer, @NonNull ServiceProvider serviceProvider) {
+        return new DummyService5();
     }
 }

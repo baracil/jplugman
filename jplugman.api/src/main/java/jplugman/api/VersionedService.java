@@ -13,12 +13,23 @@ import java.util.Optional;
 @Getter
 public class VersionedService {
 
+    /**
+     * The type of the service
+     */
+    private final @NonNull Class<?> type;
+
+    /**
+     * The instanciation of the service. service is an instance of type.
+     */
     private final @NonNull Object service;
 
+    /**
+     * The version of the service
+     */
     private final @NonNull Version version;
 
     public @NonNull <T> Optional<T> getServiceAs(@NonNull Class<T> serviceClass) {
-        if (serviceClass.isInstance(service)) {
+        if (serviceClass.isAssignableFrom(type)) {
             return Optional.of(serviceClass.cast(service));
         }
         return Optional.empty();
@@ -27,6 +38,7 @@ public class VersionedService {
     @Override
     public String toString() {
         return "VersionedService{" +
+                "type="+type+
                 "service=" + service +
                 ", version=" + version +
                 '}';

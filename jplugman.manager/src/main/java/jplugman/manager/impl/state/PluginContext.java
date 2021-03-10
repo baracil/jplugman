@@ -43,7 +43,7 @@ public class PluginContext {
     }
 
     public @NonNull VersionedServiceClass<?> getProvidedService() {
-        return plugin.getProvidedService();
+        return plugin.getProvidedServiceClass();
     }
 
     public @NonNull ImmutableSet<VersionedServiceClass<?>> getPluginRequirements() {
@@ -51,15 +51,16 @@ public class PluginContext {
     }
 
     public @NonNull VersionedServiceProvider getApplicationServiceProvider() {
-        return application.getServiceProvider(plugin.getProvidedService());
+        return application.getServiceProvider(plugin.getProvidedServiceClass());
     }
 
     public @NonNull VersionedService loadService(ServiceProvider serviceProvider) {
-        return plugin.loadService(moduleLayer,serviceProvider);
+        final var service= plugin.loadService(moduleLayer,serviceProvider);
+        return plugin.getProvidedServiceClass().createVersionedService(service);
     }
 
     public void plugService(@NonNull VersionedService versionedService) {
-        LOG.debug("Plug   service : {}",versionedService);
+        LOG.debug("Plug   service : {} - {}",versionedService.getType(), versionedService.getClass());
         this.application.plugService(versionedService);
         this.pluginServiceProvider.addVersionedService(versionedService);
     }
@@ -78,7 +79,7 @@ public class PluginContext {
     @Override
     public String toString() {
         return "PluginContext{" + id+ ", " + pluginLocation.getFileName() +
-                ", service=" + plugin.getProvidedService() +
+                ", service=" + plugin.getProvidedServiceClass() +
                 '}';
     }
 }
