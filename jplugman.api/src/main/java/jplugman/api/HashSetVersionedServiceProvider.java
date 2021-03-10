@@ -1,8 +1,6 @@
-package jplugman.manager.impl;
+package jplugman.api;
 
 import lombok.NonNull;
-import jplugman.api.VersionedService;
-import jplugman.api.VersionedServiceClass;
 
 import java.util.HashSet;
 import java.util.Optional;

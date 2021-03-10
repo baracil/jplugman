@@ -1,4 +1,4 @@
-package jplugman.manager.impl;
+package jplugman.api;
 
 import lombok.NonNull;
 import jplugman.api.VersionedService;

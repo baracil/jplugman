@@ -1,6 +1,8 @@
 package jplugman.manager.impl;
 
 import com.google.common.collect.ImmutableList;
+import jplugman.api.HashSetVersionedServiceProvider;
+import jplugman.api.MutableVersionedServiceProvider;
 import lombok.NonNull;
 import lombok.experimental.Delegate;
 import jplugman.manager.impl.state.PluginData;

@@ -7,7 +7,7 @@ import lombok.extern.log4j.Log4j2;
 import jplugman.api.Plugin;
 import jplugman.api.PluginLoader;
 import jplugman.manager.Application;
-import jplugman.manager.impl.MutableVersionedServiceProvider;
+import jplugman.api.MutableVersionedServiceProvider;
 import jplugman.manager.impl.state.PluginContext;
 
 import java.nio.file.Path;
