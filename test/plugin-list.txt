@@ -1,5 +1,6 @@
 plugin1a : VersionGetter 1.0.0
 plugin1b : VersionGetter 1.1.0
+plugin1c : VersionGetter 1.0.1
 plugin2 : VersionGetter 2.0.0
 
 plugin3 : DummyService 1.0.0 qui dépend de VersionGetter 1.0.0
