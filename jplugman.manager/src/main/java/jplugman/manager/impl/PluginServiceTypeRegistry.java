@@ -26,7 +26,7 @@ public class PluginServiceTypeRegistry {
         return new PluginServiceTypeRegistry(values.stream().map(pluginContextGetter).collect(new ProvidedServiceTypeCollector()));
     }
 
-    private final @NonNull Table<Class<?>, Integer, PluginIdAndVersionServiceClass> services;
+    private final @NonNull Table<String, Integer, PluginIdAndVersionServiceClass> services;
 
     /**
      * @param requirements the required service type
@@ -51,7 +51,7 @@ public class PluginServiceTypeRegistry {
     public boolean isNewerVersionAvailable(@NonNull VersionedServiceClass<?> versionedServiceClass) {
         final var serviceType = versionedServiceClass.getServiceClass();
         final var majorVersion = versionedServiceClass.getVersion().getMajor();
-        final var providedServiceType = services.get(serviceType, majorVersion);
+        final var providedServiceType = services.get(serviceType.getName(), majorVersion);
 
         return providedServiceType != null && providedServiceType.getVersion().compareTo(versionedServiceClass.getVersion())>0;
     }
@@ -65,7 +65,7 @@ public class PluginServiceTypeRegistry {
     public boolean isLastVersion(@NonNull PluginContext pluginContext) {
         final var serviceType = pluginContext.getProvidedService().getServiceClass();
         final var majorVersion = pluginContext.getProvidedService().getVersion().getMajor();
-        final var providedServiceType = services.get(serviceType, majorVersion);
+        final var providedServiceType = services.get(serviceType.getName(), majorVersion);
 
         return providedServiceType != null && providedServiceType.getPluginId() == pluginContext.getId();
     }

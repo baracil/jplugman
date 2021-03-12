@@ -13,20 +13,20 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collector;
 
-public class ProvidedServiceTypeCollector implements Collector<PluginContext, Table<Class<?>, Integer, PluginIdAndVersionServiceClass>, Table<Class<?>, Integer, PluginIdAndVersionServiceClass>> {
+public class ProvidedServiceTypeCollector implements Collector<PluginContext, Table<String, Integer, PluginIdAndVersionServiceClass>, Table<String, Integer, PluginIdAndVersionServiceClass>> {
 
     @Override
-    public Supplier<Table<Class<?>, Integer, PluginIdAndVersionServiceClass>> supplier() {
+    public Supplier<Table<String, Integer, PluginIdAndVersionServiceClass>> supplier() {
         return HashBasedTable::create;
     }
 
     @Override
-    public BiConsumer<Table<Class<?>, Integer, PluginIdAndVersionServiceClass>, PluginContext> accumulator() {
+    public BiConsumer<Table<String, Integer, PluginIdAndVersionServiceClass>, PluginContext> accumulator() {
         return (t, p) -> accumulate(t, PluginIdAndVersionServiceClass.createWith(p));
     }
 
     @Override
-    public BinaryOperator<Table<Class<?>, Integer, PluginIdAndVersionServiceClass>> combiner() {
+    public BinaryOperator<Table<String, Integer, PluginIdAndVersionServiceClass>> combiner() {
         return (t1, t2) -> {
             t2.values().forEach(v -> accumulate(t1, v));
             return t1;
@@ -34,7 +34,7 @@ public class ProvidedServiceTypeCollector implements Collector<PluginContext, Ta
     }
 
     @Override
-    public Function<Table<Class<?>, Integer, PluginIdAndVersionServiceClass>, Table<Class<?>, Integer, PluginIdAndVersionServiceClass>> finisher() {
+    public Function<Table<String, Integer, PluginIdAndVersionServiceClass>, Table<String, Integer, PluginIdAndVersionServiceClass>> finisher() {
         return t -> t;
     }
 
@@ -43,14 +43,14 @@ public class ProvidedServiceTypeCollector implements Collector<PluginContext, Ta
         return Set.of(Characteristics.IDENTITY_FINISH);
     }
 
-    private void accumulate(@NonNull Table<Class<?>, Integer, PluginIdAndVersionServiceClass> table,
+    private void accumulate(@NonNull Table<String, Integer, PluginIdAndVersionServiceClass> table,
                             @NonNull PluginIdAndVersionServiceClass toAdd) {
         final var serviceType = toAdd.getServiceType();
         final var majorVersion = toAdd.getMajorVersion();
-        final var newValue = Optional.ofNullable(table.get(serviceType, majorVersion))
+        final var newValue = Optional.ofNullable(table.get(serviceType.getName(), majorVersion))
                                      .map(existing -> max(existing, toAdd))
                                      .orElse(toAdd);
-        table.put(serviceType, majorVersion, newValue);
+        table.put(serviceType.getName(), majorVersion, newValue);
     }
 
     public @NonNull PluginIdAndVersionServiceClass max(@NonNull PluginIdAndVersionServiceClass pst1, @NonNull PluginIdAndVersionServiceClass pst2) {
