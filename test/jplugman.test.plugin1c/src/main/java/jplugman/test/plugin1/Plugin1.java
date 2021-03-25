@@ -29,7 +29,6 @@ public class Plugin1 implements Plugin {
     }
 
     public @NonNull Object loadService(@NonNull ModuleLayer pluginLayer, @NonNull ServiceProvider serviceProvider) {
-        final var versionProvider = ServiceLoader.load(pluginLayer, VersionProvider.class).findFirst().get();
-        return new VersionGetter1c(versionProvider);
+        return new VersionGetter1c();
     }
 }

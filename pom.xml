@@ -41,13 +41,13 @@
         <module>jplugman.loader</module>
         <module>test/jplugman.test</module>
         <module>test/jplugman.test.core</module>
-<!--        <module>test/jplugman.test.plugin1a</module>-->
-<!--        <module>test/jplugman.test.plugin1b</module>-->
-<!--        <module>test/jplugman.test.plugin1c</module>-->
-<!--        <module>test/jplugman.test.plugin2</module>-->
-<!--        <module>test/jplugman.test.plugin3</module>-->
-<!--        <module>test/jplugman.test.plugin4</module>-->
-<!--        <module>test/jplugman.test.plugin5</module>-->
+        <module>test/jplugman.test.plugin1a</module>
+        <module>test/jplugman.test.plugin1b</module>
+        <module>test/jplugman.test.plugin1c</module>
+        <module>test/jplugman.test.plugin2</module>
+        <module>test/jplugman.test.plugin3</module>
+        <module>test/jplugman.test.plugin4</module>
+        <module>test/jplugman.test.plugin5</module>
     </modules>
 
 

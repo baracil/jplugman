@@ -1,13 +1,12 @@
 package jplugman.test.plugin2;
 
 import com.google.common.collect.ImmutableSet;
-import jplugman.api.*;
+import jplugman.api.Plugin;
+import jplugman.api.ServiceProvider;
+import jplugman.api.Version;
+import jplugman.api.VersionedServiceClass;
 import jplugman.test.core.VersionGetter;
 import lombok.NonNull;
-import jplugman.api.*;
-import Bastien Aracil.vp.VersionProvider;
-
-import java.util.ServiceLoader;
 
 public class Plugin2 implements Plugin {
 
@@ -29,7 +28,6 @@ public class Plugin2 implements Plugin {
     }
 
     public @NonNull Object loadService(@NonNull ModuleLayer pluginLayer, @NonNull ServiceProvider serviceProvider) {
-        final var versionProvider = ServiceLoader.load(pluginLayer, VersionProvider.class).findFirst().get();
-        return new VersionGetter2(versionProvider);
+        return new VersionGetter2();
     }
 }
