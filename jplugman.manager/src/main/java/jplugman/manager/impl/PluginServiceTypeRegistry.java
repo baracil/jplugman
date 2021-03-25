@@ -29,13 +29,13 @@ public class PluginServiceTypeRegistry {
     private final @NonNull Table<String, Integer, PluginIdAndVersionServiceClass> services;
 
     /**
-     * @param requirements the required service type
+     * @param requirement the required service type
      * @return an optional containing the id of the plugin that provides the requested
      * requirement if any (for the request major version). An empty optional if no such plugin could be found
      */
-    public Optional<Long> findPluginProviding(@NonNull VersionedServiceClass<?> requirements) {
-        final var requestedService = requirements.getServiceClass();
-        final var majorVersion = requirements.getVersion().getMajor();
+    public Optional<Long> findPluginProviding(@NonNull VersionedServiceClass<?> requirement) {
+        final var requestedService = requirement.getServiceClass();
+        final var majorVersion = requirement.getVersion().getMajor();
 
         return services.column(majorVersion)
                        .values()
