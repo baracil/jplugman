@@ -48,6 +48,9 @@
         <module>test/jplugman.test.plugin3</module>
         <module>test/jplugman.test.plugin4</module>
         <module>test/jplugman.test.plugin5</module>
+        <module>test/jplugman.test.plugin6</module>
+        <module>test/jplugman.test.plugin7</module>
+<!--        <module>test/jplugman.test.plugin8</module>-->
     </modules>
 
 

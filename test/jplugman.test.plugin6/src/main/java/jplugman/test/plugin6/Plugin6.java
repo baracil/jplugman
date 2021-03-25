@@ -1,17 +1,15 @@
-package jplugman.test.plugin3;
+package jplugman.test.plugin6;
 
 import com.google.common.collect.ImmutableSet;
 import jplugman.api.Plugin;
 import jplugman.api.ServiceProvider;
 import jplugman.api.Version;
 import jplugman.api.VersionedServiceClass;
-import jplugman.test.core.DummyService;
-import jplugman.test.core.VersionGetter;
 import lombok.NonNull;
 
-public class Plugin3 implements Plugin {
+public class Plugin6 implements Plugin {
 
-    public static final Version VERSION = Version.with(1, 0, 0);
+    public static final Version VERSION = Version.with(3, 1, 0);
 
     @Override
     public @NonNull Version getApplicationVersion() {
@@ -20,16 +18,16 @@ public class Plugin3 implements Plugin {
 
     @Override
     public @NonNull ImmutableSet<VersionedServiceClass<?>> getRequirements() {
-        return ImmutableSet.of(new VersionedServiceClass<>(VersionGetter.class, Version.with(1, 0, 0)));
+        return ImmutableSet.of();
     }
+
 
     @Override
     public @NonNull VersionedServiceClass<?> getProvidedServiceClass() {
-        return new VersionedServiceClass<>(DummyService.class, VERSION);
+        return new VersionedServiceClass<>(DummyService6.class, VERSION);
     }
 
     public @NonNull Object loadService(@NonNull ModuleLayer pluginLayer, @NonNull ServiceProvider serviceProvider) {
-        final var versionGetter = serviceProvider.getAnyService(VersionGetter.class);
-        return new DummyService3(versionGetter);
+        return new DummyService6();
     }
 }

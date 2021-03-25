@@ -65,24 +65,4 @@ public class TestLoadPlugin3Then1BThen4Then2 extends TestLoadPluginBase {
         Assertions.assertTrue(service.isPresent(),"expected="+expectedType+"  actual="+attachedServices.get(index).getService());
     }
 
-    public void shouldHaveAllServices(@NonNull ImmutableList<VersionedServiceClass<?>> expectedServices) {
-        Assertions.assertEquals(expectedServices.size(), attachedServices.size());
-
-        final Set<VersionedService> actualServices = new HashSet<>(attachedServices);
-
-        for (VersionedServiceClass<?> expectedService : expectedServices) {
-            final Iterator<VersionedService> iter = actualServices.iterator();
-            while (iter.hasNext()) {
-                var actualService = iter.next();
-                if (actualService.getVersion().equals(expectedService.getVersion()) &&
-                        expectedService.getServiceClass().isInstance(actualService.getService())) {
-                    iter.remove();
-                    break;
-                }
-            }
-        }
-
-        Assertions.assertTrue(actualServices.isEmpty());
-    }
-
 }

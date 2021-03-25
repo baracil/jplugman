@@ -1,5 +1,6 @@
 package jplugman.manager.impl;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import lombok.AccessLevel;
@@ -33,9 +34,11 @@ public class PluginSpecificServiceProvider implements ServiceProvider {
     private final @NonNull VersionedServiceProvider versionedServiceProvider;
 
     @Override
-    public @NonNull <T> Optional<T> findService(@NonNull Class<T> serviceClass) {
+    public @NonNull <T> ImmutableList<T> getAllServices(@NonNull Class<T> serviceClass) {
         return getRequirementFromServiceType(serviceClass)
-                .flatMap(versionedServiceProvider::findService);
+                .flatMap(versionedServiceProvider::findService)
+                .map(ImmutableList::of)
+                .orElseGet(ImmutableList::of);
     }
 
     @SuppressWarnings("unchecked")

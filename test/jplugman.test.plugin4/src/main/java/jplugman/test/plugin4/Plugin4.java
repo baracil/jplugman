@@ -29,7 +29,7 @@ public class Plugin4 implements Plugin {
     }
 
     public @NonNull Object loadService(@NonNull ModuleLayer pluginLayer, @NonNull ServiceProvider serviceProvider) {
-        final var versionGetter = serviceProvider.getService(VersionGetter.class);
+        final var versionGetter = serviceProvider.getAnyService(VersionGetter.class);
         return new DummyService4(versionGetter);
     }
 }

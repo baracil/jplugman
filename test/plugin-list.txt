@@ -5,3 +5,6 @@ plugin2 : VersionGetter 2.0.0
 
 plugin3 : DummyService 1.0.0 qui dépend de VersionGetter 1.0.0
 plugin4 : DummyService 1.1.0 qui dépend de VersionGetter 2.1.0
+
+plugin6 : DummyService6 3.1.0
+plugin7 : DummyService7 4.1.0

@@ -1,5 +1,6 @@
 package jplugman.api;
 
+import com.google.common.collect.ImmutableList;
 import lombok.NonNull;
 
 import java.util.Optional;
@@ -9,10 +10,25 @@ import java.util.Optional;
  */
 public interface ServiceProvider {
 
-    <T> @NonNull Optional<T> findService(@NonNull Class<T> serviceClass);
+    /**
+     * @param serviceClass the class of the requested service
+     * @param <T> the type of the requested service
+     * @return a list of all the service implementing the requested service
+     */
+    <T> @NonNull ImmutableList<T> getAllServices(@NonNull Class<T> serviceClass);
 
-    default <T> @NonNull T getService(@NonNull Class<T> serviceClass) {
-        return findService(serviceClass).orElseThrow(() -> new ServiceNotFound(serviceClass));
+    /**
+     * @param serviceClass the class of the requested service
+     * @param <T> the type of the requested service
+     * @return a service implementing the requested  service.
+     * If multiple services are available, one is peak at random.
+     */
+    default <T> @NonNull T getAnyService(@NonNull Class<T> serviceClass) {
+        final var services = getAllServices(serviceClass);
+        if (services.isEmpty()) {
+            throw new ServiceNotFound(serviceClass);
+        }
+        return services.get(0);
     }
 
 }
