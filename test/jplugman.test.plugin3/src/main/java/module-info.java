@@ -10,7 +10,5 @@ module jplugman.test.plugin3 {
     requires com.google.common;
     requires jplugman.api;
 
-    uses VersionProvider;
-
     provides Plugin with Plugin3;
 }

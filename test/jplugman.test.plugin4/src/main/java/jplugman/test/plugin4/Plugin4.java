@@ -1,11 +1,13 @@
 package jplugman.test.plugin4;
 
 import com.google.common.collect.ImmutableSet;
-import jplugman.api.*;
+import jplugman.api.Plugin;
+import jplugman.api.ServiceProvider;
+import jplugman.api.Version;
+import jplugman.api.VersionedServiceClass;
+import jplugman.test.core.DummyService;
 import jplugman.test.core.VersionGetter;
 import lombok.NonNull;
-import jplugman.api.*;
-import jplugman.test.core.DummyService;
 
 public class Plugin4 implements Plugin {
 
