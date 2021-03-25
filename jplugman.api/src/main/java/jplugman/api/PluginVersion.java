@@ -1,10 +1,17 @@
 package jplugman.api;
 
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
 public @interface PluginVersion {
 
     /**
      * @return the semantic version of the plugin
      */
-    String version();
+    String value();
 }
