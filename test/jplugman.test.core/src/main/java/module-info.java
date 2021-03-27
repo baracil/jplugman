@@ -1,11 +1,7 @@
 open module jplugman.test.core {
     requires static lombok;
-
-    requires com.google.common;
-
-
-    requires jplugman.api;
-    requires jplugman.manager;
+    
+    requires jplugman.annotation;
 
     exports jplugman.test.core;
 }

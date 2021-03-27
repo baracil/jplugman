@@ -1,6 +1,6 @@
 import jplugman.api.Plugin;
-import jplugman.api.PluginLoader;
-import jplugman.loader.ModularPluginLoader;
+import jplugman.loader.PluginLoader;
+import jplugman.loader.impl.ModularPluginLoader;
 
 module jplugman.loader {
 
@@ -15,7 +15,10 @@ module jplugman.loader {
     provides PluginLoader with ModularPluginLoader;
 
     uses Plugin;
+    uses PluginLoader;
 
-    exports jplugman.loader to jplugman.test.test;
+    exports jplugman.loader;
+
+    exports jplugman.loader.impl to jplugman.test.test;
 }
 

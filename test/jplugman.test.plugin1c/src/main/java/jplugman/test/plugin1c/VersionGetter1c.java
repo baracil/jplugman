@@ -1,11 +1,11 @@
 package jplugman.test.plugin1c;
 
-import jplugman.api.PluginVersion;
+import jplugman.annotation.Extension;
 import jplugman.test.core.VersionGetter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
-@PluginVersion(value = VersionGetter.class, version = "1.0.1")
+@Extension(point = VersionGetter.class,version = "1.0.1")
 @RequiredArgsConstructor
 public class VersionGetter1c implements VersionGetter {
 

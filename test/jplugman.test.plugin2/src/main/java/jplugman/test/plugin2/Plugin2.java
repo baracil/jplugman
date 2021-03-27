@@ -3,7 +3,7 @@ package jplugman.test.plugin2;
 import com.google.common.collect.ImmutableSet;
 import jplugman.api.Plugin;
 import jplugman.api.Requirement;
-import jplugman.api.ServiceRegistry;
+import jplugman.api.ServiceProvider;
 import lombok.NonNull;
 
 public class Plugin2 implements Plugin<VersionGetter2> {
@@ -14,11 +14,11 @@ public class Plugin2 implements Plugin<VersionGetter2> {
     }
 
     @Override
-    public @NonNull Class<VersionGetter2> getExtensionClass() {
+    public @NonNull Class<VersionGetter2> getServiceClass() {
         return VersionGetter2.class;
     }
 
-    public @NonNull VersionGetter2 loadExtension(@NonNull ModuleLayer pluginLayer, @NonNull ServiceRegistry serviceRegistry) {
+    public @NonNull VersionGetter2 loadService(@NonNull ModuleLayer pluginLayer, @NonNull ServiceProvider serviceProvider) {
         return new VersionGetter2();
     }
 }

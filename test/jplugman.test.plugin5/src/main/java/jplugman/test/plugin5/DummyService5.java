@@ -1,11 +1,11 @@
 package jplugman.test.plugin5;
 
-import jplugman.api.PluginVersion;
+import jplugman.annotation.Extension;
 import jplugman.test.core.DummyService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
-@PluginVersion(value = DummyService.class, version = "3.0.0")
+@Extension(point = DummyService.class, version = "3.0.0")
 @RequiredArgsConstructor
 public class DummyService5 implements DummyService {
 

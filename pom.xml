@@ -35,11 +35,13 @@
 
 
     <modules>
+        <module>jplugman.annotation</module>
         <module>jplugman.api</module>
         <module>jplugman.tools</module>
         <module>jplugman.manager</module>
         <module>jplugman.loader</module>
         <module>test/jplugman.test</module>
+        <module>test/jplugman.test.api</module>
         <module>test/jplugman.test.core</module>
         <module>test/jplugman.test.plugin1a</module>
         <module>test/jplugman.test.plugin1b</module>
@@ -56,6 +58,11 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>jplugman</groupId>
+                <artifactId>jplugman-annotation</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>jplugman</groupId>
                 <artifactId>jplugman-api</artifactId>

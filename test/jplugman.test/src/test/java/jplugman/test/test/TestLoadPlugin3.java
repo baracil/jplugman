@@ -14,7 +14,7 @@ public class TestLoadPlugin3 extends TestLoadPluginBase {
 
     @Test
     public void shouldHaveNoServiceAttached() {
-        Assertions.assertEquals(0,attachedServices.size());
+        Assertions.assertEquals(0, attachedVersionedServiceData.size());
     }
 
 }

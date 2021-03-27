@@ -39,21 +39,22 @@ public class TestLoadPlugin3Then1BThen4 extends TestLoadPluginBase {
 
     @Test
     public void shouldHaveTwoServicesAttached() {
-        Assertions.assertEquals(2,attachedServices.size());
+        Assertions.assertEquals(2, attachedVersionedServiceData.size());
     }
 
     @ParameterizedTest
     @MethodSource("versions")
     public void shouldHaveRightVersion(int index, @NonNull Version expected) {
-        final var actual = attachedServices.get(index).getVersion();
-        Assertions.assertEquals(expected,actual);
+        final var actual = attachedVersionedServiceData.get(index).getVersion();
+        Assertions.assertTrue(actual.isPresent());
+        Assertions.assertEquals(expected,actual.get());
     }
 
     @ParameterizedTest
     @MethodSource("types")
     public void shouldHaveRightServiceType(int index, @NonNull Class<?> expectedType) {
-        final var service = attachedServices.get( index).getInstanceAs(expectedType);
-        Assertions.assertTrue(service.isPresent(),"expected="+expectedType+"  actual="+attachedServices.get(index).getType());
+        final var service = attachedVersionedServiceData.get(index).getServiceAs(expectedType);
+        Assertions.assertTrue(service.isPresent(),"expected="+expectedType+"  actual="+ attachedVersionedServiceData.get(index).getServiceClass());
 
     }
 

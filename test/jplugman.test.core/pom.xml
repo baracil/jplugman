@@ -21,33 +21,8 @@
     <dependencies>
         <dependency>
             <groupId>jplugman</groupId>
-            <artifactId>jplugman-api</artifactId>
+            <artifactId>jplugman-annotation</artifactId>
         </dependency>
-        <dependency>
-            <groupId>jplugman</groupId>
-            <artifactId>jplugman-manager</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>jplugman</groupId>
-            <artifactId>jplugman-loader</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-
     </dependencies>
 
 </project>

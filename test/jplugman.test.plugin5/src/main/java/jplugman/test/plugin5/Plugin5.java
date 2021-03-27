@@ -3,7 +3,7 @@ package jplugman.test.plugin5;
 import com.google.common.collect.ImmutableSet;
 import jplugman.api.Plugin;
 import jplugman.api.Requirement;
-import jplugman.api.ServiceRegistry;
+import jplugman.api.ServiceProvider;
 import lombok.NonNull;
 
 public class Plugin5 implements Plugin<DummyService5> {
@@ -15,11 +15,11 @@ public class Plugin5 implements Plugin<DummyService5> {
 
 
     @Override
-    public @NonNull Class<DummyService5> getExtensionClass() {
+    public @NonNull Class<DummyService5> getServiceClass() {
         return DummyService5.class;
     }
 
-    public @NonNull DummyService5 loadExtension(@NonNull ModuleLayer pluginLayer, @NonNull ServiceRegistry serviceRegistry) {
+    public @NonNull DummyService5 loadService(@NonNull ModuleLayer pluginLayer, @NonNull ServiceProvider serviceProvider) {
         return new DummyService5();
     }
 }

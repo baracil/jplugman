@@ -1,26 +1,27 @@
 package jplugman.api;
 
+import com.google.common.collect.ImmutableSet;
 import lombok.NonNull;
 
 public interface Application {
 
     /**
-     * @param pluginServiceType the type of the service provided by the plugin requesting the application service provider
-     * @return the service provided by the application filtered for the provided <code>pluginServiceType</code>
+     * @param pluginExtensionType the type of the service provided by the plugin requesting the application services.
+     * @return the services provided by the application filtered or prepared for the provided <code>pluginServiceType</code>
      */
-    @NonNull ServiceProvider getServiceProvider(@NonNull Class<?> pluginServiceType);
+    @NonNull ImmutableSet<VersionedService<?>> getApplicationServices(@NonNull Class<?> pluginExtensionType);
 
     /**
-     * Plug an extension to the application. This must
+     * Plug a service to the application. This must
      * not affect the service provider of the application.
-     * @param extension the service to plug
+     * @param versionedService the data (the instance and the version) of the extension to plug
      */
-    void plugExtension(@NonNull Extension extension);
+    void plugService(@NonNull PluginService<?> versionedService);
 
     /**
-     * Unplug an extension from the application. This must
+     * Unplug a service from the application. This must
      * not affect the service provider of the application.
-     * @param extension the service to unplug
+     * @param versionedService the data of the extension to unplug
      */
-    void unplugExtension(@NonNull Extension extension);
+    void unplugService(@NonNull PluginService<?> versionedService);
 }

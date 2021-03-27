@@ -1,5 +1,6 @@
 package jplugman.api;
 
+import jplugman.annotation.Extension;
 import lombok.NonNull;
 import lombok.Value;
 
@@ -13,18 +14,20 @@ public class Version implements Comparable<Version> {
     int minor;
     int patch;
 
-    public boolean isCompatible(@NonNull Version version) {
-        return version.major == this.major;
+    public Version(int major, int minor, int patch) {
+        this.major = major;
+        this.minor = minor;
+        this.patch = patch;
     }
 
     @Override
     public int compareTo(@NonNull Version that) {
-        return VERSION_COMPARATOR.compare(this,that);
+        return VERSION_COMPARATOR.compare(this, that);
     }
 
     @Override
     public String toString() {
-        return "v" + major + "."+ minor + "."+patch;
+        return "v" + major + "." + minor + "." + patch;
     }
 
 
@@ -34,12 +37,14 @@ public class Version implements Comparable<Version> {
 
     private static final Pattern VERSION_PATTERN = Pattern.compile("v?(\\d+)\\.(\\d+)\\.(\\d+)");
 
-    public static @NonNull Version with(@NonNull PluginVersion pluginVersion) {
-        return with(pluginVersion.version());
+
+    public static @NonNull Version with(@NonNull Extension extension) {
+        return with(extension.version());
     }
 
     /**
      * Create a version from a string representation.
+     *
      * @param versionAsString the version as string. Must be of the form "X.Y.Z" of "vX.Y.Z" where X,Y and Z must
      *                        be integer
      * @return a {@link Version} initialize with the provided string representation
@@ -47,13 +52,14 @@ public class Version implements Comparable<Version> {
     public static @NonNull Version with(@NonNull String versionAsString) {
         final var matcher = VERSION_PATTERN.matcher(versionAsString.trim());
         if (!matcher.matches()) {
-            throw new IllegalArgumentException("Invalid version '"+versionAsString+"'");
+            throw new IllegalArgumentException("Invalid version '" + versionAsString + "'");
         }
-        return with(Integer.parseInt(matcher.group(1)),Integer.parseInt(matcher.group(2)),Integer.parseInt(matcher.group(3)));
+        return with(Integer.parseInt(matcher.group(1)), Integer.parseInt(matcher.group(2)),
+                    Integer.parseInt(matcher.group(3)));
     }
 
     public static @NonNull Version with(int major, int minor, int patch) {
-        return new Version(major,minor,patch);
+        return new Version(major, minor, patch);
     }
 
 

@@ -2,6 +2,7 @@ package jplugman.test.test;
 
 import jplugman.api.Version;
 import jplugman.manager.PluginManager;
+import jplugman.test.core.DummyService;
 import lombok.NonNull;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -21,35 +22,34 @@ public class TestLoadPlugin6ThenPlugin7 extends TestLoadPluginBase {
 
     public static Stream<Arguments> versions() {
         return Stream.of(
-                Arguments.of(0,Version.with(3,1,0)),
-                Arguments.of(1,Version.with(4,1,0))
+                Arguments.of(0,Version.with(4,1,0))
         );
     }
     public static Stream<Arguments> types() {
         return Stream.of(
-                Arguments.of(0, "jplugman.test.plugin6.DummyService6"),
-                Arguments.of(1, "jplugman.test.plugin7.DummyService7")
+                Arguments.of(0, DummyService.class)
         );
     }
 
 
     @Test
-    public void shouldHaveTwoServicesAttached() {
-        Assertions.assertEquals(2,attachedServices.size());
+    public void shouldHaveOneServiceAttached() {
+        Assertions.assertEquals(1, attachedVersionedServiceData.size());
     }
 
     @ParameterizedTest
     @MethodSource("versions")
     public void shouldHaveRightVersion(int index, @NonNull Version expected) {
-        final var actual = attachedServices.get(index).getVersion();
-        Assertions.assertEquals(expected,actual);
+        final var actual = attachedVersionedServiceData.get(index).getVersion();
+        Assertions.assertTrue(actual.isPresent());
+        Assertions.assertEquals(expected,actual.get());
     }
 
     @ParameterizedTest
     @MethodSource("types")
-    public void shouldHaveRightServiceType(int index, @NonNull String className) {
-        final var service = attachedServices.get( index).getInstance();
-        Assertions.assertEquals(className, service.getClass().getName());
+    public void shouldHaveRightServiceType(int index, @NonNull Class<?> serviceType) {
+        final var service = attachedVersionedServiceData.get(index).getServiceAs(serviceType);
+        Assertions.assertTrue(service.isPresent());
     }
 
 

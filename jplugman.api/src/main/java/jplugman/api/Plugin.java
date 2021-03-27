@@ -3,38 +3,24 @@ package jplugman.api;
 import com.google.common.collect.ImmutableSet;
 import lombok.NonNull;
 
-import java.nio.file.Path;
-import java.util.ServiceLoader;
-
 public interface Plugin<T> {
 
     /**
-     * Load a plugin bundle in a modular JVM
-     * @param pluginLocation the path to the zip containing the plugin
-     * @return the result of the loading : a list of plugins and the module layer used to load them
+     * @return the class of the service this plugin provides
      */
-    static @NonNull PluginLoader.Result loadBundle(@NonNull Path pluginLocation) {
-        return ServiceLoader.load(PluginLoader.class)
-                            .stream()
-                            .map(ServiceLoader.Provider::get)
-                            .findFirst()
-                            .orElseThrow(() -> new IllegalStateException(
-                                    "Could not find any implementation of " + PluginLoader.class))
-                            .load(pluginLocation);
-    }
+    @NonNull Class<T> getServiceClass();
+
+    /**
+     * @return load the service provided by this plugin
+     */
+    @NonNull T loadService(@NonNull ModuleLayer pluginLayer, @NonNull ServiceProvider serviceProvider);
 
     /**
      * @return the set of services this plugin needs to load the service it provides
      */
     @NonNull ImmutableSet<Requirement<?>> getRequirements();
 
-    /**
-     * @return the class of the extension this plugin provides
-     */
-    @NonNull Class<T> getExtensionClass();
 
-    /**
-     * @return load the extension provided by this plugin
-     */
-    @NonNull T loadExtension(@NonNull ModuleLayer pluginLayer, @NonNull ServiceRegistry serviceRegistry);
+
+
 }

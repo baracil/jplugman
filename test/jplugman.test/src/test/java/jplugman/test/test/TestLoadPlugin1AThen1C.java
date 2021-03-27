@@ -18,18 +18,19 @@ public class TestLoadPlugin1AThen1C extends TestLoadPluginBase {
 
     @Test
     public void shouldHaveOneServiceAttached() {
-        Assertions.assertEquals(1, attachedServices.size());
+        Assertions.assertEquals(1, attachedVersionedServiceData.size());
     }
 
     @Test
     public void shouldHaveVersion101() {
-        final var version = attachedServices.get(0).getVersion();
-        Assertions.assertEquals(Version.with(1,0,1),version);
+        final var version = attachedVersionedServiceData.get(0).getVersion();
+        Assertions.assertTrue(version.isPresent());
+        Assertions.assertEquals(Version.with(1,0,1),version.get());
     }
 
     @Test
     public void shouldHaveServiceVersionGetter() {
-        final var service = attachedServices.get(0).getInstanceAs(VersionGetter.class);
+        final var service = attachedVersionedServiceData.get(0).getServiceAs(VersionGetter.class);
         Assertions.assertTrue(service.isPresent());
 
     }

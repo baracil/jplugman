@@ -25,24 +25,24 @@ First create your application by implementing the **Application** interface:
 public interface Application {
 
     /**
-     * @param pluginServiceType the type of the service provided by the plugin requesting the application service provider
-     * @return the service provided by the application filtered for the provided <code>pluginServiceType</code>
+     * @param pluginServiceType the type of the versionedService provided by the plugin requesting the application versionedService provider
+     * @return the versionedService provided by the application filtered for the provided <code>pluginServiceType</code>
      */
     @NonNull ServiceProvider getServiceProvider(@NonNull Class<?> pluginServiceType);
 
     /**
-     * Plug an extension to the application. This must
-     * not affect the service provider of the application.
-     * @param extension the service to plug
+     * Plug an extensionData to the application. This must
+     * not affect the versionedService provider of the application.
+     * @param extensionData the versionedService to plug
      */
-    void plugExtension(@NonNull Extension extension);
+    void plugExtension(@NonNull Extension extensionData);
 
     /**
-     * Unplug an extension from the application. This must
-     * not affect the service provider of the application.
-     * @param extension the service to unplug
+     * Unplug an extensionData from the application. This must
+     * not affect the versionedService provider of the application.
+     * @param extensionData the versionedService to unplug
      */
-    void unplugExtension(@NonNull Extension extension);
+    void unplugExtension(@NonNull Extension extensionData);
 }
 ```
 You then create a **PluginManager** with
@@ -70,19 +70,19 @@ Now create a *Plugin* by implementing the **Plugin** interface :
 ```java
 public interface Plugin<T> {
     /**
-     * @return the set of services this plugin needs to load the service it provides
+     * @return the set of services this plugin needs to load the versionedService it provides
      */
     @NonNull ImmutableSet<Requirement<?>> getRequirements();
 
     /**
-     * @return the class of the extension this plugin provides
+     * @return the class of the extensionData this plugin provides
      */
     @NonNull Class<T> getExtensionClass();
 
     /**
-     * @return load the extension provided by this plugin
+     * @return load the extensionData provided by this plugin
      */
-    @NonNull T loadExtension(@NonNull ModuleLayer pluginLayer, @NonNull ServiceRegistry serviceRegistry);
+    @NonNull T loadExtension(@NonNull ModuleLayer pluginLayer, @NonNull ServiceRegistry serviceProvider);
 }
 ```
 

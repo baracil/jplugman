@@ -8,12 +8,11 @@ public class Requirement<T> {
 
     /**
      * The class of the required service.
-     * It must be an interface with the @{@link ApiVersion} annotation
      */
     @NonNull Class<T> serviceType;
 
     /**
-     * The require api version of the service
+     * The required major version of the service
      */
-    int apiVersion;
+    int majorVersion;
 }

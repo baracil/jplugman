@@ -1,51 +1,32 @@
 package jplugman.api;
 
+import com.google.common.collect.ImmutableList;
 import lombok.NonNull;
 
-import java.util.stream.Stream;
-
 /**
- * Provides some service given a service type and a version
+ * Registry of services, provides a list of services for a given class
  */
 public interface ServiceProvider {
 
     /**
-     * @param requirement the requirement the service must fulfill
-     * @param <T> the type of the service
-     * @return a stream of all the service fulfilling the provided requirement
+     * @param serviceClass the class of the requested service
+     * @param <T> the type of the requested service
+     * @return a list of all the service implementing the requested service
      */
-    <T> @NonNull Stream<T> findService(@NonNull Requirement<T> requirement);
+    <T> @NonNull ImmutableList<T> getAllServices(@NonNull Class<T> serviceClass);
 
     /**
-     * @param requirement the requirement to fulfill
-     * @return true if this provider has a service fulfilling the requested requirement, false otherwise
+     * @param serviceClass the class of the requested service
+     * @param <T> the type of the requested service
+     * @return a service implementing the requested  service.
+     * If multiple services are available, one is peaked at random.
      */
-    default boolean hasService(Requirement<?> requirement) {
-        return findService(requirement).findAny().isPresent();
-    }
-
-    /**
-     * @param other the provider to search as well
-     * @return a {@link ServiceProvider} that will search this provider first and then the other one
-     */
-    default @NonNull ServiceProvider thenSearch(@NonNull ServiceProvider other) {
-        return new ServiceProvider() {
-            @Override
-            public @NonNull <T> Stream<T> findService(@NonNull Requirement<T> requirement) {
-                return Stream.concat(
-                        ServiceProvider.this.findService(requirement),
-                        other.findService(requirement)
-                );
-            }
-        };
-    }
-
-    ServiceProvider EMPTY = new ServiceProvider() {
-        @Override
-        public @NonNull <T> Stream<T> findService(@NonNull Requirement<T> requirement) {
-            return Stream.empty();
+    default <T> @NonNull T getAnyService(@NonNull Class<T> serviceClass) {
+        final var services = getAllServices(serviceClass);
+        if (services.isEmpty()) {
+            throw new ServiceNotFound(serviceClass);
         }
-    };
-
+        return services.get(0);
+    }
 
 }

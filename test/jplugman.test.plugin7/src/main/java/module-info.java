@@ -7,6 +7,7 @@ module jplugman.test.plugin7 {
     requires jplugman.api;
     requires com.google.common;
     requires jplugman.test.core;
+    requires jplugman.annotation;
 
 
     provides Plugin with Plugin7;
