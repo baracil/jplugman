@@ -1,8 +1,8 @@
 import jplugman.api.Plugin;
 import jplugman.api.PluginLoader;
-import jplugman.test.ModularPluginLoader;
+import jplugman.loader.ModularPluginLoader;
 
-module jplugman.modular {
+module jplugman.loader {
 
     requires static lombok;
 
@@ -16,6 +16,6 @@ module jplugman.modular {
 
     uses Plugin;
 
-    exports jplugman.test to Bastien Aracil.plugins.test.core;
+    exports jplugman.loader to jplugman.test.test;
 }
 

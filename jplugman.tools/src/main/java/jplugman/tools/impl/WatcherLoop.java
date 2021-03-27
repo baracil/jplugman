@@ -1,9 +1,9 @@
 package jplugman.tools.impl;
 
 import com.google.common.collect.ImmutableSet;
+import jplugman.tools.FolderListener;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import jplugman.tools.FolderListener;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;

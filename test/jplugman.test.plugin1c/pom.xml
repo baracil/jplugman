@@ -30,11 +30,6 @@
             <artifactId>jplugman-api</artifactId>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>Bastien Aracil.vp</groupId>
-            <artifactId>version-provider</artifactId>
-            <version>1.0</version>
-        </dependency>
     </dependencies>
 
 

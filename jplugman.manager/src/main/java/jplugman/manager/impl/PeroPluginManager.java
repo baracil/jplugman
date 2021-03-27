@@ -1,12 +1,12 @@
 package jplugman.manager.impl;
 
+import jplugman.api.Application;
 import jplugman.manager.PluginManager;
+import jplugman.manager.impl.action.BundleAdder;
+import jplugman.manager.impl.action.BundleRemover;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Synchronized;
-import jplugman.manager.Application;
-import jplugman.manager.impl.action.BundleAdder;
-import jplugman.manager.impl.action.BundleRemover;
 
 import java.nio.file.Path;
 import java.util.HashSet;

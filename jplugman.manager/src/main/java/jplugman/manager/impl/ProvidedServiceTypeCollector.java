@@ -22,7 +22,7 @@ public class ProvidedServiceTypeCollector implements Collector<PluginContext, Ta
 
     @Override
     public BiConsumer<Table<String, Integer, PluginIdAndVersionServiceClass>, PluginContext> accumulator() {
-        return (t, p) -> accumulate(t, PluginIdAndVersionServiceClass.createWith(p));
+        return (t, p) -> PluginIdAndVersionServiceClass.createWith(p).ifPresent(v -> accumulate(t, v));
     }
 
     @Override
@@ -47,10 +47,10 @@ public class ProvidedServiceTypeCollector implements Collector<PluginContext, Ta
                             @NonNull PluginIdAndVersionServiceClass toAdd) {
         final var serviceType = toAdd.getServiceType();
         final var majorVersion = toAdd.getMajorVersion();
-        final var newValue = Optional.ofNullable(table.get(serviceType.getName(), majorVersion))
+        final var newValue = Optional.ofNullable(table.get(serviceType.getServiceName(), majorVersion))
                                      .map(existing -> max(existing, toAdd))
                                      .orElse(toAdd);
-        table.put(serviceType.getName(), majorVersion, newValue);
+        table.put(serviceType.getServiceName(), majorVersion, newValue);
     }
 
     public @NonNull PluginIdAndVersionServiceClass max(@NonNull PluginIdAndVersionServiceClass pst1, @NonNull PluginIdAndVersionServiceClass pst2) {

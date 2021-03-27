@@ -1,7 +1,7 @@
 package jplugman.manager.impl;
 
 import com.google.common.collect.ImmutableList;
-import jplugman.api.MutableVersionedServiceProvider;
+import jplugman.manager.MutableServiceProvider;
 import jplugman.manager.impl.state.PluginData;
 import lombok.NonNull;
 
@@ -9,7 +9,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-public interface PluginRegistry extends MutableVersionedServiceProvider {
+public interface PluginRegistry extends MutableServiceProvider {
 
     /**
      * @param pluginData the data about the plugin (id, module layer, location, state)

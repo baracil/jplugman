@@ -6,7 +6,7 @@
 JPlugman is a plugin manager that can be used in modular Java projects. Its main features are :
 
 * hot-swapping : a plugin can be added/removed/updated while the application is running.
-* dependency management : service provided by a plugin can be used by the main application but also by other plugins.
+* dependency management : requirement provided by a plugin can be used by the main application but also by other plugins.
 * simple packaging : plugins are zip files.
 
 This module is released under MIT license.
@@ -16,7 +16,6 @@ This module is released under MIT license.
 * **Plugin** : this is the main interface for all plugins. The plugins are loaded in their own [ModuleLayer](https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/ModuleLayer.html)
 * **Application** : The main application to which the plugins will be plugged to
 * **PluginManager** : Used to load and unload plugins. It takes care of dependencies between plugins as well as compatibility with the application
-* **Version** : semantic versioning used to determine the compatibility of a plugin with the application and other plugins (compatibility is only based on the major value of a version)
 
 ## How to use
 
@@ -26,30 +25,24 @@ First create your application by implementing the **Application** interface:
 public interface Application {
 
     /**
-     * The application version the plugins will be plugged to. This
-     * is checked against {@link Plugin#getApplicationVersion()}.
-     */
-    @NonNull Version getVersion();
-
-    /**
      * @param pluginServiceType the type of the service provided by the plugin requesting the application service provider
      * @return the service provided by the application filtered for the provided <code>pluginServiceType</code>
      */
-    @NonNull VersionedServiceProvider getServiceProvider(@NonNull VersionedServiceClass<?> pluginServiceType);
+    @NonNull ServiceProvider getServiceProvider(@NonNull Class<?> pluginServiceType);
 
     /**
-     * Plug a service to the application. This must
+     * Plug an extension to the application. This must
      * not affect the service provider of the application.
-     * @param versionedService the service to plug
+     * @param extension the service to plug
      */
-    void plugService(@NonNull VersionedService versionedService);
+    void plugExtension(@NonNull Extension extension);
 
     /**
-     * Unplug a service from the application.
+     * Unplug an extension from the application. This must
      * not affect the service provider of the application.
-     * @param versionedService the service to unplug
+     * @param extension the service to unplug
      */
-    void unplugService(@NonNull VersionedService versionedService);
+    void unplugExtension(@NonNull Extension extension);
 }
 ```
 You then create a **PluginManager** with
@@ -75,26 +68,21 @@ You then create a **PluginManager** with
 Now create a *Plugin* by implementing the **Plugin** interface :
 
 ```java
-public interface Plugin {
-    /**
-     * @return the version of the application this plugin has been compiled for
-     */
-    @NonNull Version getApplicationVersion();
-
+public interface Plugin<T> {
     /**
      * @return the set of services this plugin needs to load the service it provides
      */
-    @NonNull ImmutableSet<VersionedServiceClass<?>> getRequirements();
+    @NonNull ImmutableSet<Requirement<?>> getRequirements();
 
     /**
-     * @return the class and the version of the service this plugin provides
+     * @return the class of the extension this plugin provides
      */
-    @NonNull VersionedServiceClass<?> getProvidedService();
+    @NonNull Class<T> getExtensionClass();
 
     /**
-     * @return the service provided by this plugin
+     * @return load the extension provided by this plugin
      */
-    @NonNull Object loadService(@NonNull ModuleLayer pluginLayer, @NonNull ServiceProvider serviceProvider);
+    @NonNull T loadExtension(@NonNull ModuleLayer pluginLayer, @NonNull ServiceRegistry serviceRegistry);
 }
 ```
 

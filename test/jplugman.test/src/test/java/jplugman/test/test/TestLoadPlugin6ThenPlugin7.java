@@ -2,8 +2,6 @@ package jplugman.test.test;
 
 import jplugman.api.Version;
 import jplugman.manager.PluginManager;
-import jplugman.test.core.DummyService;
-import jplugman.test.core.VersionGetter;
 import lombok.NonNull;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -50,7 +48,7 @@ public class TestLoadPlugin6ThenPlugin7 extends TestLoadPluginBase {
     @ParameterizedTest
     @MethodSource("types")
     public void shouldHaveRightServiceType(int index, @NonNull String className) {
-        final var service = attachedServices.get( index).getService();
+        final var service = attachedServices.get( index).getInstance();
         Assertions.assertEquals(className, service.getClass().getName());
     }
 

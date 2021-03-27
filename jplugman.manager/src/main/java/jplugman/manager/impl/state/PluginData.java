@@ -1,92 +1,87 @@
 package jplugman.manager.impl.state;
 
+import com.google.common.collect.ImmutableSet;
+import jplugman.api.Requirement;
+import jplugman.api.ServiceProvider;
+import jplugman.manager.impl.VersionedServiceClass;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import jplugman.api.Nil;
-import jplugman.api.VersionedServiceClass;
-import jplugman.api.VersionedServiceProvider;
 
 import java.nio.file.Path;
+import java.util.Optional;
 
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-public class PluginData implements StateOperation<Nil>{
+public class PluginData {
 
-    public static @NonNull PluginData create(@NonNull InstalledState state) {
-        return new PluginData(state);
+    public static @NonNull PluginData createInstalled(@NonNull PluginContext pluginContext) {
+        return new PluginData(pluginContext,new InstalledState());
     }
+
+    @Getter
+    private final @NonNull PluginContext pluginContext;
 
     private @NonNull PluginState state;
 
-    @Override
     public long getId() {
-        return state.getId();
+        return pluginContext.getId();
     }
 
-    @Override
     public boolean isInInstalledState() {
         return state.isInInstalledState();
     }
 
-    @Override
     public boolean isInPluggedState() {
         return state.isInPluggedState();
     }
 
-    @Override
-    public @NonNull Nil unload() {
-        this.state = state.unload();
-        return Nil.NIL;
+    public void unload() {
+        this.state = state.unload(pluginContext);
     }
 
-    @Override
-    public @NonNull Nil load() {
-        this.state = state.load();
-        return Nil.NIL;
+    public void load() {
+        this.state = state.load(pluginContext);
     }
 
-    @Override
-    public @NonNull Nil markResolved() {
-        this.state = state.markResolved();
-        return Nil.NIL;
+    public void markResolved() {
+        this.state = state.markResolved(pluginContext);
     }
 
-    @Override
-    public @NonNull Nil unInstall() {
-        this.state = state.unInstall();
-        return Nil.NIL;
+    public void unInstall() {
+        this.state = state.unInstall(pluginContext);
     }
 
-    @Override
-    public @NonNull Nil setToInstalledState() {
-        this.state = state.setToInstalledState();
-        return Nil.NIL;
-    }
-
-    @Override
-    public @NonNull PluginContext getPluginContext() {
-        return state.getPluginContext();
+    public void setToInstalledState() {
+        this.state = state.setToInstalledState(pluginContext);
     }
 
     public boolean isInFailedState() {
         return this.state.isInFailedState();
     }
 
-    public boolean isServiceAvailable(VersionedServiceClass<?> requirement) {
-        return this.state.isServiceAvailable(requirement);
-    }
-
-    @Override
-    public boolean isFromBundle(@NonNull Path pluginBundleLocation) {
-        return this.state.isFromBundle(pluginBundleLocation);
-    }
-
     @Override
     public String toString() {
-        return "PluginData{" + state.getClass().getSimpleName()+" - "+state.getPluginContext()+"}";
+        return "PluginData{" + state.getClass().getSimpleName()+" - "+pluginContext+"}";
     }
 
-    public @NonNull VersionedServiceProvider getApplicationServiceProvider() {
-        return getPluginContext().getApplicationServiceProvider();
+    public @NonNull ServiceProvider getApplicationServiceProvider() {
+        return pluginContext.getApplicationServiceProvider();
+    }
+
+    public boolean pluginProvides(Requirement<?> requirement) {
+        return pluginContext.pluginProvides(requirement);
+    }
+
+    public boolean isFromBundle(@NonNull Path bundleLocation) {
+        return pluginContext.getPluginLocation().equals(bundleLocation);
+    }
+
+    public @NonNull ImmutableSet<Requirement<?>> getPluginRequirements() {
+        return pluginContext.getPluginRequirements();
+    }
+
+    public @NonNull Optional<VersionedServiceClass> getProvidedService() {
+        return pluginContext.getProvidedService();
     }
 }

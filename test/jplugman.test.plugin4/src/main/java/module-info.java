@@ -5,7 +5,6 @@ module jplugman.test.plugin4 {
     requires static lombok;
 
     requires jplugman.test.core;
-    requires version.provider;
     requires com.google.common;
     requires jplugman.api;
 

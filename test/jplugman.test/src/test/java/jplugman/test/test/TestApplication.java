@@ -1,52 +1,45 @@
 package jplugman.test.test;
 
 import com.google.common.collect.ImmutableList;
-import jplugman.api.*;
+import jplugman.api.Application;
+import jplugman.api.Extension;
+import jplugman.api.ServiceProvider;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Synchronized;
-import jplugman.api.*;
-import jplugman.manager.Application;
 
 public class TestApplication implements Application {
 
-    private final VersionedServiceProvider serviceProvider = ImmutableVersionedServiceProvider.of();
-
     @Getter
-    private ImmutableList<VersionedService> attachedServices = ImmutableList.of();
+    private ImmutableList<Extension> attachedExtensions = ImmutableList.of();
 
     @Override
-    public @NonNull Version getVersion() {
-        return Version.with(1,0,0);
-    }
-
-    @Override
-    public @NonNull VersionedServiceProvider getServiceProvider(@NonNull VersionedServiceClass<?> versionedServiceClass) {
-        return serviceProvider;
+    public @NonNull ServiceProvider getServiceProvider(@NonNull Class<?> versionedServiceClass) {
+        return ServiceProvider.EMPTY;
     }
 
     @Override
     @Synchronized
-    public void plugService(@NonNull VersionedService versionedService) {
-        attachedServices = ImmutableList.<VersionedService>builder()
-                                        .addAll(this.attachedServices)
-                                        .add(versionedService)
+    public void plugExtension(@NonNull Extension extension) {
+        attachedExtensions = ImmutableList.<Extension>builder()
+                                        .addAll(this.attachedExtensions)
+                                        .add(extension)
                                         .build();
     }
 
     @Override
     @Synchronized
-    public void unplugService(@NonNull VersionedService versionedService) {
-        var builder = ImmutableList.<VersionedService>builder();
+    public void unplugExtension(@NonNull Extension versionedExtension) {
+        var builder = ImmutableList.<Extension>builder();
         boolean removed = false;
-        for (VersionedService attachedService : attachedServices) {
-            if (removed || attachedService != versionedService) {
-                builder.add(attachedService);
+        for (Extension attachedExtension : attachedExtensions) {
+            if (removed || attachedExtension != versionedExtension) {
+                builder.add(attachedExtension);
             } else {
                 removed = true;
             }
         }
-        this.attachedServices = builder.build();
+        this.attachedExtensions = builder.build();
     }
 
 }

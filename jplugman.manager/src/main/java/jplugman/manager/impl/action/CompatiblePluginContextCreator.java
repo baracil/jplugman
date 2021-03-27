@@ -1,14 +1,15 @@
 package jplugman.manager.impl.action;
 
 import com.google.common.collect.ImmutableList;
+import jplugman.api.Application;
+import jplugman.api.Plugin;
+import jplugman.api.PluginLoader;
+import jplugman.manager.MutableServiceProvider;
+import jplugman.manager.impl.EnrichedPlugin;
+import jplugman.manager.impl.state.PluginContext;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import jplugman.api.Plugin;
-import jplugman.api.PluginLoader;
-import jplugman.manager.Application;
-import jplugman.api.MutableVersionedServiceProvider;
-import jplugman.manager.impl.state.PluginContext;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -20,14 +21,14 @@ public class CompatiblePluginContextCreator {
 
     public static @NonNull List<PluginContext> create(
             @NonNull Application application,
-            @NonNull MutableVersionedServiceProvider pluginServiceProvider,
+            @NonNull MutableServiceProvider pluginServiceProvider,
             @NonNull Path bundleLocation
     ) {
         return new CompatiblePluginContextCreator(application, pluginServiceProvider, bundleLocation).create();
     }
 
     private final @NonNull Application application;
-    private final @NonNull MutableVersionedServiceProvider pluginServiceProvider;
+    private final @NonNull MutableServiceProvider pluginServiceProvider;
     private final @NonNull Path pluginLocation;
 
     private PluginLoader.Result loadingResult;
@@ -61,14 +62,15 @@ public class CompatiblePluginContextCreator {
     private void createPluginContexts() {
         final List<PluginContext> pluginContexts = new ArrayList<>(loadingResult.getPlugins().size());
 
-        final var applicationVersion = application.getVersion();
+        for (Plugin<?> plugin : this.loadingResult.getPlugins()) {
+            final var ep = EnrichedPlugin.create(plugin).orElse(null);
 
-        for (Plugin plugin : this.loadingResult.getPlugins()) {
-            if (plugin.getApplicationVersion().isCompatible(applicationVersion)) {
-                LOG.debug("Add plugin {}", plugin.getProvidedServiceClass());
-                pluginContexts.add(PluginContext.create(application, pluginServiceProvider, pluginLocation, loadingResult.getPluginLayer(), plugin));
+            if (ep != null) {
+                LOG.debug("Add plugin {}", plugin.getExtensionClass());
+                pluginContexts.add(PluginContext.create(application, pluginServiceProvider, pluginLocation,
+                                                        loadingResult.getPluginLayer(), ep));
             } else {
-                LOG.warn("Incompatible plugin version for {}", plugin.getProvidedServiceClass());
+                LOG.debug("Skip plugin {}", plugin.getExtensionClass());
             }
         }
 

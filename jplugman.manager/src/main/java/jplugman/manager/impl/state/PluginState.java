@@ -6,31 +6,31 @@ public interface PluginState extends StateOperation<PluginState> {
 
     @Override
     @NonNull
-    default PluginState unload() {
+    default PluginState unload(@NonNull PluginContext context) {
         return this;
     }
 
     @Override
     @NonNull
-    default PluginState load() {
+    default PluginState load(@NonNull PluginContext context) {
         return this;
     }
 
     @Override
     @NonNull
-    default PluginState markResolved() {
+    default PluginState markResolved(@NonNull PluginContext context) {
         return this;
     }
 
     @Override
     @NonNull
-    default PluginState setToInstalledState() {
+    default PluginState setToInstalledState(@NonNull PluginContext context) {
         return this;
     }
 
     @Override
     @NonNull
-    default PluginState unInstall() {
+    default PluginState unInstall(@NonNull PluginContext context) {
         return this;
     }
 

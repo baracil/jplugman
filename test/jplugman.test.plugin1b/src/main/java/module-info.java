@@ -1,5 +1,5 @@
 import jplugman.api.Plugin;
-import jplugman.test.plugin1.Plugin1;
+import jplugman.test.plugin1b.Plugin1b;
 
 module jplugman.test.plugin1b {
     requires static lombok;
@@ -8,5 +8,5 @@ module jplugman.test.plugin1b {
     requires jplugman.api;
     requires com.google.common;
 
-    provides Plugin with Plugin1;
+    provides Plugin with Plugin1b;
 }

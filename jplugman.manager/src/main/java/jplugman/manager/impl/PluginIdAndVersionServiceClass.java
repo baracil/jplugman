@@ -1,27 +1,29 @@
 package jplugman.manager.impl;
 
+import jplugman.api.Version;
+import jplugman.manager.impl.state.PluginContext;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NonNull;
-import jplugman.api.Version;
-import jplugman.api.VersionedServiceClass;
-import jplugman.manager.impl.state.PluginContext;
+
+import java.util.Optional;
 
 @AllArgsConstructor
 public class PluginIdAndVersionServiceClass {
 
-    public static PluginIdAndVersionServiceClass createWith(@NonNull PluginContext pluginContext) {
-        return new PluginIdAndVersionServiceClass(pluginContext.getId(), pluginContext.getProvidedService());
+    public static @NonNull Optional<PluginIdAndVersionServiceClass> createWith(@NonNull PluginContext pluginContext) {
+        return pluginContext.getProvidedService()
+                            .map(s -> new PluginIdAndVersionServiceClass(pluginContext.getId(),s));
     }
 
     @Getter
     private final long pluginId;
 
     @Getter
-    private final @NonNull VersionedServiceClass<?> versionedServiceClass;
+    private final @NonNull VersionedServiceClass versionedServiceClass;
 
 
-    public @NonNull Class<?> getServiceType() {
+    public @NonNull ServiceClass getServiceType() {
         return versionedServiceClass.getServiceClass();
     }
 
@@ -30,11 +32,11 @@ public class PluginIdAndVersionServiceClass {
     }
 
     public int getMajorVersion() {
-        return versionedServiceClass.getMajorVersion();
+        return versionedServiceClass.getVersion().getMajor();
     }
 
     public boolean provides(Class<?> requestedService) {
-        return requestedService.equals(versionedServiceClass.getServiceClass());
+        return requestedService.equals(versionedServiceClass.getServiceClass().getType());
     }
 
 }

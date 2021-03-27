@@ -1,12 +1,12 @@
 package jplugman.test.test;
 
 
-import lombok.NonNull;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 import jplugman.api.Version;
 import jplugman.manager.PluginManager;
 import jplugman.test.core.VersionGetter;
+import lombok.NonNull;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class TestLoadPlugin1BThen1A extends TestLoadPluginBase {
 
@@ -29,7 +29,7 @@ public class TestLoadPlugin1BThen1A extends TestLoadPluginBase {
 
     @Test
     public void shouldHaveServiceVersionGetter() {
-        final var service = attachedServices.get(0).getServiceAs(VersionGetter.class);
+        final var service = attachedServices.get(0).getInstanceAs(VersionGetter.class);
         Assertions.assertTrue(service.isPresent());
 
     }

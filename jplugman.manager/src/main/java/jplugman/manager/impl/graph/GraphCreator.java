@@ -3,11 +3,10 @@ package jplugman.manager.impl.graph;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import jplugman.manager.impl.PluginServiceTypeRegistry;
-import jplugman.manager.impl.state.StateOperation;
+import jplugman.manager.impl.state.PluginData;
 import lombok.AccessLevel;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import jplugman.manager.impl.state.PluginData;
 
 import java.util.Map;
 import java.util.Optional;
@@ -35,7 +34,7 @@ public class GraphCreator {
     }
 
     private void createServiceTypeProvider() {
-        pluginServiceTypeRegistry = PluginServiceTypeRegistry.create(pluginDataInGraph, StateOperation::getPluginContext);
+        pluginServiceTypeRegistry = PluginServiceTypeRegistry.create(pluginDataInGraph, PluginData::getPluginContext);
     }
 
     private void createAllNodes() {

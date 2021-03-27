@@ -75,6 +75,7 @@ public class PluginPlugger {
         this.dependencyGraph = GraphCreator.create(newestPlugins);
     }
 
+
     private void loadResolvedPlugins() {
         someLoadingFailed = false;
         for (Node sortedNode : sortedNodes) {

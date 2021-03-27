@@ -1,14 +1,14 @@
-package jplugman.test;
+package jplugman.loader;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
 import jplugman.api.InvalidPluginLocation;
 import jplugman.api.InvalidPluginStructure;
 import jplugman.api.Plugin;
 import jplugman.api.PluginLoader;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
@@ -58,7 +58,7 @@ public class ModularPluginLoader implements PluginLoader {
 
         private ModuleLayer moduleLayer;
 
-        private ImmutableList<Plugin> plugins;
+        private ImmutableList<Plugin<?>> plugins;
 
         private @NonNull Result load() throws IOException {
             this.checkInputLocationIsAZipFile();
@@ -182,6 +182,7 @@ public class ModularPluginLoader implements PluginLoader {
             this.plugins = ServiceLoader.load(moduleLayer, Plugin.class)
                                         .stream()
                                         .map(ServiceLoader.Provider::get)
+                                        .map(p -> (Plugin<?>)p)
                                         .collect(ImmutableList.toImmutableList());
         }
 

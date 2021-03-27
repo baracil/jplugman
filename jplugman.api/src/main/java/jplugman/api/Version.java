@@ -18,7 +18,7 @@ public class Version implements Comparable<Version> {
     }
 
     @Override
-    public int compareTo(Version that) {
+    public int compareTo(@NonNull Version that) {
         return VERSION_COMPARATOR.compare(this,that);
     }
 
@@ -34,6 +34,16 @@ public class Version implements Comparable<Version> {
 
     private static final Pattern VERSION_PATTERN = Pattern.compile("v?(\\d+)\\.(\\d+)\\.(\\d+)");
 
+    public static @NonNull Version with(@NonNull PluginVersion pluginVersion) {
+        return with(pluginVersion.version());
+    }
+
+    /**
+     * Create a version from a string representation.
+     * @param versionAsString the version as string. Must be of the form "X.Y.Z" of "vX.Y.Z" where X,Y and Z must
+     *                        be integer
+     * @return a {@link Version} initialize with the provided string representation
+     */
     public static @NonNull Version with(@NonNull String versionAsString) {
         final var matcher = VERSION_PATTERN.matcher(versionAsString.trim());
         if (!matcher.matches()) {

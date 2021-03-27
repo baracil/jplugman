@@ -2,15 +2,11 @@ package jplugman.manager.impl.state;
 
 import lombok.NonNull;
 
-public class FailedState extends PluginStateBase {
-
-    public FailedState(@NonNull PluginContext context) {
-        super(context);
-    }
+public class FailedState implements PluginState {
 
     @Override
-    public @NonNull PluginState unInstall() {
-        return new UnInstalledState(this.getPluginContext());
+    public @NonNull PluginState unInstall(@NonNull PluginContext pluginContext) {
+        return new UnInstalledState();
     }
 
     @Override

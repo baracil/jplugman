@@ -29,7 +29,7 @@ public class TestLoadPlugin1AThen1C extends TestLoadPluginBase {
 
     @Test
     public void shouldHaveServiceVersionGetter() {
-        final var service = attachedServices.get(0).getServiceAs(VersionGetter.class);
+        final var service = attachedServices.get(0).getInstanceAs(VersionGetter.class);
         Assertions.assertTrue(service.isPresent());
 
     }

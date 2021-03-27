@@ -11,7 +11,16 @@ import java.lang.annotation.Target;
 public @interface PluginVersion {
 
     /**
-     * @return the semantic version of the plugin
+     * @return the service the annotated service provides. This must be an
+     * interface annotated with the {@link ApiVersion} annotation provided by
+     * the main application.
+     * Also, the {@link #version()} method must return a version with a major
+     * that is compatible with a version listed in the {@link ApiVersion}.
      */
-    String value();
+    Class<?> value();
+
+    /**
+     * @return the semantic version of the provided service.
+     */
+    String version();
 }

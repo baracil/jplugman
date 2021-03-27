@@ -2,11 +2,7 @@ package jplugman.manager.impl.state;
 
 import lombok.NonNull;
 
-public class InstalledState extends PluginStateBase {
-
-    public InstalledState(@NonNull PluginContext context) {
-        super(context);
-    }
+public class InstalledState implements PluginState {
 
     @Override
     public boolean isInInstalledState() {
@@ -24,12 +20,12 @@ public class InstalledState extends PluginStateBase {
     }
 
     @Override
-    public @NonNull PluginState unInstall() {
-        return new UnInstalledState(getPluginContext());
+    public @NonNull PluginState unInstall(@NonNull PluginContext pluginContext) {
+        return new UnInstalledState();
     }
 
     @Override
-    public @NonNull PluginState markResolved() {
-        return new ResolvedState(getPluginContext());
+    public @NonNull PluginState markResolved(@NonNull PluginContext pluginContext) {
+        return new ResolvedState();
     }
 }

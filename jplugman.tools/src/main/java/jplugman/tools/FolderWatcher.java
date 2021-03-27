@@ -1,7 +1,7 @@
 package jplugman.tools;
 
-import lombok.NonNull;
 import jplugman.tools.impl.PeroFolderWatcher;
+import lombok.NonNull;
 
 import java.nio.file.Path;
 import java.util.ServiceLoader;

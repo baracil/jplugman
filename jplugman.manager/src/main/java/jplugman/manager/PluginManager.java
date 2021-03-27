@@ -1,7 +1,8 @@
 package jplugman.manager;
 
-import lombok.NonNull;
+import jplugman.api.Application;
 import jplugman.manager.impl.PeroPluginManager;
+import lombok.NonNull;
 
 import java.nio.file.Path;
 import java.util.ServiceLoader;

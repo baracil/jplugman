@@ -1,36 +1,25 @@
 package jplugman.manager.impl.state;
 
-import jplugman.manager.impl.PluginSpecificServiceProvider;
 import lombok.NonNull;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
-public class ResolvedState extends PluginStateBase {
-
-    public ResolvedState(@NonNull PluginContext context) {
-        super(context);
-    }
+public class ResolvedState implements PluginState {
 
     @Override
-    public @NonNull PluginState load() {
+    public @NonNull PluginState load(@NonNull PluginContext pluginContext) {
         try {
-            final var serviceProvider = PluginSpecificServiceProvider.create(
-                    pluginContext.getPluginRequirements(),
-                    pluginContext.getApplicationServiceProvider().thenSearch(pluginContext.getPluginServiceProvider()));
-            final var service = pluginContext.loadService(serviceProvider);
-            pluginContext.plugService(service);
-            return new PluggedState(getPluginContext(), service);
+            return pluginContext.load();
         } catch (Throwable e) {
             LOG.warn("Could not load plugin {} : {}", pluginContext, e.getMessage());
             LOG.debug(e);
-            return new FailedState(getPluginContext());
+            return new FailedState();
         }
-
     }
 
     @Override
-    public @NonNull PluginState unload() {
-        return new InstalledState(getPluginContext());
+    public @NonNull PluginState unload(@NonNull PluginContext pluginContext) {
+        return new InstalledState();
     }
 
     @Override

@@ -28,7 +28,8 @@ public class ObsoletePluginFinder {
     }
 
     private boolean isObsolete(PluginData plugin) {
-        return pluginServiceTypeRegistry.isNewerVersionAvailable(plugin.getProvidedService());
+        final var versionedServiceClass = plugin.getProvidedService().orElse(null);
+        return versionedServiceClass != null && pluginServiceTypeRegistry.isNewerVersionAvailable(versionedServiceClass);
     }
 
     private void buildServiceProviderFromInstalledPlugins() {

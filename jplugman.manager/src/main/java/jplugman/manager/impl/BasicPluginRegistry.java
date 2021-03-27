@@ -1,11 +1,10 @@
 package jplugman.manager.impl;
 
 import com.google.common.collect.ImmutableList;
-import jplugman.api.HashSetVersionedServiceProvider;
-import jplugman.api.MutableVersionedServiceProvider;
+import jplugman.manager.MutableServiceProvider;
+import jplugman.manager.impl.state.PluginData;
 import lombok.NonNull;
 import lombok.experimental.Delegate;
-import jplugman.manager.impl.state.PluginData;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,7 +15,7 @@ import java.util.stream.Stream;
 public class BasicPluginRegistry implements PluginRegistry {
 
     @Delegate
-    private final MutableVersionedServiceProvider serviceProvider = new HashSetVersionedServiceProvider();
+    private final MutableServiceProvider serviceProvider = new HashSetServiceProvider();
 
     private final Map<Long, PluginData> pluginInfoById = new HashMap<>();
 

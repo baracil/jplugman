@@ -2,33 +2,24 @@ package jplugman.test.plugin5;
 
 import com.google.common.collect.ImmutableSet;
 import jplugman.api.Plugin;
-import jplugman.api.ServiceProvider;
-import jplugman.api.Version;
-import jplugman.api.VersionedServiceClass;
-import jplugman.test.core.DummyService;
+import jplugman.api.Requirement;
+import jplugman.api.ServiceRegistry;
 import lombok.NonNull;
 
-public class Plugin5 implements Plugin {
-
-    public static final Version VERSION = Version.with(3, 1, 0);
+public class Plugin5 implements Plugin<DummyService5> {
 
     @Override
-    public @NonNull Version getApplicationVersion() {
-        return Version.with(1,0,0);
-    }
-
-    @Override
-    public @NonNull ImmutableSet<VersionedServiceClass<?>> getRequirements() {
+    public @NonNull ImmutableSet<Requirement<?>> getRequirements() {
         return ImmutableSet.of();
     }
 
 
     @Override
-    public @NonNull VersionedServiceClass<?> getProvidedServiceClass() {
-        return new VersionedServiceClass<>(DummyService.class, VERSION);
+    public @NonNull Class<DummyService5> getExtensionClass() {
+        return DummyService5.class;
     }
 
-    public @NonNull Object loadService(@NonNull ModuleLayer pluginLayer, @NonNull ServiceProvider serviceProvider) {
+    public @NonNull DummyService5 loadExtension(@NonNull ModuleLayer pluginLayer, @NonNull ServiceRegistry serviceRegistry) {
         return new DummyService5();
     }
 }

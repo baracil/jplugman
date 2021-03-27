@@ -1,13 +1,13 @@
 package jplugman.manager.impl.action;
 
 import com.google.common.collect.ImmutableList;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import jplugman.manager.impl.PluginRegistry;
 import jplugman.manager.impl.graph.Graph;
 import jplugman.manager.impl.graph.GraphCreator;
 import jplugman.manager.impl.graph.Node;
 import jplugman.manager.impl.state.PluginData;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class ResolvedPluginLister {

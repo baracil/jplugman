@@ -2,11 +2,11 @@ package jplugman.manager.impl;
 
 import com.google.common.collect.ImmutableCollection;
 import com.google.common.collect.Table;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-import jplugman.api.VersionedServiceClass;
+import jplugman.api.Requirement;
 import jplugman.manager.impl.state.PluginContext;
 import jplugman.manager.impl.state.PluginData;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 import java.util.Optional;
 import java.util.function.Function;
@@ -33,11 +33,11 @@ public class PluginServiceTypeRegistry {
      * @return an optional containing the id of the plugin that provides the requested
      * requirement if any (for the request major version). An empty optional if no such plugin could be found
      */
-    public Optional<Long> findPluginProviding(@NonNull VersionedServiceClass<?> requirement) {
-        final var requestedService = requirement.getServiceClass();
-        final var majorVersion = requirement.getVersion().getMajor();
+    public Optional<Long> findPluginProviding(@NonNull Requirement<?> requirement) {
+        final var requestedService = requirement.getServiceType();
+        final var apiVersion = requirement.getApiVersion();
 
-        return services.column(majorVersion)
+        return services.column(apiVersion)
                        .values()
                        .stream()
                        .filter(p -> p.provides(requestedService))
@@ -48,30 +48,28 @@ public class PluginServiceTypeRegistry {
     /**
      * @return true if a plugin provides a service with a newer version (for the same major version)
      */
-    public boolean isNewerVersionAvailable(@NonNull VersionedServiceClass<?> versionedServiceClass) {
+    public boolean isNewerVersionAvailable(@NonNull VersionedServiceClass versionedServiceClass) {
         final var serviceType = versionedServiceClass.getServiceClass();
         final var majorVersion = versionedServiceClass.getVersion().getMajor();
-        final var providedServiceType = services.get(serviceType.getName(), majorVersion);
+        final var providedServiceType = services.get(serviceType.getServiceName(), majorVersion);
 
         return providedServiceType != null && providedServiceType.getVersion().compareTo(versionedServiceClass.getVersion())>0;
     }
 
 
     /**
-     *
-     * @param pluginContext the plugin context containing the plugin information
-     * @return true if the provided pluginContext provides the last version of the service (for a given major version)
+     * @return true if versionedServiceClass provides the last version of the service (for a given major version)
      */
-    public boolean isLastVersion(@NonNull PluginContext pluginContext) {
-        final var serviceType = pluginContext.getProvidedService().getServiceClass();
-        final var majorVersion = pluginContext.getProvidedService().getVersion().getMajor();
-        final var providedServiceType = services.get(serviceType.getName(), majorVersion);
-
-        return providedServiceType != null && providedServiceType.getPluginId() == pluginContext.getId();
-    }
-
     public boolean isLastVersion(@NonNull PluginData pluginData) {
-        return isLastVersion(pluginData.getPluginContext());
+        final var versionServiceClass = pluginData.getProvidedService().orElse(null);
+        if (versionServiceClass == null) {
+            return true;
+        }
+        final var serviceType = versionServiceClass.getServiceClass();
+        final var majorVersion = versionServiceClass.getVersion().getMajor();
+        final var providedServiceType = services.get(serviceType.getServiceName(), majorVersion);
+
+        return providedServiceType != null && providedServiceType.getPluginId() == pluginData.getId();
     }
 
 }

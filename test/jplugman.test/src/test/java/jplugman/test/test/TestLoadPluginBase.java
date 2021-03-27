@@ -1,11 +1,11 @@
 package jplugman.test.test;
 
 import com.google.common.collect.ImmutableList;
+import jplugman.api.Extension;
+import jplugman.manager.PluginManager;
 import lombok.NonNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.io.TempDir;
-import jplugman.api.VersionedService;
-import jplugman.manager.PluginManager;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
@@ -17,7 +17,7 @@ import java.util.stream.Stream;
 public abstract class TestLoadPluginBase {
 
 
-    protected ImmutableList<VersionedService> attachedServices;
+    protected ImmutableList<Extension> attachedServices;
 
     @TempDir
     public Path pluginDir;
@@ -34,7 +34,7 @@ public abstract class TestLoadPluginBase {
         final var pluginManager = PluginManager.create(application);
 
         this.setUp(pluginManager);
-        this.attachedServices = application.getAttachedServices();
+        this.attachedServices = application.getAttachedExtensions();
     }
 
     private void copyPluginsToPluginDir(String resourceName) {

@@ -6,7 +6,7 @@ import lombok.NonNull;
 import java.nio.file.Path;
 import java.util.ServiceLoader;
 
-public interface Plugin {
+public interface Plugin<T> {
 
     /**
      * Load a plugin bundle in a modular JVM
@@ -24,22 +24,17 @@ public interface Plugin {
     }
 
     /**
-     * @return the version of the application this plugin has been compiled for
-     */
-    @NonNull Version getApplicationVersion();
-
-    /**
      * @return the set of services this plugin needs to load the service it provides
      */
-    @NonNull ImmutableSet<VersionedServiceClass<?>> getRequirements();
+    @NonNull ImmutableSet<Requirement<?>> getRequirements();
 
     /**
-     * @return the class and the version of the service this plugin provides
+     * @return the class of the extension this plugin provides
      */
-    @NonNull VersionedServiceClass<?> getProvidedServiceClass();
+    @NonNull Class<T> getExtensionClass();
 
     /**
-     * @return load the service provided by this plugin
+     * @return load the extension provided by this plugin
      */
-    @NonNull Object loadService(@NonNull ModuleLayer pluginLayer, @NonNull ServiceProvider serviceProvider);
+    @NonNull T loadExtension(@NonNull ModuleLayer pluginLayer, @NonNull ServiceRegistry serviceRegistry);
 }

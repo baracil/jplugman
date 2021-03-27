@@ -9,4 +9,5 @@ module jplugman.manager {
     requires com.google.common;
 
     exports jplugman.manager;
+
 }

@@ -1,9 +1,11 @@
-package jplugman.test.plugin1;
+package jplugman.test.plugin1c;
 
+import jplugman.api.PluginVersion;
+import jplugman.test.core.VersionGetter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import jplugman.test.core.VersionGetter;
 
+@PluginVersion(value = VersionGetter.class, version = "1.0.1")
 @RequiredArgsConstructor
 public class VersionGetter1c implements VersionGetter {
 

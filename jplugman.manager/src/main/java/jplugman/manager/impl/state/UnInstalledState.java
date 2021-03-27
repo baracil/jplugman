@@ -1,12 +1,6 @@
 package jplugman.manager.impl.state;
 
-import lombok.NonNull;
-
-public class UnInstalledState extends PluginStateBase {
-
-    public UnInstalledState(@NonNull PluginContext context) {
-        super(context);
-    }
+public class UnInstalledState implements PluginState {
 
     @Override
     public boolean isInInstalledState() {

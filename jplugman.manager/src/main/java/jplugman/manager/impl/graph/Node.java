@@ -1,11 +1,11 @@
 package jplugman.manager.impl.graph;
 
+import jplugman.api.Requirement;
+import jplugman.manager.impl.state.PluginData;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import jplugman.api.VersionedServiceClass;
-import jplugman.manager.impl.state.PluginData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,16 +45,20 @@ public class Node implements GraphNode<Node> {
 
     public boolean areRequirementFulfilled() {
         final var requirements = this.pluginData.getPluginRequirements();
-
-        if (dependencies.size() == requirements.size()) {
-            return true;
-        }
-
         final var serviceProvider = this.pluginData.getApplicationServiceProvider();
 
-        final Predicate<VersionedServiceClass<?>> providedByPlugins = r -> dependencies.stream().anyMatch(n -> n.getPluginData().getProvidedService().provides(r));
-        final Predicate<VersionedServiceClass<?>> providedByMainApplication = serviceProvider::hasService;
+        final Predicate<Requirement<?>> providedByPlugins = this::anyDependencyProvides;
+        final Predicate<Requirement<?>> providedByMainApplication = serviceProvider::hasService;
+
         return requirements.stream().allMatch(providedByPlugins.or(providedByMainApplication));
+    }
+
+    private boolean anyDependencyProvides(@NonNull Requirement<?> requirement) {
+        return dependencies.stream().anyMatch(node -> node.isPluginProvides(requirement));
+    }
+
+    private boolean isPluginProvides(@NonNull Requirement<?> requirement) {
+        return pluginData.pluginProvides(requirement);
     }
 
     public void addDependency(Node dependency) {
