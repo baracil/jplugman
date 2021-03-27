@@ -8,6 +8,7 @@ module jplugman.test.api {
 
     requires org.junit.jupiter.api;
     requires org.junit.jupiter.params;
+    requires org.junit.jupiter.engine;
 
     exports jplugman.test.api to org.junit.platform.commons;
 }
