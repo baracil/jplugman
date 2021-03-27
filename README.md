@@ -19,74 +19,7 @@ This module is released under MIT license.
 
 ## How to use
 
-First create your application by implementing the **Application** interface:
-
-```java
-public interface Application {
-
-    /**
-     * @param pluginServiceType the type of the versionedService provided by the plugin requesting the application versionedService provider
-     * @return the versionedService provided by the application filtered for the provided <code>pluginServiceType</code>
-     */
-    @NonNull ServiceProvider getServiceProvider(@NonNull Class<?> pluginServiceType);
-
-    /**
-     * Plug an extensionData to the application. This must
-     * not affect the versionedService provider of the application.
-     * @param extensionData the versionedService to plug
-     */
-    void plugExtension(@NonNull Extension extensionData);
-
-    /**
-     * Unplug an extensionData from the application. This must
-     * not affect the versionedService provider of the application.
-     * @param extensionData the versionedService to unplug
-     */
-    void unplugExtension(@NonNull Extension extensionData);
-}
-```
-You then create a **PluginManager** with
-
-```java
- public static void main(String[]args) {
-        final var myApplication = createMyApplication();
-        final var pluginManager = PluginManager.create(myApplication);
-        
-        //Add some plugins
-        pluginManager.addPluginBundle(Path.of("path_to_my_plugin_bundle1"));
-        pluginManager.addPluginBundle(Path.of("path_to_my_plugin_bundle2"));
-        
-        //do things
-        
-        //remove a plugin
-        pluginManager.removePluginBundle(Path.of("path_to_a_plugin_to_remove"));
-        
-        //...
-  }
-```
-
-Now create a *Plugin* by implementing the **Plugin** interface :
-
-```java
-public interface Plugin<T> {
-    /**
-     * @return the set of services this plugin needs to load the versionedService it provides
-     */
-    @NonNull ImmutableSet<Requirement<?>> getRequirements();
-
-    /**
-     * @return the class of the extensionData this plugin provides
-     */
-    @NonNull Class<T> getExtensionClass();
-
-    /**
-     * @return load the extensionData provided by this plugin
-     */
-    @NonNull T loadExtension(@NonNull ModuleLayer pluginLayer, @NonNull ServiceRegistry serviceProvider);
-}
-```
-
-
+*TODO*
 
 ## Dependencies and obsolescence
 
