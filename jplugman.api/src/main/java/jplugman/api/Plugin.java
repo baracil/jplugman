@@ -21,6 +21,4 @@ public interface Plugin<T> {
     @NonNull ImmutableSet<Requirement<?>> getRequirements();
 
 
-
-
 }

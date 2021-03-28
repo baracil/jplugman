@@ -1,8 +1,12 @@
 package Bastien Aracil.jplugman.manager.state;
 
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 public class InstalledState implements PluginState {
+
+    private final @NonNull PluginsStateAction pluginsStateAction;
 
     @Override
     public boolean isInInstalledState() {
@@ -20,12 +24,12 @@ public class InstalledState implements PluginState {
     }
 
     @Override
-    public @NonNull PluginState unInstall(@NonNull PluginContext pluginContext) {
+    public @NonNull PluginState unInstall() {
         return new UnInstalledState();
     }
 
     @Override
-    public @NonNull PluginState markResolved(@NonNull PluginContext pluginContext) {
-        return new ResolvedState();
+    public @NonNull PluginState markResolved() {
+        return new ResolvedState(pluginsStateAction);
     }
 }

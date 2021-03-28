@@ -16,7 +16,7 @@ import java.util.Optional;
 public class PluginData {
 
     public static @NonNull PluginData createInstalled(@NonNull PluginContext pluginContext) {
-        return new PluginData(pluginContext,new InstalledState());
+        return new PluginData(pluginContext,new InstalledState(pluginContext));
     }
 
     @Getter
@@ -37,7 +37,7 @@ public class PluginData {
     }
 
     public void unload() {
-        this.state = state.unload(pluginContext);
+        this.state = state.unload();
     }
 
     public void load() {
@@ -45,15 +45,15 @@ public class PluginData {
     }
 
     public void markResolved() {
-        this.state = state.markResolved(pluginContext);
+        this.state = state.markResolved();
     }
 
     public void unInstall() {
-        this.state = state.unInstall(pluginContext);
+        this.state = state.unInstall();
     }
 
     public void setToInstalledState() {
-        this.state = state.setToInstalledState(pluginContext);
+        this.state = state.setToInstalledState();
     }
 
     public boolean isInFailedState() {

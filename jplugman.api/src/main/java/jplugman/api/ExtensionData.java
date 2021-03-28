@@ -6,8 +6,6 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
 
-import java.util.stream.IntStream;
-
 @Value
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class ExtensionData<E> {

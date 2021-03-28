@@ -16,7 +16,7 @@ import java.util.concurrent.atomic.AtomicLong;
 @Getter
 @RequiredArgsConstructor
 @Log4j2
-public class PluginContext {
+public class PluginContext implements PluginsStateAction {
 
     private final @NonNull Application application;
     private final @NonNull VersionedServiceProvider applicationServiceProvider;
@@ -45,6 +45,11 @@ public class PluginContext {
         );
     }
 
+    @Override
+    public @NonNull String getPluginInfo() {
+        return plugin+ " '" + pluginLocation.getFileName() + "'";
+    }
+
     public @NonNull Optional<? extends ExtensionData<?>> getExtensionData() {
         return plugin.getExtensionData();
     }
@@ -53,7 +58,7 @@ public class PluginContext {
         return plugin.getRequirements();
     }
 
-    public void plugExtension(@NonNull PluginService<?> pluginService) {
+    public void plugService(@NonNull PluginService<?> pluginService) {
         LOG.debug("Plug   service : {}", pluginService);
         this.application.plugService(pluginService);
         this.pluginServiceProvider.addPluginService(pluginService);
@@ -72,16 +77,13 @@ public class PluginContext {
                 '}';
     }
 
-    public @NonNull PluggedState load() {
+    public @NonNull PluginService<?> load() {
         final var serviceProvider = PluginSpecificServiceProvider.create(
                 plugin.getRequirements(),
                 applicationServiceProvider.thenSearch(this.pluginServiceProvider)
         );
 
-        final var pluginService = this.plugin.load(moduleLayer, serviceProvider);
-        this.plugExtension(pluginService);
-        return new PluggedState(pluginService);
-
+        return this.plugin.load(moduleLayer, serviceProvider);
     }
 
     public boolean pluginProvides(@NonNull Requirement<?> requirement) {

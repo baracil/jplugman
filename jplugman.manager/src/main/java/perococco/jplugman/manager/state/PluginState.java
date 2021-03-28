@@ -11,7 +11,7 @@ public interface PluginState {
     boolean isInFailedState();
 
     @NonNull
-    default PluginState unload(@NonNull PluginContext context) {
+    default PluginState unload() {
         return this;
     }
 
@@ -21,17 +21,17 @@ public interface PluginState {
     }
 
     @NonNull
-    default PluginState markResolved(@NonNull PluginContext context) {
+    default PluginState markResolved() {
         return this;
     }
 
     @NonNull
-    default PluginState setToInstalledState(@NonNull PluginContext context) {
+    default PluginState setToInstalledState() {
         return this;
     }
 
     @NonNull
-    default PluginState unInstall(@NonNull PluginContext context) {
+    default PluginState unInstall() {
         return this;
     }
 

@@ -4,8 +4,9 @@ import lombok.NonNull;
 
 public class FailedState implements PluginState {
 
+
     @Override
-    public @NonNull PluginState unInstall(@NonNull PluginContext pluginContext) {
+    public @NonNull PluginState unInstall() {
         return new UnInstalledState();
     }
 

@@ -38,4 +38,13 @@ public class EnrichedPlugin<T> {
     public ImmutableSet<Requirement<?>> getRequirements() {
         return plugin.getRequirements();
     }
+
+    @Override
+    public String toString() {
+        if (extensionData == null) {
+            return "Plugin{" + plugin.getServiceClass() + "}";
+        } else {
+            return "Plugin{" + plugin.getServiceClass() + " "+extensionData.getExtensionPointType()+" "+extensionData.getVersion()+"}";
+        }
+    }
 }
