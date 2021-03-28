@@ -11,9 +11,10 @@ import java.util.Optional;
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class EnrichedPlugin<T> {
 
-    public static <T> @NonNull Optional<EnrichedPlugin<T>> create(@NonNull Plugin<T> plugin) {
-        final var services = ProvidedServiceExtractor.extract(plugin.getServiceClass());
-        return services.map(s -> new EnrichedPlugin<>(plugin,s));
+    public static <T> @NonNull EnrichedPlugin<T> create(@NonNull Plugin<T> plugin) {
+        final var extensionData = ProvidedServiceExtractor.extract(plugin.getServiceClass());
+        return extensionData.map(s -> new EnrichedPlugin<>(plugin,s))
+                            .orElseGet(() -> new EnrichedPlugin<>(plugin,null));
     }
 
     private final @NonNull Plugin<T> plugin;

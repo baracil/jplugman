@@ -63,15 +63,11 @@ public class CompatiblePluginContextCreator {
         final List<PluginContext> pluginContexts = new ArrayList<>(loadingResult.getPlugins().size());
 
         for (Plugin<?> plugin : this.loadingResult.getPlugins()) {
-            final var ep = EnrichedPlugin.create(plugin).orElse(null);
+            final var ep = EnrichedPlugin.create(plugin);
 
-            if (ep != null) {
-                LOG.debug("Add plugin {}", plugin.getServiceClass());
-                pluginContexts.add(PluginContext.create(application, pluginServiceProvider, pluginLocation,
-                                                        loadingResult.getPluginLayer(), ep));
-            } else {
-                LOG.debug("Skip plugin {}", plugin.getServiceClass());
-            }
+            LOG.debug("Add plugin {}", plugin.getServiceClass());
+            pluginContexts.add(PluginContext.create(application, pluginServiceProvider, pluginLocation,
+                                                    loadingResult.getPluginLayer(), ep));
         }
 
         this.pluginContexts = pluginContexts;
