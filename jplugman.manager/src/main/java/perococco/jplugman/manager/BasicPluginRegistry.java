@@ -1,9 +1,9 @@
 package Bastien Aracil.jplugman.manager;
 
 import com.google.common.collect.ImmutableList;
-import Bastien Aracil.jplugman.manager.state.PluginData;
 import lombok.NonNull;
 import lombok.experimental.Delegate;
+import Bastien Aracil.jplugman.manager.state.PluginData;
 
 import java.util.HashMap;
 import java.util.Map;

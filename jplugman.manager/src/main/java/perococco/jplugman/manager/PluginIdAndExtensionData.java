@@ -1,7 +1,6 @@
 package Bastien Aracil.jplugman.manager;
 
 import jplugman.api.ExtensionData;
-import jplugman.api.Requirement;
 import jplugman.api.Version;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

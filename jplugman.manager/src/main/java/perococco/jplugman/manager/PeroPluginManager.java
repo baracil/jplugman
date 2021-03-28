@@ -2,11 +2,11 @@ package Bastien Aracil.jplugman.manager;
 
 import jplugman.api.Application;
 import jplugman.manager.PluginManager;
-import Bastien Aracil.jplugman.manager.action.BundleAdder;
-import Bastien Aracil.jplugman.manager.action.BundleRemover;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Synchronized;
+import Bastien Aracil.jplugman.manager.action.BundleAdder;
+import Bastien Aracil.jplugman.manager.action.BundleRemover;
 
 import java.nio.file.Path;
 import java.util.HashSet;

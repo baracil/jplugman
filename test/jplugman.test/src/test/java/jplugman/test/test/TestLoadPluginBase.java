@@ -2,7 +2,6 @@ package jplugman.test.test;
 
 import com.google.common.collect.ImmutableList;
 import jplugman.api.PluginService;
-import jplugman.api.VersionedService;
 import jplugman.manager.PluginManager;
 import lombok.NonNull;
 import org.junit.jupiter.api.BeforeEach;

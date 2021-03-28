@@ -4,12 +4,12 @@ import com.google.common.collect.ImmutableList;
 import jplugman.api.Application;
 import jplugman.api.Plugin;
 import jplugman.loader.PluginLoader;
-import Bastien Aracil.jplugman.manager.MutableVersionedServiceProvider;
-import Bastien Aracil.jplugman.manager.EnrichedPlugin;
-import Bastien Aracil.jplugman.manager.state.PluginContext;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import Bastien Aracil.jplugman.manager.EnrichedPlugin;
+import Bastien Aracil.jplugman.manager.MutableVersionedServiceProvider;
+import Bastien Aracil.jplugman.manager.state.PluginContext;
 
 import java.nio.file.Path;
 import java.util.ArrayList;

@@ -3,10 +3,10 @@ package Bastien Aracil.jplugman.manager;
 import com.google.common.collect.ImmutableCollection;
 import jplugman.api.ExtensionData;
 import jplugman.api.Requirement;
-import Bastien Aracil.jplugman.manager.state.PluginContext;
-import Bastien Aracil.jplugman.manager.state.PluginData;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import Bastien Aracil.jplugman.manager.state.PluginContext;
+import Bastien Aracil.jplugman.manager.state.PluginData;
 
 import java.util.Map;
 import java.util.Optional;

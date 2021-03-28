@@ -1,11 +1,11 @@
 package Bastien Aracil.jplugman.manager.graph;
 
 import jplugman.api.Requirement;
-import Bastien Aracil.jplugman.manager.state.PluginData;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import Bastien Aracil.jplugman.manager.state.PluginData;
 
 import java.util.ArrayList;
 import java.util.List;

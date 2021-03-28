@@ -2,11 +2,11 @@ package Bastien Aracil.jplugman.manager.graph;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import Bastien Aracil.jplugman.manager.PluginServiceTypeRegistry;
-import Bastien Aracil.jplugman.manager.state.PluginData;
 import lombok.AccessLevel;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import Bastien Aracil.jplugman.manager.PluginServiceTypeRegistry;
+import Bastien Aracil.jplugman.manager.state.PluginData;
 
 import java.util.Map;
 import java.util.Optional;

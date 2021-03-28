@@ -3,7 +3,6 @@ package jplugman.test.test;
 import jplugman.api.Version;
 import jplugman.manager.PluginManager;
 import jplugman.test.core.DummyService;
-import jplugman.test.core.VersionGetter;
 import lombok.NonNull;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

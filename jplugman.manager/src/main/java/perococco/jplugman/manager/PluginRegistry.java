@@ -1,8 +1,8 @@
 package Bastien Aracil.jplugman.manager;
 
 import com.google.common.collect.ImmutableList;
-import Bastien Aracil.jplugman.manager.state.PluginData;
 import lombok.NonNull;
+import Bastien Aracil.jplugman.manager.state.PluginData;
 
 import java.util.Optional;
 import java.util.function.Predicate;

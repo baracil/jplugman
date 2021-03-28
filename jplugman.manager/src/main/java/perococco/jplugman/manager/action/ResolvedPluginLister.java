@@ -1,13 +1,13 @@
 package Bastien Aracil.jplugman.manager.action;
 
 import com.google.common.collect.ImmutableList;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import Bastien Aracil.jplugman.manager.PluginRegistry;
 import Bastien Aracil.jplugman.manager.graph.Graph;
 import Bastien Aracil.jplugman.manager.graph.GraphCreator;
 import Bastien Aracil.jplugman.manager.graph.Node;
 import Bastien Aracil.jplugman.manager.state.PluginData;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class ResolvedPluginLister {

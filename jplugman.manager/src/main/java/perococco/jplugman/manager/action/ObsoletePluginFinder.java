@@ -1,11 +1,11 @@
 package Bastien Aracil.jplugman.manager.action;
 
 import com.google.common.collect.ImmutableSet;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import Bastien Aracil.jplugman.manager.PluginRegistry;
 import Bastien Aracil.jplugman.manager.PluginServiceTypeRegistry;
 import Bastien Aracil.jplugman.manager.state.PluginData;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class ObsoletePluginFinder {

@@ -3,10 +3,8 @@ package Bastien Aracil.jplugman.manager;
 import com.google.common.collect.ImmutableSet;
 import jplugman.api.*;
 import lombok.AccessLevel;
-import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import lombok.experimental.Delegate;
 
 import java.util.Optional;
 

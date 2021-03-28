@@ -1,13 +1,15 @@
 package Bastien Aracil.jplugman.manager.state;
 
 import com.google.common.collect.ImmutableSet;
-import jplugman.api.*;
-import Bastien Aracil.jplugman.manager.*;
-import Bastien Aracil.jplugman.manager.PluginSpecificServiceProvider;
+import jplugman.api.Application;
+import jplugman.api.ExtensionData;
+import jplugman.api.PluginService;
+import jplugman.api.Requirement;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import Bastien Aracil.jplugman.manager.*;
 
 import java.nio.file.Path;
 import java.util.Optional;
