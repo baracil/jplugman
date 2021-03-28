@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 @RequiredArgsConstructor
 public class ImmutableVersionedServiceProvider implements VersionedServiceProvider {
 
-    private final @NonNull ImmutableSet<VersionedService<?>> services;
+    private final @NonNull ImmutableSet<VersionedService> services;
 
     @Override
     public @NonNull <T> Stream<T> findService(@NonNull Requirement<T> requirement) {
@@ -26,7 +26,7 @@ public class ImmutableVersionedServiceProvider implements VersionedServiceProvid
      * @param versionedServices the services
      * @return an immutable {@link VersionedServiceProvider} that uses the provided services
      */
-    public static @NonNull VersionedServiceProvider of(@NonNull ImmutableSet<VersionedService<?>> versionedServices) {
+    public static @NonNull VersionedServiceProvider of(@NonNull ImmutableSet<VersionedService> versionedServices) {
         return new ImmutableVersionedServiceProvider(versionedServices);
     }
 

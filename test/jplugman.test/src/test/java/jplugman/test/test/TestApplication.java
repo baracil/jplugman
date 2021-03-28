@@ -15,7 +15,7 @@ public class TestApplication implements Application {
     private ImmutableList<PluginService<?>> attachedPluginServices = ImmutableList.of();
 
     @Override
-    public @NonNull ImmutableSet<VersionedService<?>> getApplicationServices(@NonNull Class<?> versionedServiceClass) {
+    public @NonNull ImmutableSet<VersionedService> getApplicationServices(@NonNull Class<?> versionedServiceClass) {
         return ImmutableSet.of();
     }
 

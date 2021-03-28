@@ -10,12 +10,12 @@ import java.util.Optional;
  * A service with a version.
  */
 @RequiredArgsConstructor
-public class VersionedService<T> {
+public class VersionedService {
 
     /**
      * the service
      */
-    private final @NonNull T service;
+    private final @NonNull Object service;
 
     /**
      * The version of this service
