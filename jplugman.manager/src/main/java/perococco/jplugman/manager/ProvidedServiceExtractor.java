@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableSet;
 import jplugman.annotation.Extension;
 import jplugman.api.ExtensionData;
 import jplugman.api.InvalidPluginVersion;
-import jplugman.api.Requirement;
 import jplugman.api.Version;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -121,12 +120,6 @@ public class ProvidedServiceExtractor<T> {
         public ExtensionData<E> createExtensionData(@NonNull Version extensionVersion) {
             return ExtensionData.create(extensionPoint,type,extensionVersion);
         }
-
-        public boolean provides(@NonNull Requirement<?> requirement) {
-            return type.equals(requirement.getServiceType()) && isCompatible(requirement.getMajorVersion());
-        }
-
-
 
         public static <E> @NonNull Optional<ExtensionPointData<E>> create(@NonNull Class<E> clazz) {
             final var information = clazz.getAnnotation(jplugman.annotation.ExtensionPoint.class);

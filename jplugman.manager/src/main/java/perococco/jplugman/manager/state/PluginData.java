@@ -41,7 +41,7 @@ public class PluginData {
     }
 
     public void load() {
-        this.state = state.load(pluginContext);
+        this.state = state.load();
     }
 
     public void markResolved() {

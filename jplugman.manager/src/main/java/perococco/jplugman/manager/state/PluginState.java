@@ -16,7 +16,7 @@ public interface PluginState {
     }
 
     @NonNull
-    default PluginState load(@NonNull PluginContext context) {
+    default PluginState load() {
         return this;
     }
 

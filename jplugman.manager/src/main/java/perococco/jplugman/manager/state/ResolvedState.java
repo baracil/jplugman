@@ -11,7 +11,7 @@ public class ResolvedState implements PluginState {
     private final @NonNull PluginsStateAction pluginsStateAction;
 
     @Override
-    public @NonNull PluginState load(@NonNull PluginContext pluginContext) {
+    public @NonNull PluginState load() {
         try {
             final var pluginService = pluginsStateAction.load();
             pluginsStateAction.plugService(pluginService);

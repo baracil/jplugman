@@ -21,7 +21,7 @@ public class VersionedService<T> {
      * The version of this service
      */
     @Getter
-    private final @NonNull Version version;
+    private final int majorVersion;
 
     /**
      * @param clazz the class the service should be casted to
@@ -34,10 +34,6 @@ public class VersionedService<T> {
             return Optional.of(clazz.cast(service));
         }
         return Optional.empty();
-    }
-
-    public int getMajorVersion() {
-        return version.getMajor();
     }
 
 }
