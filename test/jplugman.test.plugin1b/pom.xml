@@ -44,7 +44,7 @@
                         <goals>
                             <goal>single</goal>
                         </goals>
-                        <phase>package</phase>
+                        <phase>${build-plugin-phase}</phase>
                         <configuration>
                             <finalName>${archive.name}</finalName>
                             <outputDirectory>${root-location}/test/jplugman.test/src/test/resources/plugins</outputDirectory>

@@ -52,7 +52,7 @@
         <module>test/jplugman.test.plugin5</module>
         <module>test/jplugman.test.plugin6</module>
         <module>test/jplugman.test.plugin7</module>
-<!--        <module>test/jplugman.test.plugin8</module>-->
+        <!--        <module>test/jplugman.test.plugin8</module>-->
     </modules>
 
 
@@ -222,4 +222,29 @@
             </plugins>
         </pluginManagement>
     </build>
+
+    <profiles>
+        <profile>
+            <id>build plugins</id>
+            <activation>
+                <property>
+                    <name>build-test</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <properties>
+                <skipTests>true</skipTests>
+                <build-plugin-phase>package</build-plugin-phase>
+            </properties>
+        </profile>
+        <profile>
+            <id>no plugin build</id>
+            <activation>
+                <activeByDefault/>
+            </activation>
+            <properties>
+                <build-plugin-phase>node</build-plugin-phase>
+            </properties>
+        </profile>
+    </profiles>
 </project>
