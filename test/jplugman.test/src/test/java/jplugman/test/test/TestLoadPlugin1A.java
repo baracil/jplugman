@@ -7,6 +7,10 @@ import jplugman.test.core.VersionGetter;
 import lombok.NonNull;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
 
 public class TestLoadPlugin1A extends TestLoadPluginBase {
 
@@ -15,22 +19,24 @@ public class TestLoadPlugin1A extends TestLoadPluginBase {
         pluginManager.addPluginBundle(getPluginPath("plugin1a"));
     }
 
-    @Test
-    public void shouldHaveOneServiceAttached() {
-        Assertions.assertEquals(1, attachedVersionedServiceData.size());
+
+    public static Stream<ExpectedServices> expectedServices() {
+        return Stream.of(ExpectedServices.builder()
+                                         .version(VersionGetter.class, "3.1.1")
+                                         .build());
     }
 
-    @Test
-    public void shouldHaveVersion100() {
-        final var version = attachedVersionedServiceData.get(0).getVersion();
-        Assertions.assertTrue(version.isPresent());
-        Assertions.assertEquals(Version.with(1,0,0),version.get());
+
+    @ParameterizedTest
+    @MethodSource("expectedServices")
+    public void shouldHaveOneServiceAttached(@NonNull ExpectedServices versions) {
+        checkNbServices(versions);
     }
 
-    @Test
-    public void shouldHaveServiceVersionGetter() {
-        final var service = attachedVersionedServiceData.get(0).getServiceAs(VersionGetter.class);
-        Assertions.assertTrue(service.isPresent());
-
+    @ParameterizedTest
+    @MethodSource("expectedServices")
+    public void shouldHaveRightServices(@NonNull ExpectedServices versions) {
+        checkServices(versions);
     }
+
 }

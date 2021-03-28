@@ -6,7 +6,7 @@ import jplugman.test.core.VersionGetter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
-@Extension(point = DummyService.class, version = "1.0.0")
+@Extension(point = DummyService.class, version = "4.0.0")
 @RequiredArgsConstructor
 public class DummyService3 implements DummyService {
 

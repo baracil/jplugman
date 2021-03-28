@@ -13,21 +13,18 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
-public class TestLoadPlugin3Then1BThen4Then2ThenRemove2 extends TestLoadPluginBase {
+public class TestLoadPlugin4Then2 extends TestLoadPluginBase {
 
     @Override
     protected void setUp(@NonNull PluginManager pluginManager) {
-        pluginManager.addPluginBundle(getPluginPath("plugin3"));
-        pluginManager.addPluginBundle(getPluginPath("plugin1b"));
         pluginManager.addPluginBundle(getPluginPath("plugin4"));
         pluginManager.addPluginBundle(getPluginPath("plugin2"));
-        pluginManager.removePluginBundle(getPluginPath("plugin2"));
     }
+
 
     public static Stream<ExpectedServices> expectedServices() {
         return Stream.of(ExpectedServices.builder()
-                                         .version(VersionGetter.class, "3.1.0")
-                                         .version(DummyService.class, "4.0.0")
+                                         .version(VersionGetter.class, "3.0.0")
                                          .version(DummyService.class, "4.1.0")
                                          .build());
     }

@@ -4,14 +4,22 @@ import com.google.common.collect.ImmutableList;
 import jplugman.api.PluginService;
 import jplugman.manager.PluginManager;
 import lombok.NonNull;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.stream.Stream;
 
 public abstract class TestLoadPluginBase {
@@ -48,4 +56,25 @@ public abstract class TestLoadPluginBase {
     }
 
     protected abstract void setUp(@NonNull PluginManager pluginManager);
+
+
+    protected void checkNbServices(ExpectedServices services) {
+        Assertions.assertEquals(services.nbServices(), attachedVersionedServiceData.size());
+    }
+
+    protected void checkServices(ExpectedServices services) {
+        final var l = new ArrayList<>(attachedVersionedServiceData);
+        final List<ServiceTypeWithVersion> notRemoved = new ArrayList<>();
+        for (ServiceTypeWithVersion version : services) {
+            if (!l.removeIf(version::matches)) {
+                notRemoved.add(version);
+            }
+        }
+
+        Assertions.assertTrue(l.isEmpty(),"Some service were not expected "+l);
+        Assertions.assertTrue(notRemoved.isEmpty(),"Some expected version could not be found "+notRemoved);
+
+
+    }
+
 }

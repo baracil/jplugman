@@ -1,9 +1,14 @@
 package jplugman.test.test;
 
 import jplugman.manager.PluginManager;
+import jplugman.test.core.VersionGetter;
 import lombok.NonNull;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
 
 public class TestLoadPlugin3 extends TestLoadPluginBase {
 
@@ -12,9 +17,21 @@ public class TestLoadPlugin3 extends TestLoadPluginBase {
         pluginManager.addPluginBundle(getPluginPath("plugin3"));
     }
 
-    @Test
-    public void shouldHaveNoServiceAttached() {
-        Assertions.assertEquals(0, attachedVersionedServiceData.size());
+    public static Stream<ExpectedServices> expectedServices() {
+        return Stream.of(ExpectedServices.builder().build());
+    }
+
+
+    @ParameterizedTest
+    @MethodSource("expectedServices")
+    public void shouldHaveOneServiceAttached(@NonNull ExpectedServices versions) {
+        checkNbServices(versions);
+    }
+
+    @ParameterizedTest
+    @MethodSource("expectedServices")
+    public void shouldHaveRightServices(@NonNull ExpectedServices versions) {
+        checkServices(versions);
     }
 
 }

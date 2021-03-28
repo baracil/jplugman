@@ -3,6 +3,7 @@ package jplugman.test.test;
 import jplugman.api.Version;
 import jplugman.manager.PluginManager;
 import jplugman.test.core.DummyService;
+import jplugman.test.core.VersionGetter;
 import lombok.NonNull;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -20,38 +21,24 @@ public class TestLoadPlugin6ThenPlugin7 extends TestLoadPluginBase {
         pluginManager.addPluginBundle(getPluginPath("plugin7"));
     }
 
-    public static Stream<Arguments> versions() {
-        return Stream.of(
-                Arguments.of(0,Version.with(4,1,0))
-        );
-    }
-    public static Stream<Arguments> types() {
-        return Stream.of(
-                Arguments.of(0, DummyService.class)
-        );
+    public static Stream<ExpectedServices> expectedServices() {
+        return Stream.of(ExpectedServices.builder()
+                                         .version(DummyService.class, "4.0.1")
+                                         .version(DummyService.class, "4.1.0")
+                                         .build());
     }
 
 
-    @Test
-    public void shouldHaveOneServiceAttached() {
-        Assertions.assertEquals(1, attachedVersionedServiceData.size());
+    @ParameterizedTest
+    @MethodSource("expectedServices")
+    public void shouldHaveOneServiceAttached(@NonNull ExpectedServices versions) {
+        checkNbServices(versions);
     }
 
     @ParameterizedTest
-    @MethodSource("versions")
-    public void shouldHaveRightVersion(int index, @NonNull Version expected) {
-        final var actual = attachedVersionedServiceData.get(index).getVersion();
-        Assertions.assertTrue(actual.isPresent());
-        Assertions.assertEquals(expected,actual.get());
+    @MethodSource("expectedServices")
+    public void shouldHaveRightServices(@NonNull ExpectedServices versions) {
+        checkServices(versions);
     }
-
-    @ParameterizedTest
-    @MethodSource("types")
-    public void shouldHaveRightServiceType(int index, @NonNull Class<?> serviceType) {
-        final var service = attachedVersionedServiceData.get(index).getServiceAs(serviceType);
-        Assertions.assertTrue(service.isPresent());
-    }
-
-
 
 }

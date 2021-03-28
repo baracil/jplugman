@@ -1,5 +1,6 @@
 package Bastien Aracil.jplugman.manager;
 
+import jplugman.api.CompatibilityChecker;
 import jplugman.api.PluginService;
 import jplugman.api.Requirement;
 import lombok.NonNull;
@@ -27,7 +28,7 @@ public class PluginServiceRegistry implements MutableVersionedServiceProvider {
             if (data == null) {
                 return Optional.empty();
             }
-            if (data.getVersion().getMajor() != requirement.getMajorVersion()) {
+            if (!CompatibilityChecker.isCompatible(data.getExtensionPoint(),requirement.getMajorVersion())) {
                 return Optional.empty();
             }
             return ps.getServiceAs(requirement.getServiceType());

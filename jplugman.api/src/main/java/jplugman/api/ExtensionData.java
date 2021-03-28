@@ -26,8 +26,8 @@ public class ExtensionData<E> {
     @NonNull Version version;
 
     public boolean provides(@NonNull Requirement<?> requirement) {
-        final var sameType = requirement.getServiceType().equals(extensionPointType);
-        final var compatibleVersion = version.getMajor() == requirement.getMajorVersion();
+        final var sameType = requirement.getServiceType().isAssignableFrom(extensionPointType);
+        final var compatibleVersion = CompatibilityChecker.isCompatible(extensionPoint, requirement.getMajorVersion());
         return sameType && compatibleVersion;
     }
 

@@ -11,6 +11,6 @@ public class DummyService7 implements DummyService {
 
     @Override
     public @NonNull String getSomething() {
-        return "PLUGIN5";
+        return "PLUGIN7";
     }
 }

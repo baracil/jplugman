@@ -5,12 +5,12 @@ import jplugman.test.core.DummyService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
-@Extension(point = DummyService.class, version = "3.1.0")
+@Extension(point = DummyService.class, version = "4.0.1")
 @RequiredArgsConstructor
 public class DummyService6 implements DummyService {
 
     @Override
     public @NonNull String getSomething() {
-        return "PLUGIN5";
+        return "PLUGIN6";
     }
 }

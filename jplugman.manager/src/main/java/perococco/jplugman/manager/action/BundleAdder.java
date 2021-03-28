@@ -32,7 +32,7 @@ public class BundleAdder {
         //INVARIANT -> Aucun plugin n'est dans l'état RESOLVED ni FAILED
         this.loadBundle();
         this.addLoadedPluginToRegistry();
-        this.unloadObsoletePlugins();
+//        this.unloadObsoletePlugins();
         PluginPlugger.plug(pluginRegistry);
         //INVARIANT -> Aucun plugin n'est dans l'état RESOLVED ni FAILED
     }
@@ -46,20 +46,6 @@ public class BundleAdder {
 
     private void addLoadedPluginToRegistry() {
         this.pluginDataList.forEach(pluginRegistry::addPluginData);
-    }
-
-    private void unloadObsoletePlugins() {
-        final var obsoletePluginIds = ObsoletePluginFinder.search(pluginRegistry);
-
-        // décharger les plugins fournissant les services obsoletes
-        final var pluggedPlugins = pluginRegistry.getPluginData(PluginData::isInPluggedState);
-        final var graph = GraphCreator.create(pluggedPlugins);
-
-        pluggedPlugins.stream()
-                      .map(PluginData::getId)
-                      .filter(obsoletePluginIds::contains)
-                      .map(graph::getNodeById)
-                      .forEach(n -> n.dfs(Node::isPluginInPluggedState, Node::unloadPlugin));
     }
 
 }

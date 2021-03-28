@@ -66,10 +66,8 @@ public class PluginPlugger {
     private void buildDependencyGraphForPluggedAndInstalledPlugins() {
         //build the dependency graph with plugins that are in installed of plugged state and that are resolved
         final var resolvedPlugins = ResolvedPluginLister.list(pluginRegistry);
-        final var serviceTypeProvider = PluginServiceTypeRegistry.create(resolvedPlugins, PluginData::getPluginContext);
 
         final var newestPlugins = resolvedPlugins.stream()
-                                                 .filter(serviceTypeProvider::isLastVersion)
                                                  .collect(ImmutableList.toImmutableList());
 
         this.dependencyGraph = GraphCreator.create(newestPlugins);

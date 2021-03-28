@@ -79,7 +79,7 @@ public class ProvidedServiceExtractor<T> {
                                            serviceType);
         }
 
-        if (!extensionPoint.isCompatible(extensionVersion.getMajor())) {
+        if (extensionPoint.getExtensionPointVersion() != extensionVersion.getMajor()) {
             throw new InvalidPluginVersion("The plugin '"+ serviceType +"' does not provides " +
                                                    "a compatible version of '"+extensionPoint.getExtensionPointName()+"'",
                                            serviceType);
@@ -100,16 +100,8 @@ public class ProvidedServiceExtractor<T> {
             return type.getName();
         }
 
-        public boolean isCompatible(int majorVersion) {
-            if (extensionPoint.version() == majorVersion) {
-                return true;
-            }
-            for (int retroVersion : extensionPoint.retroVersions()) {
-                if (retroVersion == majorVersion) {
-                    return true;
-                }
-            }
-            return false;
+        public int getExtensionPointVersion() {
+            return extensionPoint.version();
         }
 
         @Override

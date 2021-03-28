@@ -5,7 +5,7 @@ import jplugman.test.core.VersionGetter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
-@Extension(point = VersionGetter.class, version = "2.0.0")
+@Extension(point = VersionGetter.class, version = "3.0.0")
 @RequiredArgsConstructor
 public class VersionGetter2 implements VersionGetter {
 
