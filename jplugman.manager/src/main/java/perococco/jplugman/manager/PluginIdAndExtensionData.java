@@ -33,8 +33,4 @@ public class PluginIdAndExtensionData {
         return extensionData.getVersion();
     }
 
-    public boolean provides(Requirement<?> requirement) {
-        return extensionData.provides(requirement);
-    }
-
 }

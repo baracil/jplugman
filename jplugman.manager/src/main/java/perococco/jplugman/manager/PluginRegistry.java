@@ -23,13 +23,6 @@ public interface PluginRegistry extends MutableVersionedServiceProvider {
     @NonNull Optional<PluginData> removePluginData(long pluginId);
 
     /**
-     * @param pluginId the id of the searched plugin data
-     * @return the plugin data with the provided id.
-     * @throws IllegalArgumentException if no plugin data exists with the provided id
-     */
-    @NonNull PluginData getPluginData(long pluginId);
-
-    /**
      * @param filter the filter to apply to the stream of plugin data
      * @return a stream of all the filtered plugin data
      */

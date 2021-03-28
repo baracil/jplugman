@@ -30,12 +30,4 @@ public class ImmutableVersionedServiceProvider implements VersionedServiceProvid
         return new ImmutableVersionedServiceProvider(versionedServices);
     }
 
-    /**
-     * @return an immutable {@link VersionedServiceProvider} that provides no service
-     */
-    public static @NonNull VersionedServiceProvider of() {
-        return of(ImmutableSet.of());
-    }
-
-
 }

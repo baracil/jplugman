@@ -19,10 +19,6 @@ import java.util.function.Function;
 @RequiredArgsConstructor
 public class PluginServiceTypeRegistry {
 
-    public static @NonNull PluginServiceTypeRegistry create(@NonNull ImmutableCollection<PluginContext> pluginContexts) {
-        return create(pluginContexts, p -> p);
-    }
-
     public static <P> @NonNull PluginServiceTypeRegistry create(@NonNull ImmutableCollection<P> values, @NonNull Function<? super P, ? extends PluginContext> pluginContextGetter) {
         return new PluginServiceTypeRegistry(values.stream().map(pluginContextGetter).collect(new ProvidedServiceTypeCollector()));
     }

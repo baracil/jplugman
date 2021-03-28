@@ -3,12 +3,11 @@ package Bastien Aracil.jplugman.manager.state;
 import com.google.common.collect.ImmutableSet;
 import jplugman.api.ExtensionData;
 import jplugman.api.Requirement;
-import Bastien Aracil.jplugman.manager.VersionedServiceProvider;
-import Bastien Aracil.jplugman.manager.VersionedServiceClass;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import Bastien Aracil.jplugman.manager.VersionedServiceProvider;
 
 import java.nio.file.Path;
 import java.util.Optional;

@@ -53,11 +53,6 @@ public class PluginContext {
         return plugin.getRequirements();
     }
 
-    public @NonNull ImmutableSet<VersionedService<?>> getApplicationServices() {
-        return application.getApplicationServices(plugin.getServiceClass());
-    }
-
-
     public void plugExtension(@NonNull PluginService<?> pluginService) {
         LOG.debug("Plug   service : {}", pluginService);
         this.application.plugService(pluginService);
@@ -68,11 +63,6 @@ public class PluginContext {
         LOG.debug("Unplug service : {}", pluginService);
         this.pluginServiceProvider.removePluginService(pluginService);
         this.application.unplugService(pluginService);
-    }
-
-    public boolean isServiceAvailable(@NonNull Requirement<?> requirement) {
-        final var serviceProvider = pluginServiceProvider.thenSearch(applicationServiceProvider);
-        return serviceProvider.hasExtensionPoint(requirement);
     }
 
     @Override

@@ -15,7 +15,6 @@ public class VersionedService<T> {
     /**
      * the service
      */
-    @Getter
     private final @NonNull T service;
 
     /**
@@ -37,14 +36,8 @@ public class VersionedService<T> {
         return Optional.empty();
     }
 
-    /**
-     * @return the class of the service
-     */
-    public @NonNull Class<?> getInstanceClass() {
-        return service.getClass();
-    }
-
     public int getMajorVersion() {
         return version.getMajor();
     }
+
 }

@@ -8,8 +8,6 @@ import java.util.stream.Stream;
 
 public interface GraphNode<N extends GraphNode<N>> {
 
-    long getNodeId();
-
     @NonNull Stream<N> streamDependants();
 
     @NonNull N getThis();

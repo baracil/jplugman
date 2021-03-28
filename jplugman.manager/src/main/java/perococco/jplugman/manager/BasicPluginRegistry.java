@@ -19,15 +19,6 @@ public class BasicPluginRegistry implements PluginRegistry {
     private final Map<Long, PluginData> pluginInfoById = new HashMap<>();
 
     @Override
-    public @NonNull PluginData getPluginData(long pluginId) {
-        final var result = pluginInfoById.get(pluginId);
-        if (result == null) {
-            throw new IllegalArgumentException("No node has the id '"+ pluginId +"'");
-        }
-        return result;
-    }
-
-    @Override
     public @NonNull Optional<PluginData> removePluginData(long pluginId) {
         return Optional.ofNullable(this.pluginInfoById.remove(pluginId));
     }
