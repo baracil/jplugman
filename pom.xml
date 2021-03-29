@@ -20,6 +20,14 @@
         <junit.version>5.8.0-M1</junit.version>
     </properties>
 
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Bastien Aracil Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/Bastien Aracil/JPlugman</url>
+        </repository>
+    </distributionManagement>
+
     <dependencies>
         <dependency>
             <groupId>org.projectlombok</groupId>
