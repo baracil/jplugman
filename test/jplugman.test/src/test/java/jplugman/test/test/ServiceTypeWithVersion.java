@@ -16,7 +16,7 @@ public class ServiceTypeWithVersion {
 
     @NonNull Version version;
 
-    public boolean matches(@NonNull PluginService<?> pluginService) {
+    public boolean matches(@NonNull PluginService pluginService) {
         final var version = pluginService.getVersion().orElse(null);
         if (version == null) {
             return false;

@@ -29,7 +29,7 @@ public interface PluginLoader {
         /**
          * The loaded plugins
          */
-        private final @NonNull ImmutableList<Plugin<?>> plugins;
+        private final @NonNull ImmutableList<Plugin> plugins;
 
     }
 

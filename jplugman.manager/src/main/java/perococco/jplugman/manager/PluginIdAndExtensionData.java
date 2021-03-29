@@ -21,7 +21,7 @@ public class PluginIdAndExtensionData {
     private final long pluginId;
 
     @Getter
-    private final @NonNull ExtensionData<?> extensionData;
+    private final @NonNull ExtensionData extensionData;
 
 
     public @NonNull Class<?> getServiceType() {

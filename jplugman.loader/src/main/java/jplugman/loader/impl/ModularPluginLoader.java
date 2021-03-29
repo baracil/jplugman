@@ -58,7 +58,7 @@ public class ModularPluginLoader implements PluginLoader {
 
         private ModuleLayer moduleLayer;
 
-        private ImmutableList<Plugin<?>> plugins;
+        private ImmutableList<Plugin> plugins;
 
         private @NonNull Result load() throws IOException {
             this.checkInputLocationIsAZipFile();
@@ -182,7 +182,6 @@ public class ModularPluginLoader implements PluginLoader {
             this.plugins = ServiceLoader.load(moduleLayer, Plugin.class)
                                         .stream()
                                         .map(ServiceLoader.Provider::get)
-                                        .map(p -> (Plugin<?>)p)
                                         .collect(ImmutableList.toImmutableList());
         }
 

@@ -9,28 +9,28 @@ import lombok.RequiredArgsConstructor;
 import java.util.Optional;
 
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-public class EnrichedPlugin<T> {
+public class EnrichedPlugin {
 
-    public static <T> @NonNull EnrichedPlugin<T> create(@NonNull Plugin<T> plugin) {
+    public static @NonNull EnrichedPlugin create(@NonNull Plugin plugin) {
         final var extensionData = ProvidedServiceExtractor.extract(plugin.getServiceClass());
-        return extensionData.map(s -> new EnrichedPlugin<>(plugin,s))
-                            .orElseGet(() -> new EnrichedPlugin<>(plugin,null));
+        return extensionData.map(s -> new EnrichedPlugin(plugin, s))
+                            .orElseGet(() -> new EnrichedPlugin(plugin, null));
     }
 
-    private final @NonNull Plugin<T> plugin;
+    private final @NonNull Plugin plugin;
 
-    private final ExtensionData<? super T> extensionData;
+    private final ExtensionData extensionData;
 
-    public @NonNull PluginService<T> load(@NonNull ModuleLayer pluginLayer, @NonNull ServiceProvider serviceProvider) {
+    public @NonNull PluginService load(@NonNull ModuleLayer pluginLayer, @NonNull ServiceProvider serviceProvider) {
         final var service = this.plugin.loadService(pluginLayer,serviceProvider);
-        return new PluginService<>(service, extensionData);
+        return new PluginService(service, extensionData);
     }
 
-    public @NonNull Optional<ExtensionData<? super T>> getExtensionData() {
+    public @NonNull Optional<ExtensionData> getExtensionData() {
         return Optional.ofNullable(extensionData);
     }
 
-    public @NonNull Class<T> getServiceClass() {
+    public @NonNull Class<?> getServiceClass() {
         return plugin.getServiceClass();
     }
 

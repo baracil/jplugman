@@ -7,7 +7,7 @@ import jplugman.api.ServiceProvider;
 import jplugman.test.core.VersionGetter;
 import lombok.NonNull;
 
-public class Plugin4 implements Plugin<DummyService4> {
+public class Plugin4 implements Plugin {
 
     @Override
     public @NonNull ImmutableSet<Requirement<?>> getRequirements() {
@@ -15,12 +15,12 @@ public class Plugin4 implements Plugin<DummyService4> {
     }
 
     @Override
-    public @NonNull Class<DummyService4> getServiceClass() {
+    public @NonNull Class<?> getServiceClass() {
         return DummyService4.class;
     }
 
     public @NonNull DummyService4 loadService(@NonNull ModuleLayer pluginLayer, @NonNull ServiceProvider serviceProvider) {
-        final var versionGetter = serviceProvider.getAnyService(VersionGetter.class);
+        final var versionGetter = serviceProvider.getSingleService(VersionGetter.class);
         return new DummyService4(versionGetter);
     }
 }

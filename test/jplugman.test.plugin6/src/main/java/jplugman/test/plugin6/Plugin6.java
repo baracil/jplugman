@@ -6,16 +6,15 @@ import jplugman.api.Requirement;
 import jplugman.api.ServiceProvider;
 import lombok.NonNull;
 
-public class Plugin6 implements Plugin<DummyService6> {
+public class Plugin6 implements Plugin {
 
     @Override
     public @NonNull ImmutableSet<Requirement<?>> getRequirements() {
         return ImmutableSet.of();
     }
 
-
     @Override
-    public @NonNull Class<DummyService6> getServiceClass() {
+    public @NonNull Class<?> getServiceClass() {
         return DummyService6.class;
     }
 

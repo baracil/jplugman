@@ -12,7 +12,7 @@ import lombok.Synchronized;
 public class TestApplication implements Application {
 
     @Getter
-    private ImmutableList<PluginService<?>> attachedPluginServices = ImmutableList.of();
+    private ImmutableList<PluginService> attachedPluginServices = ImmutableList.of();
 
     @Override
     public @NonNull ImmutableSet<VersionedService> getApplicationServices(@NonNull Class<?> versionedServiceClass) {
@@ -21,8 +21,8 @@ public class TestApplication implements Application {
 
     @Override
     @Synchronized
-    public void plugService(@NonNull PluginService<?> pluginService) {
-        attachedPluginServices = ImmutableList.<PluginService<?>>builder()
+    public void plugService(@NonNull PluginService pluginService) {
+        attachedPluginServices = ImmutableList.<PluginService>builder()
                                         .addAll(this.attachedPluginServices)
                                         .add(pluginService)
                                         .build();
@@ -30,10 +30,10 @@ public class TestApplication implements Application {
 
     @Override
     @Synchronized
-    public void unplugService(@NonNull PluginService<?> pluginService) {
-        var builder = ImmutableList.<PluginService<?>>builder();
+    public void unplugService(@NonNull PluginService pluginService) {
+        var builder = ImmutableList.<PluginService>builder();
         boolean removed = false;
-        for (PluginService<?> attachedPluginServices : attachedPluginServices) {
+        for (PluginService attachedPluginServices : attachedPluginServices) {
             if (removed || attachedPluginServices != pluginService) {
                 builder.add(attachedPluginServices);
             } else {

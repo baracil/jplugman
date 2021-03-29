@@ -5,12 +5,8 @@ import jplugman.api.PluginService;
 import jplugman.manager.PluginManager;
 import lombok.NonNull;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
@@ -18,14 +14,13 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Stream;
 
 public abstract class TestLoadPluginBase {
 
 
-    protected ImmutableList<PluginService<?>> attachedVersionedServiceData;
+    protected ImmutableList<PluginService> attachedVersionedServiceData;
 
     @TempDir
     public Path pluginDir;

@@ -4,9 +4,10 @@ import com.google.common.collect.ImmutableSet;
 import jplugman.api.Plugin;
 import jplugman.api.Requirement;
 import jplugman.api.ServiceProvider;
+import jplugman.test.core.VersionGetter;
 import lombok.NonNull;
 
-public class Plugin2 implements Plugin<VersionGetter2> {
+public class Plugin2 implements Plugin {
 
     @Override
     public @NonNull ImmutableSet<Requirement<?>> getRequirements() {
@@ -14,7 +15,7 @@ public class Plugin2 implements Plugin<VersionGetter2> {
     }
 
     @Override
-    public @NonNull Class<VersionGetter2> getServiceClass() {
+    public @NonNull Class<?> getServiceClass() {
         return VersionGetter2.class;
     }
 

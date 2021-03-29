@@ -25,7 +25,7 @@ public class PluginContext implements PluginsStateAction {
     private final @NonNull MutableVersionedServiceProvider pluginServiceProvider;
     private final @NonNull Path pluginLocation;
     private final @NonNull ModuleLayer moduleLayer;
-    private final @NonNull EnrichedPlugin<?> plugin;
+    private final @NonNull EnrichedPlugin plugin;
     private final long id;
 
 
@@ -35,7 +35,7 @@ public class PluginContext implements PluginsStateAction {
                                        @NonNull MutableVersionedServiceProvider pluginServiceProvider,
                                        @NonNull Path pluginLocation,
                                        @NonNull ModuleLayer pluginLayer,
-                                       @NonNull EnrichedPlugin<?> plugin) {
+                                       @NonNull EnrichedPlugin plugin) {
         return new PluginContext(
                 application,
                 ImmutableVersionedServiceProvider.of(application.getApplicationServices(plugin.getServiceClass())),
@@ -52,7 +52,7 @@ public class PluginContext implements PluginsStateAction {
         return plugin+ " '" + pluginLocation.getFileName() + "'";
     }
 
-    public @NonNull Optional<? extends ExtensionData<?>> getExtensionData() {
+    public @NonNull Optional<? extends ExtensionData> getExtensionData() {
         return plugin.getExtensionData();
     }
 
@@ -60,13 +60,13 @@ public class PluginContext implements PluginsStateAction {
         return plugin.getRequirements();
     }
 
-    public void plugService(@NonNull PluginService<?> pluginService) {
+    public void plugService(@NonNull PluginService pluginService) {
         LOG.debug("Plug   service : {}", pluginService);
         this.application.plugService(pluginService);
         this.pluginServiceProvider.addPluginService(pluginService);
     }
 
-    public void unplugService(@NonNull PluginService<?> pluginService) {
+    public void unplugService(@NonNull PluginService pluginService) {
         LOG.debug("Unplug service : {}", pluginService);
         this.pluginServiceProvider.removePluginService(pluginService);
         this.application.unplugService(pluginService);
@@ -79,7 +79,7 @@ public class PluginContext implements PluginsStateAction {
                 '}';
     }
 
-    public @NonNull PluginService<?> load() {
+    public @NonNull PluginService load() {
         final var serviceProvider = PluginSpecificServiceProvider.create(
                 plugin.getRequirements(),
                 applicationServiceProvider.thenSearch(this.pluginServiceProvider)

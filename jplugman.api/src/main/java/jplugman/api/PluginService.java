@@ -7,22 +7,22 @@ import lombok.RequiredArgsConstructor;
 import java.util.Optional;
 
 @RequiredArgsConstructor
-public class PluginService<T> {
+public class PluginService {
 
     /**
      * The service provided by the plugin
      */
     @Getter
-    private final @NonNull T service;
+    private final @NonNull Object service;
 
     /**
      * If the service implement an extension point,
-     * <code>extension</code> contains all the information
+     * <code>extensionData</code> contains all the information
      * about it.
      */
-    private final ExtensionData<? super T> extensionData;
+    private final ExtensionData extensionData;
 
-    public @NonNull Optional<ExtensionData<? super T>> getExtensionData() {
+    public @NonNull Optional<ExtensionData> getExtensionData() {
         return Optional.ofNullable(extensionData);
     }
 
@@ -39,5 +39,14 @@ public class PluginService<T> {
 
     public @NonNull Class<?> getServiceClass() {
         return service.getClass();
+    }
+
+    @Override
+    public String toString() {
+        if (extensionData == null) {
+            return "Plugin{"+service.getClass().getSimpleName()+"}";
+        } else {
+            return "Plugin{"+service.getClass().getSimpleName()+"  "+extensionData.getVersion()+"}";
+        }
     }
 }

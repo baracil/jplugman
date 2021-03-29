@@ -8,7 +8,7 @@ import lombok.Value;
 
 @Value
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-public class ExtensionData<E> {
+public class ExtensionData {
 
     /**
      * The extension point the extension implements
@@ -18,7 +18,7 @@ public class ExtensionData<E> {
     /**
      * The type of the extension point
      */
-    @NonNull Class<E> extensionPointType;
+    @NonNull Class<?> extensionPointType;
 
     /**
      * The version of the implementation of the extension point the plugin provides
@@ -32,14 +32,14 @@ public class ExtensionData<E> {
     }
 
 
-    public static <E> ExtensionData<E> create(@NonNull ExtensionPoint extensionPoint,
-                                              @NonNull Class<E> type,
-                                              @NonNull Version extensionVersion) {
+    public static ExtensionData create(@NonNull ExtensionPoint extensionPoint,
+                                       @NonNull Class<?> type,
+                                       @NonNull Version extensionVersion) {
         final var major = extensionVersion.getMajor();
         if (!CompatibilityChecker.isCompatible(extensionPoint,major)) {
             throw new IllegalStateException("Incompatible versions");
         }
-        return new ExtensionData<>(extensionPoint, type, extensionVersion);
+        return new ExtensionData(extensionPoint, type, extensionVersion);
     }
 
 }

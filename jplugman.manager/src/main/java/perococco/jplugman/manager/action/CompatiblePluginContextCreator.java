@@ -62,7 +62,7 @@ public class CompatiblePluginContextCreator {
     private void createPluginContexts() {
         final List<PluginContext> pluginContexts = new ArrayList<>(loadingResult.getPlugins().size());
 
-        for (Plugin<?> plugin : this.loadingResult.getPlugins()) {
+        for (Plugin plugin : this.loadingResult.getPlugins()) {
             final var ep = EnrichedPlugin.create(plugin);
 
             LOG.debug("Add plugin {}", plugin.getServiceClass());

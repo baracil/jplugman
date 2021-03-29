@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @Log4j2
 @RequiredArgsConstructor
-public class ProvidedServiceExtractor<T> {
+public class ProvidedServiceExtractor {
 
     /**
      * @param serviceType the type of the service provided by the plugin
@@ -22,14 +22,14 @@ public class ProvidedServiceExtractor<T> {
      * @throws InvalidPluginVersion if the {@link Extension} provided by the plugin
      * if not compatible with the {@link jplugman.annotation.ExtensionPoint} of the service it implements
      */
-    public static <T> @NonNull Optional<ExtensionData<? super T>> extract(@NonNull Class<T> serviceType) {
-        return new ProvidedServiceExtractor<>(serviceType).extract();
+    public static @NonNull Optional<ExtensionData> extract(@NonNull Class<?> serviceType) {
+        return new ProvidedServiceExtractor(serviceType).extract();
     }
 
     /**
      * The extension type (the input)
      */
-    private final @NonNull Class<T> serviceType;
+    private final @NonNull Class<?> serviceType;
 
     /**
      * The annotation found on the service type if any
@@ -39,11 +39,11 @@ public class ProvidedServiceExtractor<T> {
     /**
      * All the interfaces annotated with {@link jplugman.annotation.ExtensionPoint}
      */
-    private ImmutableSet<ExtensionPointData<? super T>> extensionPoints;
+    private ImmutableSet<ExtensionPointData> extensionPoints;
 
-    private ExtensionData<? super T> extensionData;
+    private ExtensionData extensionData;
 
-    private Optional<ExtensionData<? super T>> extract() {
+    private Optional<ExtensionData> extract() {
         this.extractExtensionAnnotation();
         this.findExtensionPoints();
         this.formProvidedVersions();
@@ -90,9 +90,9 @@ public class ProvidedServiceExtractor<T> {
 
 
     @Value
-    public static class ExtensionPointData<E> {
+    public static class ExtensionPointData {
 
-        @NonNull Class<E> type;
+        @NonNull Class<?> type;
 
         @NonNull jplugman.annotation.ExtensionPoint extensionPoint;
 
@@ -109,14 +109,14 @@ public class ProvidedServiceExtractor<T> {
             return type + "(v"+ extensionPoint +")";
         }
 
-        public ExtensionData<E> createExtensionData(@NonNull Version extensionVersion) {
+        public ExtensionData createExtensionData(@NonNull Version extensionVersion) {
             return ExtensionData.create(extensionPoint,type,extensionVersion);
         }
 
-        public static <E> @NonNull Optional<ExtensionPointData<E>> create(@NonNull Class<E> clazz) {
+        public static @NonNull Optional<ExtensionPointData> create(@NonNull Class<?> clazz) {
             final var information = clazz.getAnnotation(jplugman.annotation.ExtensionPoint.class);
             if (clazz.isInterface() && information != null) {
-                return Optional.of(new ExtensionPointData<>(clazz, information));
+                return Optional.of(new ExtensionPointData(clazz, information));
             }
             return Optional.empty();
         }

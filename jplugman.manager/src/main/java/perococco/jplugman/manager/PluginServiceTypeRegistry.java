@@ -41,7 +41,7 @@ public class PluginServiceTypeRegistry {
     /**
      * @return true if a plugin provides a service with a newer version (for the same major version)
      */
-    public boolean isNewerVersionAvailable(@NonNull ExtensionData<?> extensionData) {
+    public boolean isNewerVersionAvailable(@NonNull ExtensionData extensionData) {
         final var serviceType = extensionData.getExtensionPointType();
 
         final var pluginIdAndExtensionData = services.get(serviceType);

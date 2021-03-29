@@ -7,10 +7,10 @@ public interface PluginsStateAction {
 
     @NonNull String getPluginInfo();
 
-    @NonNull PluginService<?> load();
+    @NonNull PluginService load();
 
-    void unplugService(@NonNull PluginService<?> pluginService);
+    void unplugService(@NonNull PluginService pluginService);
 
-    void plugService(PluginService<?> pluginService);
+    void plugService(PluginService pluginService);
 
 }

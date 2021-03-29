@@ -6,7 +6,7 @@ import jplugman.api.Requirement;
 import jplugman.api.ServiceProvider;
 import lombok.NonNull;
 
-public class Plugin1c implements Plugin<VersionGetter1c> {
+public class Plugin1c implements Plugin {
 
     @Override
     public @NonNull ImmutableSet<Requirement<?>> getRequirements() {
@@ -14,7 +14,7 @@ public class Plugin1c implements Plugin<VersionGetter1c> {
     }
 
     @Override
-    public @NonNull Class<VersionGetter1c> getServiceClass() {
+    public @NonNull Class<?> getServiceClass() {
         return VersionGetter1c.class;
     }
 

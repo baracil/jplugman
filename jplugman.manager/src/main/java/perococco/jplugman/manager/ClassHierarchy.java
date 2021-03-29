@@ -10,29 +10,28 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-public class ClassHierarchy<T> {
+public class ClassHierarchy {
 
-    public static <T> @NonNull Stream<Class<? super T>> streamHierarchy(@NonNull Class<T> root) {
-        return new ClassHierarchy<>(root).streamHierarchy();
+    public static @NonNull Stream<Class<?>> streamHierarchy(@NonNull Class<?> root) {
+        return new ClassHierarchy(root).streamHierarchy();
     }
 
-    private final @NonNull Class<T> root;
+    private final @NonNull Class<?> root;
 
-    private final @NonNull Set<Class<? super T>> seen = new HashSet<>();
+    private final @NonNull Set<Class<?>> seen = new HashSet<>();
 
-    private @NonNull Stream<Class<? super T>> streamHierarchy() {
+    private @NonNull Stream<Class<?>> streamHierarchy() {
         recurse(root);
         return seen.stream();
     }
 
-    private void recurse(Class<? super T> root) {
+    private void recurse(Class<?> root) {
         if (root == null || seen.contains(root)) {
             return;
         }
         seen.add(root);
         recurse(root.getSuperclass());
         Arrays.stream(root.getInterfaces())
-              .map(c -> (Class<? super T>)c)
               .forEach(this::recurse);
     }
 

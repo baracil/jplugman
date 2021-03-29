@@ -13,7 +13,7 @@ import java.util.stream.Stream;
 
 public class PluginServiceRegistry implements MutableVersionedServiceProvider {
 
-    private final Set<PluginService<?>> extensions = new HashSet<>();
+    private final Set<PluginService> extensions = new HashSet<>();
 
     @Override
     public @NonNull <T> Stream<T> findService(@NonNull Requirement<T> requirement) {
@@ -22,7 +22,7 @@ public class PluginServiceRegistry implements MutableVersionedServiceProvider {
                          .flatMap(Optional::stream);
     }
 
-    public <T> Function<PluginService<?>, Optional<T>> castIfCompatible(@NonNull Requirement<T> requirement) {
+    public <T> Function<PluginService, Optional<T>> castIfCompatible(@NonNull Requirement<T> requirement) {
         return ps -> {
             final var data = ps.getExtensionData().orElse(null);
             if (data == null) {
@@ -35,12 +35,12 @@ public class PluginServiceRegistry implements MutableVersionedServiceProvider {
         };
     }
 
-    public void addPluginService(@NonNull PluginService<?> pluginService) {
+    public void addPluginService(@NonNull PluginService pluginService) {
         this.extensions.add(pluginService);
     }
 
 
-    public void removePluginService(@NonNull PluginService<?> pluginService) {
+    public void removePluginService(@NonNull PluginService pluginService) {
         this.extensions.remove(pluginService);
     }
 }

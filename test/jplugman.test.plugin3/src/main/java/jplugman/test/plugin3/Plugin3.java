@@ -15,12 +15,12 @@ public class Plugin3 implements Plugin {
     }
 
     @Override
-    public @NonNull Class<DummyService3> getServiceClass() {
+    public @NonNull Class<?> getServiceClass() {
         return DummyService3.class;
     }
 
     public @NonNull Object loadService(@NonNull ModuleLayer pluginLayer, @NonNull ServiceProvider serviceProvider) {
-        final var versionGetter = serviceProvider.getAnyService(VersionGetter.class);
+        final var versionGetter = serviceProvider.getSingleService(VersionGetter.class);
         return new DummyService3(versionGetter);
     }
 }

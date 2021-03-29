@@ -14,7 +14,7 @@ public class PluggedState implements PluginState {
     private final @NonNull PluginsStateAction pluginsStateAction;
 
     @Getter
-    private final @NonNull PluginService<?> pluginService;
+    private final @NonNull PluginService pluginService;
 
 
     @Override

@@ -16,12 +16,12 @@ public interface Application {
      * not affect the service provider of the application.
      * @param versionedService the data (the instance and the version) of the extension to plug
      */
-    void plugService(@NonNull PluginService<?> versionedService);
+    void plugService(@NonNull PluginService versionedService);
 
     /**
      * Unplug a service from the application. This must
      * not affect the service provider of the application.
      * @param versionedService the data of the extension to unplug
      */
-    void unplugService(@NonNull PluginService<?> versionedService);
+    void unplugService(@NonNull PluginService versionedService);
 }

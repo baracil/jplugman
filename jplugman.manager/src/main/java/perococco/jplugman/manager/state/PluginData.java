@@ -81,7 +81,7 @@ public class PluginData {
         return pluginContext.getPluginRequirements();
     }
 
-    public @NonNull Optional<? extends ExtensionData<?>> getExtensionData() {
+    public @NonNull Optional<? extends ExtensionData> getExtensionData() {
         return pluginContext.getExtensionData();
     }
 }
