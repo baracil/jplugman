@@ -3,4 +3,3 @@ logs/
 *.iml
 target
 build/
-pom.xml.versionsBackup
