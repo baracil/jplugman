@@ -49,6 +49,7 @@
         <module>jplugman.manager</module>
         <module>jplugman.loader</module>
         <module>test/jplugman.test</module>
+        <module>test/jplugman.test.lib</module>
         <module>test/jplugman.test.api</module>
         <module>test/jplugman.test.core</module>
         <module>test/jplugman.test.plugin1a</module>
@@ -89,6 +90,11 @@
             <dependency>
                 <groupId>jplugman</groupId>
                 <artifactId>jplugman-test-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>jplugman</groupId>
+                <artifactId>jplugman-test-lib</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

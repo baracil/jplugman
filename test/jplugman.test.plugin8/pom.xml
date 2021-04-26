@@ -21,9 +21,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>Bastien Aracil.jdgen</groupId>
-            <artifactId>jdgen-generator</artifactId>
-            <version>1.0.10-SNAPSHOT</version>
+            <groupId>jplugman</groupId>
+            <artifactId>jplugman-test-lib</artifactId>
         </dependency>
         <dependency>
             <groupId>jplugman</groupId>

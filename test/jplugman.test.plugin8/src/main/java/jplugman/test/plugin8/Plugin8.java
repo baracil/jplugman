@@ -15,10 +15,10 @@ public class Plugin8 implements Plugin {
 
     @Override
     public @NonNull Class<?> getServiceClass() {
-        return JDGenLoader.class;
+        return SorterLoader.class;
     }
 
-    public @NonNull JDGenLoader loadService(@NonNull ModuleLayer pluginLayer, @NonNull ServiceProvider serviceProvider) {
-        return new JDGenLoader(pluginLayer);
+    public @NonNull SorterLoader loadService(@NonNull ModuleLayer pluginLayer, @NonNull ServiceProvider serviceProvider) {
+        return new SorterLoader(pluginLayer);
     }
 }
