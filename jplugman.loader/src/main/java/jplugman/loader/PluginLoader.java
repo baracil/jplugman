@@ -16,7 +16,11 @@ public interface PluginLoader {
      * @param zipFileLocation the path to the zip file to load
      * @return the result of the loading
      */
-    @NonNull Result load(@NonNull Path zipFileLocation);
+    @NonNull Result load(@NonNull Path zipFileLocation, @NonNull ClassLoader pluginClassLoader);
+
+    default @NonNull Result load(@NonNull Path zipFileLocation) {
+        return load(zipFileLocation,ClassLoader.getSystemClassLoader());
+    }
 
     @RequiredArgsConstructor
     @Getter

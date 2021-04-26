@@ -29,22 +29,25 @@ import java.util.zip.ZipInputStream;
 public class ModularPluginLoader implements PluginLoader {
 
     @Override
-    public @NonNull Result load(@NonNull Path zipFileLocation) {
-        return Loader.load(zipFileLocation);
+    public @NonNull Result load(@NonNull Path zipFileLocation, @NonNull ClassLoader pluginClassLoader) {
+        return Loader.load(zipFileLocation,pluginClassLoader);
     }
 
     @RequiredArgsConstructor
     private static class Loader {
 
-        public static @NonNull Result load(@NonNull Path zipFileLocation) {
+        public static @NonNull Result load(@NonNull Path zipFileLocation, @NonNull ClassLoader pluginClassLoader) {
             try {
-                return new Loader(zipFileLocation).load();
+                return new Loader(zipFileLocation,pluginClassLoader).load();
             } catch (IOException e) {
                 throw new UncheckedIOException(e);
             }
         }
 
         private final @NonNull Path zipFileLocation;
+
+        private final @NonNull ClassLoader pluginClassLoader;
+
 
         private Path temporaryDirectory;
 
@@ -174,7 +177,7 @@ public class ModularPluginLoader implements PluginLoader {
         }
 
         private void createModuleLayer() {
-            this.moduleLayer = ModuleLayer.boot().defineModulesWithManyLoaders(pluginsConfiguration, null);
+            this.moduleLayer = ModuleLayer.boot().defineModulesWithManyLoaders(pluginsConfiguration, pluginClassLoader);
         }
 
 

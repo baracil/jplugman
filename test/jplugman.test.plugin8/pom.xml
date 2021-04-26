@@ -7,7 +7,7 @@
     <parent>
         <artifactId>jplugman</artifactId>
         <groupId>jplugman</groupId>
-        <version>1.0.4-SNAPSHOT</version>
+        <version>2.0.2-SNAPSHOT</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
@@ -16,10 +16,15 @@
 
     <properties>
         <module.name>Test : ${archive.name}</module.name>
-        <archive.name>plugin7</archive.name>
+        <archive.name>plugin8</archive.name>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>Bastien Aracil.jdgen</groupId>
+            <artifactId>jdgen-generator</artifactId>
+            <version>1.0.10-SNAPSHOT</version>
+        </dependency>
         <dependency>
             <groupId>jplugman</groupId>
             <artifactId>jplugman-test-core</artifactId>
