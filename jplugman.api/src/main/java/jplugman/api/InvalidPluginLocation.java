@@ -5,7 +5,7 @@ import lombok.NonNull;
 
 import java.nio.file.Path;
 
-public class InvalidPluginLocation extends Bastien AracilPluginsException {
+public class InvalidPluginLocation extends JPlugmanException {
 
     @Getter
     private final @NonNull Path location;

@@ -15,7 +15,7 @@
         <application.name>JPlugman</application.name>
         <perobobbot.version>1.0.0-SNAPSHOT</perobobbot.version>
         <java.version>15</java.version>
-        <lombok.version>1.18.18</lombok.version>
+        <lombok.version>1.18.20</lombok.version>
         <log4j.version>2.11.2</log4j.version>
         <junit.version>5.8.0-M1</junit.version>
     </properties>
@@ -24,7 +24,7 @@
         <repository>
             <id>github</id>
             <name>GitHub Bastien Aracil Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/Bastien Aracil/JPlugman</url>
+            <url>https://maven.pkg.github.com/baracil/JPlugman</url>
         </repository>
     </distributionManagement>
 

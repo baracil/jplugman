@@ -3,7 +3,7 @@ package jplugman.api;
 import lombok.Getter;
 import lombok.NonNull;
 
-public class IncompatiblePluginVersion extends Bastien AracilPluginsException{
+public class IncompatiblePluginVersion extends JPlugmanException {
 
     @Getter
     private final @NonNull Class<?> service;

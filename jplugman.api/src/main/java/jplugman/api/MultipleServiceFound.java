@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableList;
 import lombok.Getter;
 import lombok.NonNull;
 
-public class MultipleServiceFound extends Bastien AracilPluginsException {
+public class MultipleServiceFound extends JPlugmanException {
 
     @Getter
     private final @NonNull Class<?> serviceType;

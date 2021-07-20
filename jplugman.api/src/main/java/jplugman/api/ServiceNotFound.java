@@ -3,7 +3,7 @@ package jplugman.api;
 import lombok.Getter;
 import lombok.NonNull;
 
-public class ServiceNotFound extends Bastien AracilPluginsException {
+public class ServiceNotFound extends JPlugmanException {
 
     @Getter
     private final @NonNull Class<?> serviceType;
