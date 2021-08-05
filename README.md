@@ -1,7 +1,7 @@
 # JPlugman
 
-[![Build Status](https://github.com/Bastien Aracil/plugin-manager/actions/workflows/maven.yml/badge.svg)](https://github.com/Bastien Aracil/plugin-manager/actions)
-[![GitHub](https://img.shields.io/github/license/Bastien Aracil/plugin-manager.svg)](https://github.com/Bastien Aracil/plugin-manager/blob/develop/LICENSE)
+[![Build Status](https://github.com/baracil/jplugman/actions/workflows/maven.yml/badge.svg)](https://github.com/baracil/jplugman/actions)
+[![GitHub](https://img.shields.io/github/license/baracil/jplugman.svg)](https://github.com/baracil/jplugman/blob/develop/LICENSE)
 
 JPlugman is a plugin manager that can be used in modular Java projects. Its main features are :
 
