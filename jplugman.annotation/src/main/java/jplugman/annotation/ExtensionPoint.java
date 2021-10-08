@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 /**
  * An extension point is an interface provided by the application
- * the plugin can implements.
+ * the plugin can implement.
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)

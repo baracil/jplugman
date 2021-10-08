@@ -45,4 +45,12 @@ public interface ServiceProvider {
         return services.get(0);
     }
 
+
+    default <T> @NonNull T getSingleService(@NonNull Requirement<T> requirement) {
+        return getSingleService(requirement.getServiceType());
+    }
+
+    default <T> @NonNull T getAnyService(@NonNull Requirement<T> requirement) {
+        return getAnyService(requirement.getServiceType());
+    }
 }
