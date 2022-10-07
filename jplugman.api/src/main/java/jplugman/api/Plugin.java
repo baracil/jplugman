@@ -18,5 +18,6 @@ public interface Plugin {
      */
     @NonNull Set<Requirement<?>> getRequirements();
 
+    default void unloadService() {}
 
 }

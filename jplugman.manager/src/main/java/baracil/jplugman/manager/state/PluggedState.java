@@ -5,9 +5,9 @@ import jplugman.api.PluginService;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 
-@Log4j2
+@Slf4j
 @RequiredArgsConstructor
 public class PluggedState implements PluginState {
 
@@ -43,8 +43,11 @@ public class PluggedState implements PluginState {
         try {
             disposable.dispose();
         } catch (Throwable t) {
-            LOG.warn("Error while disposing the service '{}' : {}", pluginService, t.getMessage());
-            LOG.debug(t);
+            if (LOG.isDebugEnabled()) {
+                LOG.warn("Error while disposing the service '{}'", pluginService, t);
+            } else {
+                LOG.warn("Error while disposing the service '{}' : {}", pluginService, t.getMessage());
+            }
         }
     }
 

@@ -4,7 +4,7 @@ module jplugman.tools {
     uses FolderWatcher.Factory;
     requires static lombok;
 
-    requires org.apache.logging.log4j;
+    requires org.slf4j;
 
     exports jplugman.tools;
 }

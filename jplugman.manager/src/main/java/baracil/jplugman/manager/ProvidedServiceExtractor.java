@@ -7,13 +7,13 @@ import jplugman.api.Version;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Log4j2
+@Slf4j
 @RequiredArgsConstructor
 public class ProvidedServiceExtractor {
 

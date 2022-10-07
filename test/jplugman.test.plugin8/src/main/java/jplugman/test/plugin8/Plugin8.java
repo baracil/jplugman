@@ -22,4 +22,5 @@ public class Plugin8 implements Plugin {
     public @NonNull SorterLoader loadService(@NonNull ModuleLayer pluginLayer, @NonNull ServiceProvider serviceProvider) {
         return new SorterLoader(pluginLayer);
     }
+
 }

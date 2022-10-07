@@ -20,7 +20,7 @@ public @interface ExtensionPoint {
 
     /**
      * If the current version is compatible with an older version (for instance because
-     * the new version just add a method), this method list all old versions that are
+     * the new version just add a default method), this method list all old versions that are
      * retro compatible
      *
      * @return the version numbers the current version is retro compatible with.

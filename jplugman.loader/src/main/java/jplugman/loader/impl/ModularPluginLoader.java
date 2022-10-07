@@ -6,7 +6,7 @@ import jplugman.api.Plugin;
 import jplugman.loader.PluginLoader;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-@Log4j2
+@Slf4j
 public class ModularPluginLoader implements PluginLoader {
 
     @Override
@@ -145,8 +145,11 @@ public class ModularPluginLoader implements PluginLoader {
             try {
                 Files.delete(path);
             } catch (IOException e) {
-                LOG.warn("Could not remove file {} : {}", path, e.getMessage());
-                LOG.debug(e);
+                if (LOG.isDebugEnabled()) {
+                    LOG.warn("Could not remove file {}", path, e);
+                } else {
+                    LOG.warn("Could not remove file {} : {}", path, e.getMessage());
+                }
                 throw new UncheckedIOException(e);
             }
         }

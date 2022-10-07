@@ -2,9 +2,9 @@ package baracil.jplugman.manager.state;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 
-@Log4j2
+@Slf4j
 @RequiredArgsConstructor
 public class ResolvedState implements PluginState {
 
@@ -13,12 +13,14 @@ public class ResolvedState implements PluginState {
     @Override
     public @NonNull PluginState load() {
         try {
-            final var pluginService = pluginsStateAction.load();
-            pluginsStateAction.plugService(pluginService);
+            final var pluginService = pluginsStateAction.loadAndPlugService();
             return new PluggedState(pluginsStateAction, pluginService);
         } catch (Throwable e) {
-            LOG.warn("Could not load plugin {} : {}", pluginsStateAction.getPluginInfo(), e.getMessage());
-            LOG.debug(e);
+            if (LOG.isDebugEnabled()) {
+                LOG.warn("Could not load plugin {}", pluginsStateAction.getPluginInfo(),e);
+            } else {
+                LOG.warn("Could not load plugin {} : {}", pluginsStateAction.getPluginInfo(), e.getMessage());
+            }
             return new FailedState();
         }
     }

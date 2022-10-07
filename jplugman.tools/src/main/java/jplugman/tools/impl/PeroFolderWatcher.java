@@ -5,7 +5,7 @@ import jplugman.tools.FolderWatcher;
 import jplugman.tools.Subscription;
 import lombok.NonNull;
 import lombok.Synchronized;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -14,7 +14,7 @@ import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
-@Log4j2
+@Slf4j
 public class PeroFolderWatcher implements FolderWatcher {
 
     private final @NonNull Path watchedFolder;

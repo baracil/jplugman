@@ -6,7 +6,7 @@
 
     <groupId>jplugman</groupId>
     <artifactId>jplugman</artifactId>
-    <version>2.0.8-SNAPSHOT</version>
+    <version>3.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>${application.name}</name>
@@ -14,9 +14,9 @@
     <properties>
         <application.name>JPlugman</application.name>
         <perobobbot.version>1.0.0-SNAPSHOT</perobobbot.version>
-        <java.version>15</java.version>
-        <lombok.version>1.18.20</lombok.version>
-        <log4j.version>2.11.2</log4j.version>
+        <java.version>17</java.version>
+        <lombok.version>1.18.24</lombok.version>
+        <slf4j.version>2.11.2</slf4j.version>
         <junit.version>5.8.0-M1</junit.version>
     </properties>
 
@@ -35,9 +35,9 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-api</artifactId>
-            <version>2.11.2</version>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.36</version>
         </dependency>
     </dependencies>
 
@@ -48,6 +48,8 @@
         <module>jplugman.tools</module>
         <module>jplugman.manager</module>
         <module>jplugman.loader</module>
+        <module>jplugman.base</module>
+        <module>bom</module>
         <module>test/jplugman.test</module>
         <module>test/jplugman.test.lib</module>
         <module>test/jplugman.test.api</module>
@@ -75,6 +77,11 @@
             <dependency>
                 <groupId>jplugman</groupId>
                 <artifactId>jplugman-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>jplugman</groupId>
+                <artifactId>jplugman-tools</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

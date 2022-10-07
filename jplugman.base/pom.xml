@@ -11,18 +11,33 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>jplugman-loader</artifactId>
-
+    <artifactId>jplugman-base</artifactId>
     <name>${application.name} - ${module.name}</name>
 
     <properties>
-        <module.name>PluginLoader implementation</module.name>
+        <module.name>Base</module.name>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>jplugman</groupId>
+            <artifactId>jplugman-annotation</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jplugman</groupId>
             <artifactId>jplugman-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jplugman</groupId>
+            <artifactId>jplugman-tools</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jplugman</groupId>
+            <artifactId>jplugman-manager</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
         </dependency>
     </dependencies>
 

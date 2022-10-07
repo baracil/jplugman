@@ -8,7 +8,7 @@ module jplugman.loader {
 
     requires jplugman.api;
 
-    requires org.apache.logging.log4j;
+    requires org.slf4j;
 
     provides PluginLoader with ModularPluginLoader;
 

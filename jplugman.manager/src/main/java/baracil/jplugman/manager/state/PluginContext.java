@@ -8,7 +8,7 @@ import jplugman.api.Requirement;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 
 import java.nio.file.Path;
 import java.util.Optional;
@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 @Getter
 @RequiredArgsConstructor
-@Log4j2
+@Slf4j
 public class PluginContext implements PluginsStateAction {
 
     private final @NonNull Application application;
@@ -49,7 +49,7 @@ public class PluginContext implements PluginsStateAction {
 
     @Override
     public @NonNull String getPluginInfo() {
-        return plugin+ " '" + pluginLocation.getFileName() + "'";
+        return plugin + " '" + pluginLocation.getFileName() + "'";
     }
 
     public @NonNull Optional<? extends ExtensionData> getExtensionData() {
@@ -60,16 +60,31 @@ public class PluginContext implements PluginsStateAction {
         return plugin.getRequirements();
     }
 
-    public void plugService(@NonNull PluginService pluginService) {
-        LOG.debug("Plug   service : {}", pluginService);
-        this.application.plugService(pluginService);
-        this.pluginServiceProvider.addPluginService(pluginService);
-    }
-
     public void unplugService(@NonNull PluginService pluginService) {
         LOG.debug("Unplug service : {}", pluginService);
         this.pluginServiceProvider.removePluginService(pluginService);
         this.application.unplugService(pluginService);
+        plugin.unload();
+    }
+
+    @Override
+    public @NonNull PluginService loadAndPlugService() {
+        return plugService(load());
+    }
+
+    private @NonNull PluginService load() {
+        final var serviceProvider = PluginSpecificServiceProvider.create(
+                plugin.getRequirements(),
+                applicationServiceProvider.thenSearch(this.pluginServiceProvider)
+        );
+        return this.plugin.load(moduleLayer, serviceProvider);
+    }
+
+    private @NonNull PluginService plugService(@NonNull PluginService pluginService) {
+        LOG.debug("Plug   service : {}", pluginService);
+        this.application.plugService(pluginService);
+        this.pluginServiceProvider.addPluginService(pluginService);
+        return pluginService;
     }
 
     @Override
@@ -79,18 +94,10 @@ public class PluginContext implements PluginsStateAction {
                 '}';
     }
 
-    public @NonNull PluginService load() {
-        final var serviceProvider = PluginSpecificServiceProvider.create(
-                plugin.getRequirements(),
-                applicationServiceProvider.thenSearch(this.pluginServiceProvider)
-        );
-
-        return this.plugin.load(moduleLayer, serviceProvider);
-    }
-
     public boolean pluginProvides(@NonNull Requirement<?> requirement) {
         return plugin.getExtensionData().filter(d -> d.provides(requirement)).isPresent();
     }
+
 }
 
 

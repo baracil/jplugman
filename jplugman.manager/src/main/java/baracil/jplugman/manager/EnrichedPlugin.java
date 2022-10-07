@@ -26,6 +26,10 @@ public class EnrichedPlugin {
         return new PluginService(service, extensionData);
     }
 
+    public void unload() {
+        plugin.unloadService();
+    }
+
     public @NonNull Optional<ExtensionData> getExtensionData() {
         return Optional.ofNullable(extensionData);
     }
