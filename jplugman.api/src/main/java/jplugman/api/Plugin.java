@@ -26,6 +26,11 @@ public interface Plugin {
      */
     @NonNull Set<Requirement<?>> getRequirements();
 
-  default void unloadService() {}
+  /**
+   * Callback when the plugin is unplugged, this is called before the {@link Disposable#dispose()}
+   * method of the loaded service
+   */
+  default void unloadService() {
+  }
 
 }
