@@ -1,6 +1,5 @@
 package jplugman.base;
 
-import com.google.common.collect.ImmutableSet;
 import jplugman.manager.PluginManager;
 import jplugman.tools.FolderListener;
 import lombok.NonNull;
@@ -8,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.nio.file.Path;
+import java.util.Set;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -33,7 +33,7 @@ public class PluginFolderListener implements FolderListener {
     }
 
     @Override
-    public void onStart(ImmutableSet<Path> paths) {
+    public void onStart(Set<Path> paths) {
         for (Path path : paths) {
             try {
                 pluginManager.addPluginBundle(path);

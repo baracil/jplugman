@@ -1,6 +1,5 @@
 package jplugman.base;
 
-import com.google.common.collect.ImmutableSet;
 import jplugman.api.Application;
 import jplugman.api.PluginService;
 import jplugman.api.VersionedService;
@@ -12,18 +11,19 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 @RequiredArgsConstructor
 @Slf4j
 public abstract class ApplicationBase<T> implements Application {
 
 
-    private final @NonNull ImmutableSet<VersionedService> versionedServices;
+    private final @NonNull Set<VersionedService> versionedServices;
     private final Map<PluginService, Subscription> subscriptions = new HashMap<>();
     private final Class<T> serviceType;
 
     @Override
-    public @NonNull ImmutableSet<VersionedService> getApplicationServices(@NonNull Class<?> pluginExtensionType) {
+    public @NonNull Set<VersionedService> getApplicationServices(@NonNull Class<?> pluginExtensionType) {
         return versionedServices;
     }
 

@@ -1,11 +1,11 @@
 package jplugman.base;
 
-import com.google.common.collect.ImmutableSet;
 import jplugman.tools.FolderListener;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import java.nio.file.Path;
+import java.util.Set;
 import java.util.function.Consumer;
 
 @RequiredArgsConstructor
@@ -29,7 +29,7 @@ public class ShowErrorFolderListener implements FolderListener {
     }
 
     @Override
-    public void onStart(ImmutableSet<Path> paths) {
+    public void onStart(Set<Path> paths) {
         displayError(delegate::onStart,paths);
     }
 

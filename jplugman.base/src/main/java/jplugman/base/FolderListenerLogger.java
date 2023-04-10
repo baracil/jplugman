@@ -1,11 +1,11 @@
 package jplugman.base;
 
-import com.google.common.collect.ImmutableSet;
 import jplugman.tools.FolderListener;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import java.nio.file.Path;
+import java.util.Set;
 import java.util.function.Consumer;
 
 @RequiredArgsConstructor
@@ -41,7 +41,7 @@ public class FolderListenerLogger implements FolderListener {
     }
 
     @Override
-    public void onStart(ImmutableSet<Path> paths) {
+    public void onStart(@NonNull Set<Path> paths) {
         log("FolderListenerLogger.onStart",delegate::onStart,paths);
     }
 }

@@ -1,6 +1,5 @@
 package jplugman.base;
 
-import com.google.common.collect.ImmutableSet;
 import jplugman.base._private.FileTool;
 import jplugman.tools.FolderListener;
 import lombok.NonNull;
@@ -12,6 +11,7 @@ import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 @RequiredArgsConstructor
 public class FilteringFolderListener implements FolderListener {
@@ -46,7 +46,7 @@ public class FilteringFolderListener implements FolderListener {
     }
 
     @Override
-    public void onStart(ImmutableSet<Path> paths) {
+    public void onStart(Set<Path> paths) {
         paths.forEach(p -> checksums.put(p, computeChecksum(p)));
         delegate.onStart(paths);
     }

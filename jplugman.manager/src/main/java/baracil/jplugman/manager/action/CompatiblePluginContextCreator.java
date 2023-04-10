@@ -3,7 +3,6 @@ package baracil.jplugman.manager.action;
 import baracil.jplugman.manager.EnrichedPlugin;
 import baracil.jplugman.manager.MutableVersionedServiceProvider;
 import baracil.jplugman.manager.state.PluginContext;
-import com.google.common.collect.ImmutableList;
 import jplugman.api.Application;
 import jplugman.api.Plugin;
 import jplugman.loader.PluginLoader;
