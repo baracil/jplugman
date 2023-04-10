@@ -1,28 +1,30 @@
 package baracil.jplugman.manager.action;
 
-import com.google.common.collect.ImmutableList;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import baracil.jplugman.manager.PluginRegistry;
 import baracil.jplugman.manager.graph.Graph;
 import baracil.jplugman.manager.graph.GraphCreator;
 import baracil.jplugman.manager.graph.Node;
 import baracil.jplugman.manager.state.PluginData;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 public class ResolvedPluginLister {
 
-    public static @NonNull ImmutableList<PluginData> list(@NonNull PluginRegistry pluginRegistry) {
+    public static @NonNull List<PluginData> list(@NonNull PluginRegistry pluginRegistry) {
         return new ResolvedPluginLister(pluginRegistry).list();
     }
 
     private final @NonNull PluginRegistry pluginRegistry;
 
-    private ImmutableList<PluginData> installedOrPluggedPlugins;
+    private List<PluginData> installedOrPluggedPlugins;
     private Graph<Node> dependencyGraph;
-    private ImmutableList<PluginData> resolvedPlugins;
+    private List<PluginData> resolvedPlugins;
 
-    private @NonNull ImmutableList<PluginData> list() {
+    private @NonNull List<PluginData> list() {
         this.getInstalledOrPluggedPlugin();
         this.buildDependencyGraph();
         this.extractResolvedPluginFromGraph();
@@ -42,6 +44,6 @@ public class ResolvedPluginLister {
         this.resolvedPlugins = dependencyGraph.streamNodes()
                                               .filter(Node::areRequirementFulfilled)
                                               .map(Node::getPluginData)
-                                              .collect(ImmutableList.toImmutableList());
+            .collect(Collectors.toList());
     }
 }

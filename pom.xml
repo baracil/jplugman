@@ -126,11 +126,6 @@
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
             </dependency>
-            <dependency>
-                <groupId>com.google.guava</groupId>
-                <artifactId>guava</artifactId>
-                <version>30.0-jre</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -257,7 +252,7 @@
                 <activeByDefault/>
             </activation>
             <properties>
-                <build-plugin-phase>node</build-plugin-phase>
+                <build-plugin-phase>none</build-plugin-phase>
             </properties>
         </profile>
     </profiles>

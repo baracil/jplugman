@@ -9,7 +9,6 @@ module jplugman.manager {
     requires jplugman.loader;
 
     requires org.apache.logging.log4j;
-    requires com.google.common;
 
     exports jplugman.manager;
 

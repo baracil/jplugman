@@ -1,7 +1,5 @@
 package jplugman.tools.impl;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
 import jplugman.tools.FolderListener;
 import jplugman.tools.FolderWatcher;
 import jplugman.tools.Subscription;
@@ -11,6 +9,8 @@ import lombok.extern.log4j.Log4j2;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
+import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
@@ -19,7 +19,7 @@ public class PeroFolderWatcher implements FolderWatcher {
 
     private final @NonNull Path watchedFolder;
 
-    private ImmutableList<FolderListener> listeners = ImmutableList.of();
+    private List<FolderListener> listeners = List.of();
 
     public PeroFolderWatcher(@NonNull Path watchedFolder) {
         if (!Files.isDirectory(watchedFolder)) {
@@ -87,7 +87,7 @@ public class PeroFolderWatcher implements FolderWatcher {
         }
 
         @Override
-        public void onStart(ImmutableSet<Path> paths) {
+        public void onStart(@NonNull Set<Path> paths) {
             warnListener(FolderListener::onStart, paths);
         }
 

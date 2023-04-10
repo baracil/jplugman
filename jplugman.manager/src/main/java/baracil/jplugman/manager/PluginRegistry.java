@@ -1,9 +1,9 @@
 package baracil.jplugman.manager;
 
-import com.google.common.collect.ImmutableList;
-import lombok.NonNull;
 import baracil.jplugman.manager.state.PluginData;
+import lombok.NonNull;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
@@ -28,6 +28,6 @@ public interface PluginRegistry extends MutableVersionedServiceProvider {
      */
     @NonNull Stream<PluginData> streamPluginData(@NonNull Predicate<? super PluginData> filter);
 
-    @NonNull ImmutableList<PluginData> getPluginData(@NonNull Predicate<? super PluginData> filter);
+    @NonNull List<PluginData> getPluginData(@NonNull Predicate<? super PluginData> filter);
 
 }

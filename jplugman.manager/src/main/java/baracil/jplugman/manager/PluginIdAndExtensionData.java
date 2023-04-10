@@ -1,11 +1,11 @@
 package baracil.jplugman.manager;
 
+import baracil.jplugman.manager.state.PluginContext;
 import jplugman.api.ExtensionData;
 import jplugman.api.Version;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NonNull;
-import baracil.jplugman.manager.state.PluginContext;
 
 import java.util.Optional;
 

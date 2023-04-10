@@ -1,14 +1,15 @@
 package baracil.jplugman.manager;
 
-import com.google.common.collect.ImmutableList;
+import baracil.jplugman.manager.state.PluginData;
 import lombok.NonNull;
 import lombok.experimental.Delegate;
-import baracil.jplugman.manager.state.PluginData;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class BasicPluginRegistry implements PluginRegistry {
@@ -24,8 +25,8 @@ public class BasicPluginRegistry implements PluginRegistry {
     }
 
     @Override
-    public @NonNull ImmutableList<PluginData> getPluginData(@NonNull Predicate<? super PluginData> filter) {
-        return streamPluginData(filter).collect(ImmutableList.toImmutableList());
+    public @NonNull List<PluginData> getPluginData(@NonNull Predicate<? super PluginData> filter) {
+        return streamPluginData(filter).collect(Collectors.toList());
     }
 
     @Override

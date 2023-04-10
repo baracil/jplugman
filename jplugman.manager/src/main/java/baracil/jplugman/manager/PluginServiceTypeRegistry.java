@@ -1,13 +1,13 @@
 package baracil.jplugman.manager;
 
-import com.google.common.collect.ImmutableCollection;
+import baracil.jplugman.manager.state.PluginContext;
+import baracil.jplugman.manager.state.PluginData;
 import jplugman.api.ExtensionData;
 import jplugman.api.Requirement;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import baracil.jplugman.manager.state.PluginContext;
-import baracil.jplugman.manager.state.PluginData;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
@@ -19,7 +19,7 @@ import java.util.function.Function;
 @RequiredArgsConstructor
 public class PluginServiceTypeRegistry {
 
-    public static <P> @NonNull PluginServiceTypeRegistry create(@NonNull ImmutableCollection<P> values, @NonNull Function<? super P, ? extends PluginContext> pluginContextGetter) {
+    public static <P> @NonNull PluginServiceTypeRegistry create(@NonNull Collection<P> values, @NonNull Function<? super P, ? extends PluginContext> pluginContextGetter) {
         return new PluginServiceTypeRegistry(values.stream().map(pluginContextGetter).collect(new ProvidedServiceTypeCollector()));
     }
 

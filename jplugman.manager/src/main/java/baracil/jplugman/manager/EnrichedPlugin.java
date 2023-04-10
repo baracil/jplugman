@@ -1,12 +1,12 @@
 package baracil.jplugman.manager;
 
-import com.google.common.collect.ImmutableSet;
 import jplugman.api.*;
 import lombok.AccessLevel;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Optional;
+import java.util.Set;
 
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class EnrichedPlugin {
@@ -34,7 +34,7 @@ public class EnrichedPlugin {
         return plugin.getServiceClass();
     }
 
-    public ImmutableSet<Requirement<?>> getRequirements() {
+    public Set<Requirement<?>> getRequirements() {
         return plugin.getRequirements();
     }
 

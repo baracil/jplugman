@@ -1,7 +1,5 @@
 package jplugman.loader.impl;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
 import jplugman.api.InvalidPluginLocation;
 import jplugman.api.InvalidPluginStructure;
 import jplugman.api.Plugin;
@@ -18,8 +16,10 @@ import java.lang.module.ModuleFinder;
 import java.lang.module.ModuleReference;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Optional;
 import java.util.ServiceLoader;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
@@ -55,13 +55,13 @@ public class ModularPluginLoader implements PluginLoader {
 
         private ModuleFinder moduleFinder;
 
-        private ImmutableSet<String> pluginNames;
+        private Set<String> pluginNames;
 
         private Configuration pluginsConfiguration;
 
         private ModuleLayer moduleLayer;
 
-        private ImmutableList<Plugin> plugins;
+        private List<Plugin> plugins;
 
         private @NonNull Result load() throws IOException {
             this.checkInputLocationIsAZipFile();
@@ -162,7 +162,7 @@ public class ModularPluginLoader implements PluginLoader {
                                            .stream()
                                            .map(ModuleReference::descriptor)
                                            .map(ModuleDescriptor::name)
-                                           .collect(ImmutableSet.toImmutableSet());
+                                           .collect(Collectors.toSet());
 
 
         }
@@ -185,7 +185,7 @@ public class ModularPluginLoader implements PluginLoader {
             this.plugins = ServiceLoader.load(moduleLayer, Plugin.class)
                                         .stream()
                                         .map(ServiceLoader.Provider::get)
-                                        .collect(ImmutableList.toImmutableList());
+                                        .collect(Collectors.toList());
         }
 
 

@@ -1,6 +1,6 @@
 package baracil.jplugman.manager.state;
 
-import com.google.common.collect.ImmutableSet;
+import baracil.jplugman.manager.*;
 import jplugman.api.Application;
 import jplugman.api.ExtensionData;
 import jplugman.api.PluginService;
@@ -9,10 +9,10 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import baracil.jplugman.manager.*;
 
 import java.nio.file.Path;
 import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Getter
@@ -56,7 +56,7 @@ public class PluginContext implements PluginsStateAction {
         return plugin.getExtensionData();
     }
 
-    public @NonNull ImmutableSet<Requirement<?>> getPluginRequirements() {
+    public @NonNull Set<Requirement<?>> getPluginRequirements() {
         return plugin.getRequirements();
     }
 

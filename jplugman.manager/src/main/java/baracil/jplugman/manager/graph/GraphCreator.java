@@ -1,13 +1,12 @@
 package baracil.jplugman.manager.graph;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
+import baracil.jplugman.manager.PluginServiceTypeRegistry;
+import baracil.jplugman.manager.state.PluginData;
 import lombok.AccessLevel;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import baracil.jplugman.manager.PluginServiceTypeRegistry;
-import baracil.jplugman.manager.state.PluginData;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
@@ -16,11 +15,11 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class GraphCreator {
 
-    public static @NonNull Graph<Node> create(@NonNull ImmutableList<PluginData> pluginDataInGraph) {
+    public static @NonNull Graph<Node> create(@NonNull List<PluginData> pluginDataInGraph) {
         return new GraphCreator(pluginDataInGraph).create();
     }
 
-    private final ImmutableList<PluginData> pluginDataInGraph;
+    private final List<PluginData> pluginDataInGraph;
 
     private Map<Long, Node> nodes;
 
@@ -30,7 +29,7 @@ public class GraphCreator {
         this.createServiceTypeProvider();
         this.createAllNodes();
         this.forEachPluginLinkDependencies();
-        return new Graph<>(ImmutableMap.copyOf(nodes));
+        return new Graph<>(nodes);
     }
 
     private void createServiceTypeProvider() {

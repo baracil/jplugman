@@ -1,16 +1,16 @@
 package baracil.jplugman.manager.state;
 
-import com.google.common.collect.ImmutableSet;
+import baracil.jplugman.manager.VersionedServiceProvider;
 import jplugman.api.ExtensionData;
 import jplugman.api.Requirement;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import baracil.jplugman.manager.VersionedServiceProvider;
 
 import java.nio.file.Path;
 import java.util.Optional;
+import java.util.Set;
 
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class PluginData {
@@ -77,7 +77,7 @@ public class PluginData {
         return pluginContext.getPluginLocation().equals(bundleLocation);
     }
 
-    public @NonNull ImmutableSet<Requirement<?>> getPluginRequirements() {
+    public @NonNull Set<Requirement<?>> getPluginRequirements() {
         return pluginContext.getPluginRequirements();
     }
 

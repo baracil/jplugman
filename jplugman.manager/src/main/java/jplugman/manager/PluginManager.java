@@ -1,8 +1,8 @@
 package jplugman.manager;
 
+import baracil.jplugman.manager.PeroPluginManager;
 import jplugman.api.Application;
 import lombok.NonNull;
-import baracil.jplugman.manager.PeroPluginManager;
 
 import java.nio.file.Path;
 import java.util.ServiceLoader;

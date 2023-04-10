@@ -1,14 +1,15 @@
 package baracil.jplugman.manager.action;
 
-import com.google.common.collect.ImmutableList;
-import lombok.AccessLevel;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import baracil.jplugman.manager.PluginRegistry;
 import baracil.jplugman.manager.graph.Graph;
 import baracil.jplugman.manager.graph.GraphCreator;
 import baracil.jplugman.manager.graph.Node;
 import baracil.jplugman.manager.state.PluginData;
+import lombok.AccessLevel;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+
+import java.util.List;
 
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class PluginPlugger {
@@ -26,7 +27,7 @@ public class PluginPlugger {
     private final @NonNull PluginRegistry pluginRegistry;
 
     private Graph<Node> dependencyGraph;
-    private ImmutableList<Node> sortedNodes;
+    private List<Node> sortedNodes;
     private boolean someLoadingFailed = false;
 
     private Result add() {
@@ -65,11 +66,7 @@ public class PluginPlugger {
     private void buildDependencyGraphForPluggedAndInstalledPlugins() {
         //build the dependency graph with plugins that are in installed of plugged state and that are resolved
         final var resolvedPlugins = ResolvedPluginLister.list(pluginRegistry);
-
-        final var newestPlugins = resolvedPlugins.stream()
-                                                 .collect(ImmutableList.toImmutableList());
-
-        this.dependencyGraph = GraphCreator.create(newestPlugins);
+        this.dependencyGraph = GraphCreator.create(resolvedPlugins);
     }
 
 

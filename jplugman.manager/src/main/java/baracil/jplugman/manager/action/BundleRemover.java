@@ -1,16 +1,16 @@
 package baracil.jplugman.manager.action;
 
-import com.google.common.collect.ImmutableList;
-import lombok.AccessLevel;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import baracil.jplugman.manager.PluginRegistry;
 import baracil.jplugman.manager.graph.Graph;
 import baracil.jplugman.manager.graph.GraphCreator;
 import baracil.jplugman.manager.graph.Node;
 import baracil.jplugman.manager.state.PluginData;
+import lombok.AccessLevel;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 import java.nio.file.Path;
+import java.util.List;
 
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class BundleRemover {
@@ -25,7 +25,7 @@ public class BundleRemover {
     private final @NonNull Path bundleLocation;
 
     private Graph<Node> dependencyGraph;
-    private ImmutableList<PluginData> pluginsToRemove;
+    private List<PluginData> pluginsToRemove;
 
     private void remove() {
         this.buildDependencyGraphOfPluggedPlugins();

@@ -1,17 +1,18 @@
 package jplugman.test.plugin3;
 
-import com.google.common.collect.ImmutableSet;
 import jplugman.api.Plugin;
 import jplugman.api.Requirement;
 import jplugman.api.ServiceProvider;
 import jplugman.test.core.VersionGetter;
 import lombok.NonNull;
 
+import java.util.Set;
+
 public class Plugin3 implements Plugin {
 
     @Override
-    public @NonNull ImmutableSet<Requirement<?>> getRequirements() {
-        return ImmutableSet.of(new Requirement<>(VersionGetter.class, 1));
+    public @NonNull Set<Requirement<?>> getRequirements() {
+        return Set.of(new Requirement<>(VersionGetter.class, 1));
     }
 
     @Override

@@ -1,6 +1,5 @@
 package baracil.jplugman.manager;
 
-import com.google.common.collect.ImmutableSet;
 import jplugman.annotation.Extension;
 import jplugman.api.ExtensionData;
 import jplugman.api.InvalidPluginVersion;
@@ -11,6 +10,8 @@ import lombok.Value;
 import lombok.extern.log4j.Log4j2;
 
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Log4j2
 @RequiredArgsConstructor
@@ -39,7 +40,7 @@ public class ProvidedServiceExtractor {
     /**
      * All the interfaces annotated with {@link jplugman.annotation.ExtensionPoint}
      */
-    private ImmutableSet<ExtensionPointData> extensionPoints;
+    private Set<ExtensionPointData> extensionPoints;
 
     private ExtensionData extensionData;
 
@@ -58,7 +59,7 @@ public class ProvidedServiceExtractor {
         extensionPoints = ClassHierarchy.streamHierarchy(serviceType)
                                         .map(ExtensionPointData::create)
                                         .flatMap(Optional::stream)
-                                        .collect(ImmutableSet.toImmutableSet());
+                                        .collect(Collectors.toSet());
     }
 
     private void formProvidedVersions() {

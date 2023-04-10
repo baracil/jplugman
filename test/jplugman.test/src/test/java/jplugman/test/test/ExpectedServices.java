@@ -1,19 +1,18 @@
 package jplugman.test.test;
 
-import com.google.common.collect.ImmutableList;
 import jplugman.api.Version;
 import lombok.Builder;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import lombok.Singular;
 
 import java.util.Iterator;
+import java.util.List;
 
 @Builder(builderClassName = "Builder")
 public class ExpectedServices implements Iterable<ServiceTypeWithVersion> {
 
     @Singular("oneVersion")
-    private final @NonNull ImmutableList<ServiceTypeWithVersion> versions;
+    private final @NonNull List<ServiceTypeWithVersion> versions;
 
     public int nbServices() {
         return versions.size();

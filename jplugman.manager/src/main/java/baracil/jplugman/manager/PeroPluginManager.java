@@ -1,12 +1,12 @@
 package baracil.jplugman.manager;
 
+import baracil.jplugman.manager.action.BundleAdder;
+import baracil.jplugman.manager.action.BundleRemover;
 import jplugman.api.Application;
 import jplugman.manager.PluginManager;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Synchronized;
-import baracil.jplugman.manager.action.BundleAdder;
-import baracil.jplugman.manager.action.BundleRemover;
 
 import java.nio.file.Path;
 import java.util.HashSet;

@@ -1,7 +1,8 @@
 package jplugman.api;
 
-import com.google.common.collect.ImmutableSet;
 import lombok.NonNull;
+
+import java.util.Set;
 
 public interface Plugin {
 
@@ -15,7 +16,7 @@ public interface Plugin {
     /**
      * @return the set of services this plugin needs to load the service it provides
      */
-    @NonNull ImmutableSet<Requirement<?>> getRequirements();
+    @NonNull Set<Requirement<?>> getRequirements();
 
 
 }

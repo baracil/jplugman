@@ -1,16 +1,17 @@
 package jplugman.test.plugin6;
 
-import com.google.common.collect.ImmutableSet;
 import jplugman.api.Plugin;
 import jplugman.api.Requirement;
 import jplugman.api.ServiceProvider;
 import lombok.NonNull;
 
+import java.util.Set;
+
 public class Plugin6 implements Plugin {
 
     @Override
-    public @NonNull ImmutableSet<Requirement<?>> getRequirements() {
-        return ImmutableSet.of();
+    public @NonNull Set<Requirement<?>> getRequirements() {
+        return Set.of();
     }
 
     @Override

@@ -1,24 +1,32 @@
 package jplugman.tools.impl;
 
-import com.google.common.collect.ImmutableList;
 import lombok.NonNull;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ListTools {
 
-    public static <T> @NonNull ImmutableList<T> addFirst(@NonNull ImmutableList<T> target, @NonNull T element) {
-        return ImmutableList.<T>builder().add(element).addAll(target).build();
+    public static <T> @NonNull List<T> addFirst(@NonNull List<T> target, @NonNull T element) {
+        return Stream.concat(
+            Stream.of(element),
+            target.stream()
+        ).collect(Collectors.toList());
     }
 
-    public static <T> @NonNull ImmutableList<T> removeFirst(@NonNull ImmutableList<T> target, @NonNull T element) {
-        final var builder = ImmutableList.<T>builder();
+    public static <T> @NonNull List<T> removeFirst(@NonNull List<T> target, @NonNull T element) {
+        final List<T> building = new ArrayList<>(target.size());
+
         boolean removed = false;
         for (T t : target) {
             if (removed || !t.equals(element)) {
-                builder.add(t);
+                building.add(t);
             } else {
                 removed = true;
             }
         }
-        return builder.build();
+        return building;
     }
 }

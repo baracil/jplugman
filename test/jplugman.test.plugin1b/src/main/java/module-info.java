@@ -6,7 +6,6 @@ module jplugman.test.plugin1b {
 
     requires jplugman.test.core;
     requires jplugman.api;
-    requires com.google.common;
 
     provides Plugin with Plugin1b;
 }

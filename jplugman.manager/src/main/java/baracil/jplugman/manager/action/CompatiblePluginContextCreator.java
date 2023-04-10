@@ -1,15 +1,14 @@
 package baracil.jplugman.manager.action;
 
-import com.google.common.collect.ImmutableList;
+import baracil.jplugman.manager.EnrichedPlugin;
+import baracil.jplugman.manager.MutableVersionedServiceProvider;
+import baracil.jplugman.manager.state.PluginContext;
 import jplugman.api.Application;
 import jplugman.api.Plugin;
 import jplugman.loader.PluginLoader;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import baracil.jplugman.manager.EnrichedPlugin;
-import baracil.jplugman.manager.MutableVersionedServiceProvider;
-import baracil.jplugman.manager.state.PluginContext;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -74,7 +73,7 @@ public class CompatiblePluginContextCreator {
     }
 
     private void createEmptyPluginContexts() {
-        this.pluginContexts = ImmutableList.of();
+        this.pluginContexts = List.of();
     }
 
 

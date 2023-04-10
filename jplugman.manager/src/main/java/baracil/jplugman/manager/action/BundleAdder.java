@@ -1,14 +1,15 @@
 package baracil.jplugman.manager.action;
 
-import com.google.common.collect.ImmutableList;
+import baracil.jplugman.manager.PluginRegistry;
+import baracil.jplugman.manager.state.PluginData;
 import jplugman.api.Application;
 import lombok.AccessLevel;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import baracil.jplugman.manager.PluginRegistry;
-import baracil.jplugman.manager.state.PluginData;
 
 import java.nio.file.Path;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class BundleAdder {
@@ -24,7 +25,7 @@ public class BundleAdder {
 
     private final @NonNull Path bundleLocation;
 
-    private ImmutableList<PluginData> pluginDataList;
+    private List<PluginData> pluginDataList;
 
     private void add() {
         //INVARIANT -> Aucun plugin n'est dans l'état RESOLVED ni FAILED
@@ -39,7 +40,7 @@ public class BundleAdder {
         this.pluginDataList = CompatiblePluginContextCreator.create(application, pluginRegistry, bundleLocation)
                                                             .stream()
                                                             .map(PluginData::createInstalled)
-                                                            .collect(ImmutableList.toImmutableList());
+                                                            .collect(Collectors.toList());
     }
 
     private void addLoadedPluginToRegistry() {

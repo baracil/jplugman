@@ -1,15 +1,15 @@
 package jplugman.test.lib;
 
-import com.google.common.collect.ImmutableCollection;
-import com.google.common.collect.ImmutableList;
 import jplugman.test.lib._private.BasicCollectionSorter;
 import lombok.NonNull;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.ServiceLoader;
 
 public interface CollectionSorter {
 
-    <T extends Comparable<T>> ImmutableList<T> sort(@NonNull ImmutableCollection<T> input);
+    <T extends Comparable<T>> List<T> sort(@NonNull Collection<T> input);
 
     static @NonNull CollectionSorter create() {
         return create(ServiceLoader.load(CollectionSorter.class));

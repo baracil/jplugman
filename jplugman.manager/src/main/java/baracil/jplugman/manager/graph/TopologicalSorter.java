@@ -1,6 +1,5 @@
 package baracil.jplugman.manager.graph;
 
-import com.google.common.collect.ImmutableList;
 import lombok.NonNull;
 
 import java.util.*;
@@ -8,11 +7,11 @@ import java.util.function.Function;
 
 public class TopologicalSorter<N extends GraphNode<N>,I> {
 
-    public static <N extends GraphNode<N>,I> @NonNull Optional<ImmutableList<I>> sort(@NonNull Collection<N> nodes, @NonNull Function<? super N, I> idGetter) {
+    public static <N extends GraphNode<N>,I> @NonNull Optional<List<I>> sort(@NonNull Collection<N> nodes, @NonNull Function<? super N, I> idGetter) {
         return new TopologicalSorter<>(nodes,idGetter).execute();
     }
 
-    public static <N extends GraphNode<N>> @NonNull Optional<ImmutableList<N>> sort(@NonNull Collection<N> nodes) {
+    public static <N extends GraphNode<N>> @NonNull Optional<List<N>> sort(@NonNull Collection<N> nodes) {
         return sort(nodes,n -> n);
     }
 
@@ -30,7 +29,7 @@ public class TopologicalSorter<N extends GraphNode<N>,I> {
 
     boolean cycleFound = false;
 
-    public @NonNull Optional<ImmutableList<I>> execute() {
+    public @NonNull Optional<List<I>> execute() {
         while (!notMarked.isEmpty() && !cycleFound) {
             final var node = notMarked.stream().findFirst().get();
             notMarked.remove(node);
@@ -40,7 +39,9 @@ public class TopologicalSorter<N extends GraphNode<N>,I> {
         if (cycleFound) {
             return Optional.empty();
         } else {
-            return Optional.of(ImmutableList.copyOf(sorted).reverse());
+            final List<I> copy = new ArrayList<>(sorted);
+            Collections.reverse(copy);
+            return Optional.of(copy);
         }
 
     }

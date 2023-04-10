@@ -1,12 +1,12 @@
 package jplugman.loader;
 
-import com.google.common.collect.ImmutableList;
 import jplugman.api.Plugin;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.ServiceLoader;
 
 public interface PluginLoader {
@@ -33,7 +33,7 @@ public interface PluginLoader {
         /**
          * The loaded plugins
          */
-        private final @NonNull ImmutableList<Plugin> plugins;
+        private final @NonNull List<Plugin> plugins;
 
     }
 

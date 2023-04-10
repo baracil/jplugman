@@ -1,10 +1,10 @@
 package baracil.jplugman.manager.graph;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -12,9 +12,9 @@ import java.util.stream.Stream;
 public class Graph<N extends GraphNode<N>> {
 
     @NonNull
-    private final ImmutableMap<Long, N> nodeById;
+    private final Map<Long, N> nodeById;
 
-    public @NonNull Optional<ImmutableList<N>> sort() {
+    public @NonNull Optional<List<N>> sort() {
         return TopologicalSorter.sort(nodeById.values());
     }
 

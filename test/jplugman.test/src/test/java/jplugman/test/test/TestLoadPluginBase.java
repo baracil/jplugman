@@ -1,6 +1,5 @@
 package jplugman.test.test;
 
-import com.google.common.collect.ImmutableList;
 import jplugman.api.PluginService;
 import jplugman.manager.PluginManager;
 import lombok.NonNull;
@@ -20,7 +19,7 @@ import java.util.stream.Stream;
 public abstract class TestLoadPluginBase {
 
 
-    protected ImmutableList<PluginService> attachedVersionedServiceData;
+    protected List<PluginService> attachedVersionedServiceData;
 
     @TempDir
     public Path pluginDir;

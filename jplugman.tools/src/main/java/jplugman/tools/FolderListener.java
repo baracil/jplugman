@@ -1,9 +1,9 @@
 package jplugman.tools;
 
-import com.google.common.collect.ImmutableSet;
 import lombok.NonNull;
 
 import java.nio.file.Path;
+import java.util.Set;
 
 public interface FolderListener {
 
@@ -13,5 +13,5 @@ public interface FolderListener {
 
     void onFileDeleted(@NonNull Path path);
 
-    void onStart(ImmutableSet<Path> paths);
+    void onStart(@NonNull Set<Path> paths);
 }

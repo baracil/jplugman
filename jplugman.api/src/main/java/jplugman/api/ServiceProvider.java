@@ -1,7 +1,9 @@
 package jplugman.api;
 
-import com.google.common.collect.ImmutableList;
 import lombok.NonNull;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Registry of services, provides a list of services for a given class
@@ -13,7 +15,7 @@ public interface ServiceProvider {
      * @param <T> the type of the requested service
      * @return a list of all the service implementing the requested service
      */
-    <T> @NonNull ImmutableList<T> getAllServices(@NonNull Class<T> serviceClass);
+    <T> @NonNull List<T> getAllServices(@NonNull Class<T> serviceClass);
 
     /**
      * @param serviceClass the class of the requested service
@@ -26,7 +28,7 @@ public interface ServiceProvider {
         if (services.isEmpty()) {
             throw new ServiceNotFound(serviceClass);
         } else if (services.size() > 1) {
-            throw new MultipleServiceFound(serviceClass, services.stream().map(s -> s.getClass().getName()).collect(ImmutableList.toImmutableList()));
+            throw new MultipleServiceFound(serviceClass, services.stream().map(s -> s.getClass().getName()).collect(Collectors.toList()));
         }
         return services.get(0);
     }

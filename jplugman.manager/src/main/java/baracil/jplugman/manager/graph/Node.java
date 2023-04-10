@@ -1,11 +1,11 @@
 package baracil.jplugman.manager.graph;
 
+import baracil.jplugman.manager.state.PluginData;
 import jplugman.api.Requirement;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import baracil.jplugman.manager.state.PluginData;
 
 import java.util.ArrayList;
 import java.util.List;

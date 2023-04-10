@@ -1,6 +1,5 @@
 package jplugman.tools.impl;
 
-import com.google.common.collect.ImmutableSet;
 import jplugman.tools.FolderListener;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +8,7 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.file.*;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 public class WatcherLoop implements Runnable {
@@ -41,7 +41,7 @@ public class WatcherLoop implements Runnable {
     }
 
     private void beforeStarting() throws IOException {
-        folderListener.onStart(Files.list(watchedFolder).collect(ImmutableSet.toImmutableSet()));
+        folderListener.onStart(Files.list(watchedFolder).collect(Collectors.toSet()));
         watchService = FileSystems.getDefault().newWatchService();
         watchKey = watchedFolder.register(watchService,
                                           StandardWatchEventKinds.ENTRY_CREATE,

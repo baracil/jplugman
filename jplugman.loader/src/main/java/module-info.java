@@ -6,8 +6,6 @@ module jplugman.loader {
 
     requires static lombok;
 
-    requires com.google.common;
-
     requires jplugman.api;
 
     requires org.apache.logging.log4j;

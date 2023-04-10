@@ -1,7 +1,8 @@
 package jplugman.api;
 
-import com.google.common.collect.ImmutableSet;
 import lombok.NonNull;
+
+import java.util.Set;
 
 public interface Application {
 
@@ -9,7 +10,7 @@ public interface Application {
      * @param pluginExtensionType the type of the service provided by the plugin requesting the application services.
      * @return the services provided by the application filtered or prepared for the provided <code>pluginServiceType</code>
      */
-    @NonNull ImmutableSet<VersionedService> getApplicationServices(@NonNull Class<?> pluginExtensionType);
+    @NonNull Set<VersionedService> getApplicationServices(@NonNull Class<?> pluginExtensionType);
 
     /**
      * Plug a service to the application. This must

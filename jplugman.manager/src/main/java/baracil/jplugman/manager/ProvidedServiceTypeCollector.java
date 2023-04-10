@@ -1,7 +1,7 @@
 package baracil.jplugman.manager;
 
-import lombok.NonNull;
 import baracil.jplugman.manager.state.PluginContext;
+import lombok.NonNull;
 
 import java.util.HashMap;
 import java.util.Map;
